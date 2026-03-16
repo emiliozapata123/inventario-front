@@ -1,26 +1,6 @@
-import { useEffect, useState } from "react";
-import api from "../../services/Api";
-
-const SelectProducto = ({setFomulario, formulario}) => {
-    const [productos, setProductos] = useState([]);
-    const [reloadProductos, setReloadProductos] = useState(false);
+const SelectProducto = ({setFomulario, formulario, productos}) => {
     const producto = productos?.find((p)=> p.id === formulario?.activo);
 
-    useEffect(()=> {
-        cargarProductos();
-        setReloadProductos(false);
-    }, [reloadProductos]);
-
-    //productos de tipo activos
-    const cargarProductos = async () => {
-        try {
-            const response = await api("api/activo/producto/list/");
-            setProductos(await response.json());
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
     return (
         <div className="card shadow-sm mb-4">
             <div className="card-header fw-semibold bg-blue">
@@ -32,7 +12,6 @@ const SelectProducto = ({setFomulario, formulario}) => {
                         <button 
                             className="btn btn-outline-primary w-100 dropdown-toggle" 
                             data-bs-toggle="dropdown" 
-                            onClick={()=> setReloadProductos(true)}
                         >
                             {!formulario?.activo
                             ? "Seleccionar Producto"

@@ -123,7 +123,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
                         type="password"
                         className={`form-control ${mensaje.actual ? "is-invalid" : ""}`}
                         value={formulario.actual}
-                        placeholder=""
+                        placeholder="ingresa la contraseña actual...."
                         onChange={(e) => handleChange("actual", e.target.value)}
                     />
                     <div className="invalid-feedback d-block">
@@ -136,6 +136,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
                         type="password"
                         className={`form-control ${mensaje.nueva ? "is-invalid" : ""}`}
                         value={formulario.nueva}
+                        placeholder="ingresa la nueva contraseña....."
                         onChange={(e) => handleChange("nueva", e.target.value)}
                     />
                     <div className="invalid-feedback d-block">
@@ -149,6 +150,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
                         type="password"
                         className={`form-control ${mensaje.confirmar ? "is-invalid" : ""}`}
                         value={formulario.confirmar}
+                        placeholder="ingresa nuevamente la contaseña....."
                         onChange={(e) => handleChange("confirmar", e.target.value)}
                     />
                     <div className="invalid-feedback d-block">

@@ -39,6 +39,8 @@ const MovimientoForm = () => {
         }));
         
         setLoading(true);
+        if (!id) return;
+
         try {
             const response = await api(`api/inventario/${Number(id)}/bodega/`);
             setInventario(await response.json());

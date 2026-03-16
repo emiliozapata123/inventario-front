@@ -31,14 +31,14 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                     </div>
 
                     <div className="col-md-6">
-                        <label className="fw-semibold">Fecha de ingreso</label>
+                        <label className="fw-semibold">Fecha de entrega</label>
                         <input
                             type="date"
-                            className={`form-control ${mensaje.fecha?"is-invalid":""}`}
-                            value={formulario.fecha}
-                            onChange={(e)=> handleChange("fecha",e.target.value)}
+                            className={`form-control ${mensaje.fechaEntrega?"is-invalid":""}`}
+                            value={formulario.fechaEntrega}
+                            onChange={(e)=> handleChange("fechaEntrega",e.target.value)}
                         />
-                        <div className="invalid-feedback d-block">{mensaje.fecha}</div>
+                        <div className="invalid-feedback d-block">{mensaje.fechaEntrega}</div>
                     </div>
                 </div>
             </div>

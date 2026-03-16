@@ -16,12 +16,12 @@ const ProductoMovimientoRow = ({seleccionado, toggleProducto, ingresarCantidad, 
             <td>{!p.producto.descripcion ? "Sin descripcion" : p.producto.descripcion}</td>
             <td>
                 {seleccionado && (
-                    <div className="d-flex justify-content-center gap-2">
+                    <div className="d-flex justify-content-center align-items-center gap-2">
                         <button 
-                            className="btn btn-danger"
+                            className="btn btn-outline-danger btn-sm"
                             onClick={()=> disminuir(p.producto.id, p.stock)}
                         >
-                            <Dash/>
+                            <Dash size={16}/>
                         </button>
                         <input
                             type="number"
@@ -32,10 +32,10 @@ const ProductoMovimientoRow = ({seleccionado, toggleProducto, ingresarCantidad, 
                             onChange={(e)=> ingresarCantidad(p.producto.id,e.target.value,p.stock)}
                         />
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-outline-primary btn-sm"
                             onClick={()=> aumentar(p.producto.id, p.stock)}
                         >
-                            <Plus/>
+                            <Plus size={16}/>
                         </button>
                     </div>
                     

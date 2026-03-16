@@ -7,12 +7,14 @@ import SelectProducto from "./SelectProducto";
 import { ArrowLeft } from "react-bootstrap-icons";
 
 const ActivoForm = () => {
-    const [formulario, setFormulario] = useState();
     const [activos, setActivos] = useState([]);
+    const [productos, setProductos] = useState([]);
+    const [formulario, setFormulario] = useState({});
     const navigate = useNavigate();
 
     useEffect(()=> {
         cargarActivos();
+        cargarProductos();
     }, []);
 
     const cargarActivos = async () => {
@@ -24,17 +26,41 @@ const ActivoForm = () => {
             console.error(error);
         }
     }
+
+    //productos de tipo activos
+    const cargarProductos = async () => {
+        try {
+            const response = await api("api/activo/producto/list/");
+            setProductos(await response.json());
+
+        } catch (error) {
+            console.error(error);
+        } 
+    }
     
     const addActivo = async (data) => {
         try {
             await api("api/activo/create/","POST",data);
             NotifySuccess("Activo Registrado.");
             cargarActivos();
+
         } catch (error) {
             console.log(error);
             NotifyError("Error al registrar activo.");
-        }
+        } 
     }
+
+    const addProductoActivo = async (data) => {
+        
+        try {
+            await api("api/activo/producto/create/", "POST", data);
+            NotifySuccess("Procucto Activo creado.");
+            cargarProductos();
+
+        } catch (error) {
+            console.error(error);
+        }
+    } 
 
     const handleChange = (e) => {
         let name = e.target.name;
@@ -67,7 +93,6 @@ const ActivoForm = () => {
         }
 
         addActivo(formulario);
-            
     };
 
     return (
@@ -80,9 +105,14 @@ const ActivoForm = () => {
                 <h2 className="mb-4 blue-title">Registrar Activo</h2>
             </div>
             
-            <ProductoActivoForm/>
+            <ProductoActivoForm addProductoActivo={addProductoActivo}/>
 
-            <SelectProducto setFomulario={setFormulario} formulario={formulario}/>
+            <SelectProducto 
+                setFomulario={setFormulario} 
+                formulario={formulario} 
+                productos={productos}
+            />
+
             <div className="card shadow-sm mb-4">
                 <div className="card-header fw-semibold bg-blue">
                     Identificación
@@ -117,7 +147,7 @@ const ActivoForm = () => {
                 </div>
             </div>
 
-            <div className="card shadow-sm mb-4">
+            <div className="card shadow-sm mb-3">
                 <div className="card-header fw-semibold bg-blue">
                     Asignación
                 </div>
@@ -172,13 +202,13 @@ const ActivoForm = () => {
                 </div>
             </div>
 
-            <div className="d-flex justify-content-end gap-2">
+            <div className="d-flex justify-content-start gap-2 p-3 pt-0">
+                <button className="btn btn-primary d-flex gap-1" onClick={handleOnClick}>
+                    <i className="bi bi-plus-lg"></i>
+                    Registrar Activo
+                </button>
                 <button className="btn btn-outline-secondary" onClick={limpiarFormulario}>
                     Cancelar
-                </button>
-
-                <button className="btn btn-primary" onClick={handleOnClick}>
-                    Registrar Activo
                 </button>
             </div>
         </div>

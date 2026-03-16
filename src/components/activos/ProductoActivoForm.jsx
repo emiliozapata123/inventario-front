@@ -1,11 +1,9 @@
 import { useState } from "react";
-import api from "../../services/Api";
 import useMensaje from "../notify/useMensaje";
 import { NavLink } from "react-router-dom";
-import { NotifySuccess } from "../notify/Notify";
 import { Plus,ListUl } from "react-bootstrap-icons";
 
-const ProductoActivoForm = () => {
+const ProductoActivoForm = ({ addProductoActivo }) => {
     const [formulario, setFormulario] = useState({});
     const {mensaje, cargarMensaje} = useMensaje();
 
@@ -27,17 +25,8 @@ const ProductoActivoForm = () => {
         }));
     }
 
-    const addProductoActivo = async (data) => {
-        try {
-            await api("api/activo/producto/create/", "POST", data);
-            NotifySuccess("Procucto Activo creado.");
-
-        } catch (error) {
-            console.error(error);
-        }
-    } 
-
     const handleOnClick = () => {
+
         if (!formulario.tipoProducto) {
             danger("tipoProducto","ingrese el tipo de producto");
             return;

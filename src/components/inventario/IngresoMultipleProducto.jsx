@@ -95,7 +95,14 @@ const IngresoMultipleProductos = ({ productos, seleccionados, setSeleccionados, 
                         </tr>
                     </thead>
                     <tbody>
-                        {loading ? (
+                        {productos.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="text-center py-5">
+                                    No hay productos registrados
+                                </td>
+                            </tr>
+                        ):(
+                            loading ? (
                             <tr>
                                 <td colSpan="5" className="text-center py-5">
                                     <Loading/>
@@ -118,7 +125,7 @@ const IngresoMultipleProductos = ({ productos, seleccionados, setSeleccionados, 
                                     disminuirStockMinimo={disminuirStockMinimo}
                                 />
                             )})
-                        )}
+                        ))}
                         
                     </tbody>
                 </table>

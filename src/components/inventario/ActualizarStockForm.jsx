@@ -6,7 +6,7 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock}) => {
     const [formulario, setFormulario] = useState({
         productos:[{id:item.producto.id,cantidad:""}],
         bodega:item.bodega.id,
-        fecha:""
+        fechaEntrega:""
     });
 
     const danger = (name,mensaje) => {
@@ -36,8 +36,8 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock}) => {
     }
 
     const handleOnClick = () => {
-        if (!formulario.fecha) {
-            danger("fecha","debe ingresar fecha de ingreso");
+        if (!formulario.fechaEntrega) {
+            danger("fechaEntrega","debe ingresar fecha de entrega");
             return;
         }
 
@@ -100,18 +100,18 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock}) => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label fw-semibold">
-                                Ingrese la fecha de ingreso:
+                                Ingrese la fecha de entrega:
                             </label>
 
                             <input
                                 type="date"
-                                name="fecha"
-                                className={`form-control form-control-lg ${mensaje.fecha ? "is-invalid" : ""}`}
+                                name="fechaEntrega"
+                                className={`form-control form-control-lg ${mensaje.fechaEntrega ? "is-invalid" : ""}`}
                                 onChange={handleChange}
                             />
 
                             <div className="invalid-feedback">
-                                {mensaje.fecha}
+                                {mensaje.fechaEntrega}
                             </div>
                         </div>
                         <div className="mb-3">

@@ -18,7 +18,7 @@ const MovimientoPage = () => {
     }, []);
 
     useEffect(()=> {
-        const fecha = movimientos.filter((m)=> m.movimiento.fecha.includes(porFecha));
+        const fecha = movimientos.filter((m)=> m.movimiento.fechaRegistro.includes(porFecha));
         const tipo = fecha.filter((m)=> m.movimiento.tipo.includes(tipoMovimiento));
         const bodega = tipo.filter((t)=> t.movimiento.bodega.nombre.includes(porBodega));
         setMovFiltrado(bodega);
@@ -66,8 +66,9 @@ const MovimientoPage = () => {
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
-                                <th>Fecha</th>
                                 <th className="text-center">Tipo Movimiento</th>
+                                <th>Fecha Registro</th>
+                                <th>Fecha Entrega</th>
                                 <th>Bodega</th>
                                 <th>Producto</th>
                                 <th className="text-center">Cantidad</th>
@@ -76,14 +77,14 @@ const MovimientoPage = () => {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="5" className="text-center py-5">
+                                    <td colSpan="6" className="text-center py-5">
                                         <Loading/>
                                     </td>
                                 </tr>
                             ):(
                                 movFiltrado.length === 0 ? (
                                     <tr>
-                                        <td colSpan="5" className="text-center">
+                                        <td colSpan="6" className="text-center">
                                             No hay movimientos registrados
                                         </td>
                                     </tr>

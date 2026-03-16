@@ -11,24 +11,20 @@ const api = async (endpoint, method = "GET",  body = null) => {
         headers: {}
     };
 
-    // 🔒 Agregar token sólo si existe y no es login/registrar
     if (!["login/", "registrar/"].includes(endpoint) && access) {
         options.headers["Authorization"] = `Bearer ${access}`;
     }
 
-    // 🧠 Detectar si el body es JSON o FormData
     if (body && !(body instanceof FormData)) {
         options.headers["Content-Type"] = "application/json";
         options.body = JSON.stringify(body);
     } else if (body instanceof FormData) {
-        // 🚫 NO PONER headers de Content-Type
         options.body = body;
     }
 
     try {
         let response = await fetch(`${url}${endpoint}`, options);
 
-        // 🔁 Si el token expiró, intentar refrescar
         if (response.status === 401 && refresh) {
             const refreshResponse = await fetch(`${url}accounts/refresh/`, {
                 method: "POST",
@@ -48,7 +44,6 @@ const api = async (endpoint, method = "GET",  body = null) => {
             }
         }
 
-        // 🧩 Manejar errores HTTP
         if (!response.ok) {
             let errorData;
             try {

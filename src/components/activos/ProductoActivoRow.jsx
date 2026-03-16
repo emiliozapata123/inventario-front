@@ -1,4 +1,4 @@
-import { Pencil } from "react-bootstrap-icons";
+import { Pencil, Save, X } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 import { NotifyError } from "../notify/Notify";
 
@@ -54,7 +54,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
             <td>
                 {producto?.id === editandoId ? (
                     <input
-                        className="form-control"
+                        className="form-control p-1"
                         name="tipoProducto"
                         value={formulario?.tipoProducto}
                         onChange={(e)=> iniciarEdicion(e)} 
@@ -66,7 +66,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
             <td>
                 {producto?.id === editandoId ? (
                     <input
-                        className="form-control"
+                        className="form-control p-1"
                         name="descripcion"
                         value={formulario?.descripcion}
                         onChange={(e)=> iniciarEdicion(e)} 
@@ -78,7 +78,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
             <td className="text-center">
                 {producto?.id === editandoId ? (
                     <input
-                        className="form-control"
+                        className="form-control p-1"
                         name="marca"
                         value={formulario?.marca}
                         onChange={(e)=> iniciarEdicion(e)} 
@@ -90,7 +90,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
             <td className="text-center">
                 {producto?.id === editandoId ? (
                     <input
-                        className="form-control"
+                        className="form-control p-1"
                         name="modelo"
                         value={formulario?.modelo}
                         onChange={(e)=> iniciarEdicion(e)} 
@@ -104,10 +104,10 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
                     {producto.id === editandoId ? (
                         <>
                             <button className="btn btn-success" onClick={guardarEdicion}>
-                                Guardar
+                                <Save size={18}/>
                             </button>
-                            <button className="btn btn-outline-dark" onClick={cancelarEdicion}>
-                                Cancelar
+                            <button className="btn btn-outline-danger" onClick={cancelarEdicion}>
+                                <X size={18}/>
                             </button>
                         </>
                     ):(

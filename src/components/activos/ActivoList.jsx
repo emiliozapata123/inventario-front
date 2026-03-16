@@ -153,13 +153,13 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId }) => {
                 )}
             </td>
             <td>
-                <div className="d-flex gap-1 justify-content-center">
+                <div className="d-flex gap-2 justify-content-center">
                     {editandoId === activo.id ? (
                         <>
-                            <button className="btn btn-success" onClick={guardarEdicion}>
+                            <button className="btn btn-success btn-sm" onClick={guardarEdicion}>
                                 <Save size={24}/>
                             </button>
-                            <button className="btn btn-danger" onClick={cancelarEdicion}>
+                            <button className="btn btn-outline-danger btn-sm" onClick={cancelarEdicion}>
                                 <X size={24}/>
                             </button>
                         </>

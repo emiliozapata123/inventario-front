@@ -76,12 +76,19 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                         </tr>
                     </thead>
                     <tbody>
-                        {loading ? (
+                        {productos.length === 0 ? (
                             <tr>
                                 <td colSpan="5" className="text-center py-5">
-                                    <Loading/>
+                                    No hay productos, selecciona una bodega
                                 </td>
                             </tr>
+                        ):( 
+                            loading ? (
+                                <tr>
+                                    <td colSpan="5" className="text-center py-5">
+                                        <Loading/>
+                                    </td>
+                                </tr>
                         ):(
                             busquedaProductos?.map(p => {
                                 const seleccionado = seleccionados.find(s => s.id === p.producto.id);
@@ -98,7 +105,8 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                                     />
                                 )
                             }
-                        ))}
+                        )))}
+
                     </tbody>
                 </table>
             </div>

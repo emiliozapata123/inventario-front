@@ -16,7 +16,7 @@ const InventarioForm = () => {
     const [formulario, setFormulario] = useState({
         productos:[],
         bodega:"",
-        fecha:""
+        fechaEntrega:""
     });
     const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const InventarioForm = () => {
     const handleChange = (name, valor) => {
         setFormulario(prev => ({
             ...prev,
-            [name]:name==="fecha"?valor: Number(valor)
+            [name]:name==="fechaEntrega"?valor: Number(valor)
         }));
     };
 
@@ -67,7 +67,7 @@ const InventarioForm = () => {
         setFormulario({
             productos:[],
             bodega:"",
-            fecha:""
+            fechaEntrega:""
         });
     }
 
@@ -94,8 +94,8 @@ const InventarioForm = () => {
             danger("bodega","Seleccione una bodega");
             campoValido = false;
         }
-        if (!formulario.fecha){
-            danger("fecha","debe ingresar la fecha de ingreso");
+        if (!formulario.fechaEntrega){
+            danger("fechaEntrega","debe ingresar la fecha de entrega");
             campoValido = false;
         }
 
