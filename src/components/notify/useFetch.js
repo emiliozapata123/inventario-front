@@ -4,8 +4,6 @@ import api from "../../services/Api";
 const useFetch = (url) => {
     const [data,setData] = useState([]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         getData();
     },[url]);

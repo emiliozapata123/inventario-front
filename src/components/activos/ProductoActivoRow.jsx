@@ -5,8 +5,6 @@ import { NotifyError } from "../notify/Notify";
 const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
     const [formulario, setFormulario] = useState({});
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         setFormulario(producto);
 

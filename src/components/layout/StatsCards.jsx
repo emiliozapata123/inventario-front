@@ -6,8 +6,6 @@ const StatsCards = () => {
     const [productos, setProductos] = useState([]);
     const [resumen, setResumen] = useState({});
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    
     useEffect(()=> {
         cargarDatos();
         cargarResumenInventario();

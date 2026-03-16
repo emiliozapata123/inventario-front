@@ -15,8 +15,6 @@ const ProductoPage = () => {
     const [producto, setProducto] = useState({});
     const [loading, setLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         getProductos();
         if (!mostrarModal) setProducto({});

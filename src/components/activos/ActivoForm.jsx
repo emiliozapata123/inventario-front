@@ -11,8 +11,6 @@ const ActivoForm = () => {
     const [activos, setActivos] = useState([]);
     const navigate = useNavigate();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         cargarActivos();
     }, []);

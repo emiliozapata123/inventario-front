@@ -6,8 +6,6 @@ import useFetch from "../notify/useFetch";
 const Dashboard = () => {
     const { data:currentUser } = useFetch("accounts/current-user/");
 
-
-
     return (
         <div className="dashboard-container p-4">
 

@@ -12,7 +12,6 @@ const CambiarContrañena = ({setMostrarModal}) => {
         confirmar:""
     });
 
-    console.log(formulario)
 
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);

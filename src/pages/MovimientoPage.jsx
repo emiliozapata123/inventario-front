@@ -13,12 +13,10 @@ const MovimientoPage = () => {
     const [movFiltrado, setMovFiltrado] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         cargarMovimientos();
     }, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         const fecha = movimientos.filter((m)=> m.movimiento.fecha.includes(porFecha));
         const tipo = fecha.filter((m)=> m.movimiento.tipo.includes(tipoMovimiento));

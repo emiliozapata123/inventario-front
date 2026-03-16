@@ -22,16 +22,3 @@ const Busqueda = ({setBusqueda,Busqueda,filtroCategoria,setFiltroCategoria,categ
     )
 }
 export default Busqueda;
-
-{/* <div className="mb-4 position-relative">
-                <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
-                    <i className="bi bi-search"></i>
-                </span>
-                <input
-                    type="text"
-                    className="form-control ps-5"
-                    placeholder="Buscar Productos..."
-                    value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
-                />
-            </div> */}

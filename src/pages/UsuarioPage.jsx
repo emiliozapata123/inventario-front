@@ -14,7 +14,6 @@ const UsuarioPage = () => {
     const [currentUser, setCurrentUser] = useState({});
     const [loading, setLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         getUsuarios();
         getCurrentUser();

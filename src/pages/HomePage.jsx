@@ -24,8 +24,6 @@ const HomePage = () => {
     const [mobile, setMobile] = useState(false);
     const [productos, setProductos] = useState([]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         cargarDatos();
     }, []);

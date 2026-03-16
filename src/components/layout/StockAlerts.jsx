@@ -6,8 +6,6 @@ const StockAlerts = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
     useEffect(()=> {
         cargarDatos();
     }, []);
