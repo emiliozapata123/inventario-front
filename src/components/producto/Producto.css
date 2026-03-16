@@ -1,0 +1,7 @@
+.container {
+  background-color: #f3f4f6;
+  height: 100vh;
+}
+.show{
+  background-color:  rgba(0,0, 0, .3);
+}

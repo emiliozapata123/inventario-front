@@ -1,0 +1,106 @@
+/* ===== CONTENEDOR ===== */
+.sidebar {
+  width: 19rem; /* 280px */
+  height: 100vh;
+  background-color: #1e88e5;
+  color: white;
+
+  box-shadow: 0 0 .5rem rgba(0,0,0,.3);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+
+/* ===== LOGO BOX MORADO ===== */
+.logo-box {
+  color: white;
+  padding: 0.9rem;
+  border-radius: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ===== CARD USUARIO ===== */
+.user-card {
+  background-color: #fff;
+  color: #0d47a1;
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+/* ===== BADGE ===== */
+.role-badge {
+  background-color: #e9d5ff;
+  color: #1eaae5;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+}
+
+.sidebar-menu {
+  flex: 1 1 auto; /* ocupa todo el espacio disponible para scroll */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar-footer {
+  flex-shrink: 0; /* siempre visible al final si hay espacio */
+  margin-top: auto; /* pega al final del sidebar */
+}
+
+
+/* ===== ITEMS ===== */
+.sidebar-item {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 1.2rem;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background-color: #1eaae5 !important;
+}
+
+
+/* ===== ACTIVO (pastilla grande gris-azulada) ===== */
+.sidebar-item.active {
+  background-color: #fff;
+  color: #0d47a1 !important;
+  font-weight: 600;
+}
+
+
+/* ===== MODO MOVIL ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    position:fixed;
+    top: 4rem;
+    left: -100%;
+    height: calc(100vh - 7rem);
+    z-index: 1100;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .sidebar.sidebar-open {
+    left: 0;
+  }
+
+}
+
