@@ -8,7 +8,7 @@ const ResumenActivos = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
-    console.log("equipos: ",equipos)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         cargarResumen();
     }, []);

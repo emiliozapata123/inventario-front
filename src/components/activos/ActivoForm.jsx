@@ -11,8 +11,7 @@ const ActivoForm = () => {
     const [activos, setActivos] = useState([]);
     const navigate = useNavigate();
 
-    console.log("actvi form: ",formulario)
-    console.log("activos :", activos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(()=> {
         cargarActivos();

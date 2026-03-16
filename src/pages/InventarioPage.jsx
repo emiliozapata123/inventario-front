@@ -16,12 +16,17 @@ const InventarioPage = () => {
     const [inventarioFiltrado, setInventarioFiltrado] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         getInventario();
     }, []);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
-        filtrarInventario();
+        const busquedaProducto = inventario?.filter((i) => i.producto.nombre.toLowerCase().includes(porProducto.toLowerCase()));
+        const productoBodega = busquedaProducto?.filter((b) => b.bodega.nombre.toLowerCase().includes(porBodega.toLowerCase()));
+
+        setInventarioFiltrado(productoBodega);
     }, [porBodega,porProducto,inventario]);
 
 
@@ -48,14 +53,6 @@ const InventarioPage = () => {
             console.error(error);   
         }
     }
-
-    const filtrarInventario = () => {
-        const busquedaProducto = inventario?.filter((i) => i.producto.nombre.toLowerCase().includes(porProducto.toLowerCase()));
-        const productoBodega = busquedaProducto?.filter((b) => b.bodega.nombre.toLowerCase().includes(porBodega.toLowerCase()));
-
-        setInventarioFiltrado(productoBodega);
-    }
-
 
     return(
         <div>

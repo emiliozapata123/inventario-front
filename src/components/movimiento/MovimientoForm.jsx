@@ -19,7 +19,8 @@ const MovimientoForm = () => {
 
     const navigate = useNavigate();
 
-    console.log(formulario)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(()=> {
         cargarInventario();
     }, []);

@@ -13,12 +13,17 @@ const MovimientoPage = () => {
     const [movFiltrado, setMovFiltrado] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         cargarMovimientos();
     }, []);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
-        filtros();
+        const fecha = movimientos.filter((m)=> m.movimiento.fecha.includes(porFecha));
+        const tipo = fecha.filter((m)=> m.movimiento.tipo.includes(tipoMovimiento));
+        const bodega = tipo.filter((t)=> t.movimiento.bodega.nombre.includes(porBodega));
+        setMovFiltrado(bodega);
     }, [tipoMovimiento,porBodega,movimientos,porFecha]);
 
     const cargarMovimientos = async () => {
@@ -33,13 +38,6 @@ const MovimientoPage = () => {
         } finally {
             setLoading(false);
         }
-    }
-
-    const filtros = () => {
-        const fecha = movimientos.filter((m)=> m.movimiento.fecha.includes(porFecha));
-        const tipo = fecha.filter((m)=> m.movimiento.tipo.includes(tipoMovimiento));
-        const bodega = tipo.filter((t)=> t.movimiento.bodega.nombre.includes(porBodega));
-        setMovFiltrado(bodega);
     }
 
     return(
@@ -86,7 +84,11 @@ const MovimientoPage = () => {
                                 </tr>
                             ):(
                                 movFiltrado.length === 0 ? (
-                                    <p className="text-center">No hay movimientos registrados</p>
+                                    <tr>
+                                        <td colSpan="5" className="text-center">
+                                            No hay movimientos registrados
+                                        </td>
+                                    </tr>
                                 ):(
                                     movFiltrado.map((m)=> (
                                     <MovimientoList movimiento={m}/>

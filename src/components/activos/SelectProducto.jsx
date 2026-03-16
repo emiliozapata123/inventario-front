@@ -6,6 +6,8 @@ const SelectProducto = ({setFomulario, formulario}) => {
     const [reloadProductos, setReloadProductos] = useState(false);
     const producto = productos?.find((p)=> p.id === formulario?.activo);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(()=> {
         cargarProductos();
         setReloadProductos(false);

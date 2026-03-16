@@ -11,6 +11,7 @@ const BodegaDetail = () => {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=> {
         getInventarioBodega();
     }, [id]);

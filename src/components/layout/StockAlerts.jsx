@@ -5,7 +5,8 @@ import Loading from "./Loading";
 const StockAlerts = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log("inventario alert : ",productos);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 
     useEffect(()=> {
         cargarDatos();

@@ -9,8 +9,6 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock}) => {
         fecha:""
     });
 
-    console.log(formulario)
-
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);
 

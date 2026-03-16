@@ -14,6 +14,8 @@ const BodegaPage = () => {
     const [bodega, setBodega] = useState({});
     const [editandoId, setEditandoId] = useState(null);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(()=> {
         getBodegas();
     }, []);

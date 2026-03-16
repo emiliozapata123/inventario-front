@@ -13,6 +13,8 @@ const ProductoActivoList = () => {
     const [editandoId, setEditandoId] = useState(null);
     const navigate = useNavigate();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(()=> {
         cargarProductos();
     }, []);

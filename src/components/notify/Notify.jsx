@@ -7,6 +7,8 @@ const Notify = () => {
     const [tipo, setTipo] = useState("");
     const [visible, setVisible] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     useEffect(()=> {
         notify = (message,tipo) => {
             setMessage(message);
