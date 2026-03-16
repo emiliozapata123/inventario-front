@@ -99,7 +99,7 @@ const InventarioPage = () => {
                                 ):(
                                 inventario.length === 0 ? (
                                     <tr>
-                                        <td colSpan="3" className="text-center py-4 text-muted">
+                                        <td colSpan="5" className="text-center py-4 text-muted">
                                             No hay productos en el inventario de bodega
                                         </td>
                                     </tr>
