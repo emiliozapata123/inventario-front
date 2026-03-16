@@ -124,7 +124,7 @@ const BodegaPage = () => {
                             ):(
                                 bodegas.length === 0 ? (
                                     <tr>
-                                        <td colSpan="3" className="text-center py-4 text-muted">
+                                        <td colSpan="4" className="text-center py-4 text-muted">
                                             No hay bodegas registradas
                                         </td>
                                     </tr>
