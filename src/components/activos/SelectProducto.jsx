@@ -16,7 +16,9 @@ const SelectProducto = ({setFomulario, formulario, productos}) => {
                             {!formulario?.activo
                             ? "Seleccionar Producto"
                             :`${producto?.tipoProducto} 
-                            - ${producto?.descripcion}`}
+                            - ${!producto?.descripcion?"---":producto.descripcion}
+                            - ${!producto?.marca?"---":producto.marca}
+                            - ${!producto.modelo?"---":producto.modelo}`}
                         </button>
 
                         <ul className="dropdown-menu w-100 dropdown-scroll">
@@ -31,7 +33,10 @@ const SelectProducto = ({setFomulario, formulario, productos}) => {
                                             }))
                                         }
                                     >
-                                        {p.tipoProducto} - {p.descripcion}
+                                        {p.tipoProducto} 
+                                        - {!p.descripcion?"---":p.descripcion} 
+                                        - {!p.marca?"---":p.marca} 
+                                        - {!p.modelo?"---":p.modelo}
                                     </button>
                                 </li>
                             ))}
