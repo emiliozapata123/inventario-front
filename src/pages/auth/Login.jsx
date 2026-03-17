@@ -10,6 +10,7 @@ const Login = () => {
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
     const {cargarMensaje, mensaje} = useMensaje("");
+    const [enviando, setEnviando] = useState(false);
     const navigate = useNavigate();
 
     const mostrarMensaje = (campo,mensaje) => {
@@ -17,6 +18,30 @@ const Login = () => {
         setTimeout(() => {
             cargarMensaje(campo,"");
         }, 3000);
+    }
+
+    const iniciarSesion = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
+        try {
+            const response = await api("accounts/login/","POST",data);
+            const result = await response.json();
+            sessionStorage.setItem("user",JSON.stringify(result.user));
+            sessionStorage.setItem("access", result.access);
+            sessionStorage.setItem("refresh", result.refresh);
+
+            if (result){
+                navigate("/home");
+                NotifySuccess("Se inicio sesion.");
+            }
+
+        } catch (error) {
+            console.error(error);
+            NotifyError("Datos incorrectos.");
+        } finally {
+            setEnviando(false);
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -41,24 +66,7 @@ const Login = () => {
             password:password
         };
 
-
-        try {
-            const response = await api("accounts/login/","POST",data);
-            const result = await response.json();
-            sessionStorage.setItem("user",JSON.stringify(result.user));
-            sessionStorage.setItem("access", result.access);
-            sessionStorage.setItem("refresh", result.refresh);
-
-            if (result){
-                navigate("/home");
-                NotifySuccess("Se inicio sesion.");
-                console.log(result.user)
-            }
-
-        } catch (error) {
-            console.error(error);
-            NotifyError("Datos incorrectos.");
-        }
+        iniciarSesion(data);
     }
 
     return (
@@ -85,7 +93,25 @@ const Login = () => {
                 />
                 <div className="invalid-feedback d-block">{mensaje.password}</div>
 
-                <button className="btn btn-primary w-100">Ingresar</button>
+                <button 
+                    className="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                    disabled={enviando}
+                >
+                    {enviando ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm me-2" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Ingresando...
+                        </>
+                    ) : (
+                        <>
+                        Ingresar
+                        </>
+                    )}
+                </button>
             </form>
         </div>
         
