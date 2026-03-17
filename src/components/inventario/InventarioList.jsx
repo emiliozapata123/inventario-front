@@ -6,13 +6,7 @@ const InventarioList = ({ item, setMostrarModal }) => {
             <td>{item?.producto.nombre}</td>
             <td>{item?.bodega.nombre}</td>
             <td className="text-center"> 
-                <span className={`badge ${
-                    item?.stock < item?.stockMinimo
-                    ? "bg-danger"
-                    : "bg-success"}`}
-                >
-                    {item?.stock}
-                </span>
+                {item?.stock}
             </td>
             <td className="text-center fw-bold">
                 {!item?.stockMinimo?"sin stock minimo definido":item?.stockMinimo}
