@@ -55,7 +55,6 @@ const InventarioForm = () => {
     const agregarProductoBodega = async (data) => {
         try {
             await api("api/inventario/ingresar/producto/","POST",data);
-            limpiarFormulario();
             NotifySuccess("Productos ingresados al inventario correctamente.");
 
         } catch (error) {
@@ -102,6 +101,7 @@ const InventarioForm = () => {
         if (!campoValido) return;
 
         agregarProductoBodega(formulario);
+        limpiarFormulario();
       
     };
 
