@@ -192,7 +192,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
                             </>
                         ) : (
                             <>
-                            Actualizar Contraseña
+                            Cambiar Contraseña
                             </>
                         )}
                     </button>

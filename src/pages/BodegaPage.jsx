@@ -13,6 +13,8 @@ const BodegaPage = () => {
     const [loading, setLoading] = useState(true);
     const [bodega, setBodega] = useState({});
     const [enviando, setEnviando] = useState(false);
+    const [editando, setEditando] = useState(false);
+    const [eliminando, setEliminando] = useState(false);
     const [editandoId, setEditandoId] = useState(null);
 
     useEffect(()=> {
@@ -54,28 +56,30 @@ const BodegaPage = () => {
     }
 
     const updateBodega = async (id,data) => {
-        if (enviando) return;
+        if (editando) return;
 
-        setEnviando(true);
+        setEditando(true);
         try {
             await api(`api/bodega/${id}/update/`,"PUT",data);
+            setEditandoId(null);
             getBodegas();
             NotifySuccess("Nombre de bodega actualizado.");
             
         } catch (error) {
             console.error(error);
         } finally {
-            setEnviando(false);
+            setEditando(false);
         }
     }
 
     const bodegaDelete =  async (id) => {
-        if (enviando) return;
+        if (eliminando) return;
 
-        setEnviando(true);
+        setEliminando(true);
         try {
             await api(`api/bodega/${id}/delete/`,"DELETE");
             getBodegas();
+            NotifySuccess("Bodega Eliminado.");
             setMostrarModal(false);
 
         } catch (error) {
@@ -83,7 +87,7 @@ const BodegaPage = () => {
             setMostrarModal(false);
             NotifyError("Error, la bodega tiene inventario.");
         } finally {
-            setEnviando(false);
+            setEliminando(false);
         }
     }
 
@@ -153,7 +157,7 @@ const BodegaPage = () => {
                                         setEditandoId={setEditandoId}
                                         editandoId={editandoId}
                                         onUpdate={updateBodega}
-                                        enviando={enviando}
+                                        editando={editando}
                                     />
                                 )))
                             )}
@@ -166,7 +170,7 @@ const BodegaPage = () => {
                 <ModalEliminar 
                     message={"Bodega"} 
                     data={bodega} 
-                    enviando={enviando} 
+                    enviando={eliminando} 
                     setMostrarModal={setMostrarModal} 
                     handleDelete={bodegaDelete}
                 />

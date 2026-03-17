@@ -160,7 +160,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                             >
                                 {enviando ? (
                                     <span 
-                                        className="spinner-border spinner-border-sm me-2" 
+                                        className="spinner-border spinner-border-sm" 
                                         role="status" 
                                         aria-hidden="true"
                                     ></span>

@@ -172,7 +172,13 @@ const ProductoPage = () => {
                 />
             )}
             {mostrarModal === "delete" && (
-                <ModalEliminar message={"Producto"} data={producto} setMostrarModal={setMostrarModal} handleDelete={productoDelete}/>
+                <ModalEliminar 
+                    message={"Producto"} 
+                    data={producto} 
+                    setMostrarModal={setMostrarModal} 
+                    handleDelete={productoDelete}
+                    enviando={enviando}
+                />
             )}
         </>
     )

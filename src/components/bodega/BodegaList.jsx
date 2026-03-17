@@ -3,7 +3,7 @@ import { Eye, Save } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 import { NotifyError } from "../notify/Notify";
 
-const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoId, enviando}) => {
+const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoId, editando}) => {
     const [nombre, setNombre] = useState("");
 
     const iniciarEdicion = () => {
@@ -22,7 +22,6 @@ const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoI
             return;
         }
         onUpdate(editandoId,{nombre});
-        cancelarEdicion();
     }
 
     return (
@@ -45,13 +44,13 @@ const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoI
                     <div className="d-flex gap-1 justify-content-center">
                         <button 
                             className="btn btn-success d-flex align-items-center"
-                            disabled={enviando}
+                            disabled={editando}
                             onClick={guardarEdicion}
                         >
-                            {enviando ? (
+                            {editando ? (
                                 <>
                                     <span 
-                                        className="spinner-border spinner-border-sm me-2" 
+                                        className="spinner-border spinner-border-sm" 
                                         role="status" 
                                         aria-hidden="true"
                                     ></span>
