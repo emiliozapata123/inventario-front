@@ -3,7 +3,7 @@ import useMensaje from "../notify/useMensaje";
 import { NavLink } from "react-router-dom";
 import { Plus,ListUl } from "react-bootstrap-icons";
 
-const ProductoActivoForm = ({ addProductoActivo, enviando }) => {
+const ProductoActivoForm = ({ addProductoActivo, cargando }) => {
     const [formulario, setFormulario] = useState({});
     const {mensaje, cargarMensaje} = useMensaje();
 
@@ -89,10 +89,10 @@ const ProductoActivoForm = ({ addProductoActivo, enviando }) => {
                     <div className="d-flex justify-content-end gap-2">
                         <button 
                             className="btn btn-primary d-flex align-items-center"
-                            disabled={enviando}
+                            disabled={cargando}
                             onClick={handleOnClick}
                         >
-                            {enviando ? (
+                            {cargando ? (
                                 <>
                                     <span 
                                         className="spinner-border spinner-border-sm me-2" 

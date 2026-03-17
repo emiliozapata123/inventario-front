@@ -172,7 +172,7 @@ const BodegaPage = () => {
                     data={bodega} 
                     enviando={eliminando} 
                     setMostrarModal={setMostrarModal} 
-                    handleDelete={bodegaDelete}
+                    onDelete={bodegaDelete}
                 />
             )}
         </>

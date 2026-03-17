@@ -87,7 +87,6 @@ const ProductoPage = () => {
         } catch (error) {
             console.error(error);
             NotifyError("Error, El producto tiene stock en el inventario.");
-            setMostrarModal(false);
         } finally {
             setEnviando(false);
         }
@@ -176,7 +175,7 @@ const ProductoPage = () => {
                     message={"Producto"} 
                     data={producto} 
                     setMostrarModal={setMostrarModal} 
-                    handleDelete={productoDelete}
+                    onDelete={productoDelete}
                     enviando={enviando}
                 />
             )}

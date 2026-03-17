@@ -77,7 +77,6 @@ const UsuarioPage = () => {
         } catch (error) {
             console.error(error)
             NotifyError("Error al eliminar usuario");
-            setMostrarModal(false);
         } finally {
             setEnviando(false);
         }
@@ -157,7 +156,7 @@ const UsuarioPage = () => {
                 enviando={enviando} 
                 data={usuario} 
                 setMostrarModal={setMostrarModal} 
-                handleDelete={usuarioDelete}
+                onDelete={usuarioDelete}
             />
         )}
         </div>

@@ -1,8 +1,8 @@
-import { Pencil, Save, X } from "react-bootstrap-icons";
+import { Pencil, Save, Trash, X } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 import { NotifyError } from "../notify/Notify";
 
-const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, enviando}) => {
+const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, enviando, setMostrarModal}) => {
     const [formulario, setFormulario] = useState({});
 
     useEffect(()=> {
@@ -104,35 +104,43 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                     {producto.id === editandoId ? (
                         <>
                             <button 
-                                className="btn btn-success d-flex align-items-center"
+                                className="btn btn-success d-flex justify-content-center align-items-center"
                                 disabled={enviando}
                                 onClick={guardarEdicion}
                             >
                                 {enviando ? (
                                     <>
                                         <span 
-                                            className="spinner-border spinner-border-sm" 
+                                            className="spinner-border spinner-border-sm me-2" 
                                             role="status" 
                                             aria-hidden="true"
                                         ></span>
+                                        editando...
                                     </>
                                 ) : (
                                     <>
-                                    <Save size={18}/>
+                                    <Save size={18} className="me-1"/>
+                                    Guardar
                                     </>
                                 )}
                             </button>
-                            <button className="btn btn-outline-danger" onClick={cancelarEdicion}>
-                                <X size={18}/>
+                            <button className="btn btn-outline-danger d-flex justify-content-center" onClick={cancelarEdicion}>
+                                <X size={24}/>
+                                Cancelar
                             </button>
                         </>
                     ):(
-                        <button className="d-flex align-items-center gap-2 btn btn-warning" onClick={()=> setEditandoId(producto.id)}>
+                        <>
+                        <button className="d-flex align-items-center gap-1 btn btn-warning" onClick={()=> setEditandoId(producto.id)}>
                             <Pencil/>
                             Editar
                         </button>
+                        <button className="d-flex align-items-center gap-1 btn btn-danger" onClick={setMostrarModal}>
+                            <Trash/>
+                            Eliminar
+                        </button>
+                        </>
                     )}
-                    
                 </div>
             </td>
         </tr>

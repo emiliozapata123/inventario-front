@@ -1,4 +1,4 @@
-const ModalEliminar = ({data,setMostrarModal,handleDelete,message, enviando}) => {
+const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
     return (
        <div className="modal fade show d-block" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -21,7 +21,7 @@ const ModalEliminar = ({data,setMostrarModal,handleDelete,message, enviando}) =>
 
                         <p className="text-muted">
                             ¿Estás seguro de eliminar
-                            <strong className="text-dark"> {data.nombre} </strong>?
+                            <strong className="text-dark"> {!data.nombre?data.tipoProducto:data.nombre} </strong>?
                         </p>
 
                         <p className="text-danger small">
@@ -42,7 +42,7 @@ const ModalEliminar = ({data,setMostrarModal,handleDelete,message, enviando}) =>
                         <button 
                             className="btn btn-danger d-flex justify-content-center align-items-center w-100"
                             disabled={enviando}
-                            onClick={()=> handleDelete(data.id)}
+                            onClick={()=> onDelete(data.id)}
                         >
                             {enviando ? (
                                 <>

@@ -5,6 +5,7 @@ import api from "../../services/Api";
 import ProcuctoActivoRow from "./ProductoActivoRow";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
+import ModalEliminar from "../layout/ModalEliminar";
 
 
 const ProductoActivoList = () => {
@@ -12,6 +13,9 @@ const ProductoActivoList = () => {
     const [loading, setLoading] = useState(true);
     const [editandoId, setEditandoId] = useState(null);
     const [enviando, setEnviando] = useState(false);
+    const [eliminando, setEliminando] = useState(false);
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [producto, setProducto] = useState({});
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -48,6 +52,24 @@ const ProductoActivoList = () => {
             NotifyError("Error al actualizar.");
         } finally {
             setEnviando(false);
+        }
+    }
+
+    const deleteProducto = async (id) => {
+        if (eliminando) return;
+
+        setEliminando(true);
+        try {
+            await api(`api/activo/producto/${id}/delete/`, "DELETE");
+            NotifySuccess("Producto eliminado correctamente.");
+            setMostrarModal(false);
+            cargarProductos();
+
+        } catch (error) {
+            console.error(error);
+            NotifyError("Error, El producto ya esta asignado.");
+        } finally {
+            setEliminando(false);
         }
     }
 
@@ -96,6 +118,8 @@ const ProductoActivoList = () => {
                                     setEditandoId={setEditandoId}
                                     onUpdate={updateProductoActivo}
                                     enviando={enviando}
+                                    eliminando={eliminando}
+                                    setMostrarModal={()=> {setMostrarModal(true); setProducto(p)}}
                                 />
                             ))
                         )}
@@ -103,6 +127,15 @@ const ProductoActivoList = () => {
                     </table>
                 </div>
             </section>
+            {mostrarModal && (
+                <ModalEliminar 
+                    data={producto}
+                    setMostrarModal={setMostrarModal} 
+                    onDelete={deleteProducto} 
+                    message={"Producto"} 
+                    enviando={eliminando}
+                />
+            )}
         </>
     )
 }

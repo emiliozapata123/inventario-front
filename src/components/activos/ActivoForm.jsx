@@ -12,6 +12,7 @@ const ActivoForm = () => {
     const [productos, setProductos] = useState([]);
     const [formulario, setFormulario] = useState({});
     const [enviando, setEnviando] = useState(false);
+    const [cargando, setCargando] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -58,9 +59,9 @@ const ActivoForm = () => {
     }
 
     const addProductoActivo = async (data) => {
-        if (enviando) return;
+        if (cargando) return;
 
-        setEnviando(true);
+        setCargando(true);
         try {
             await api("api/activo/producto/create/", "POST", data);
             NotifySuccess("Procucto Activo creado.");
@@ -70,7 +71,7 @@ const ActivoForm = () => {
             console.error(error);
 
         } finally {
-            setEnviando(false);
+            setCargando(false);
         }
     } 
 
@@ -117,7 +118,7 @@ const ActivoForm = () => {
                 <h2 className="mb-4 blue-title">Registrar Activo</h2>
             </div>
             
-            <ProductoActivoForm addProductoActivo={addProductoActivo} enviando={enviando}/>
+            <ProductoActivoForm addProductoActivo={addProductoActivo} cargando={cargando}/>
 
             <SelectProducto 
                 setFomulario={setFormulario} 
