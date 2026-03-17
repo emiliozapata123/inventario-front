@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import ProductoActivoForm from "./ProductoActivoForm";
 import SelectProducto from "./SelectProducto";
 import { ArrowLeft } from "react-bootstrap-icons";
+import { Plus } from "react-bootstrap-icons";
 
 const ActivoForm = () => {
     const [activos, setActivos] = useState([]);
     const [productos, setProductos] = useState([]);
     const [formulario, setFormulario] = useState({});
+    const [enviando, setEnviando] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -39,19 +41,26 @@ const ActivoForm = () => {
     }
     
     const addActivo = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("api/activo/create/","POST",data);
-            NotifySuccess("Activo Registrado.");
             cargarActivos();
+            NotifySuccess("Activo Registrado.");
 
         } catch (error) {
             console.log(error);
             NotifyError("Error al registrar activo.");
-        } 
+        } finally{
+            setEnviando(false);
+        }
     }
 
     const addProductoActivo = async (data) => {
-        
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("api/activo/producto/create/", "POST", data);
             NotifySuccess("Procucto Activo creado.");
@@ -59,6 +68,9 @@ const ActivoForm = () => {
 
         } catch (error) {
             console.error(error);
+            
+        } finally {
+            setEnviando(false);
         }
     } 
 
@@ -203,9 +215,26 @@ const ActivoForm = () => {
             </div>
 
             <div className="d-flex justify-content-start gap-2 p-3 pt-0">
-                <button className="btn btn-primary d-flex gap-1" onClick={handleOnClick}>
-                    <i className="bi bi-plus-lg"></i>
-                    Registrar Activo
+                <button 
+                    className="btn btn-primary d-flex align-items-center"
+                    disabled={enviando}
+                    onClick={handleOnClick}
+                >
+                    {enviando ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm me-2" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Enviando...
+                        </>
+                    ) : (
+                        <>
+                        <Plus size={24} className="me-1" />
+                        Registrar Activo
+                        </>
+                    )}
                 </button>
                 <button className="btn btn-outline-secondary" onClick={limpiarFormulario}>
                     Cancelar

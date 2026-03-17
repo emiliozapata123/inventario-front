@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NotifyError } from "../notify/Notify";
 import { Save, X} from "react-bootstrap-icons";
 
-const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId }) => {
+const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) => {
     const [formulario, setFormulario] = useState({});
 
     useEffect(()=> {
@@ -48,8 +48,6 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId }) => {
         delete data.activo;
 
         onUpdate(editandoId,data);
-        cancelarEdicion();
-        setEditandoId(null);
     }
 
     const cancelarEdicion = () => {
@@ -155,10 +153,24 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId }) => {
             <td>
                 <div className="d-flex gap-2 justify-content-center">
                     {editandoId === activo.id ? (
-                        <>
-                            <button className="btn btn-success btn-sm" onClick={guardarEdicion}>
-                                <Save size={24}/>
+                        <>  <button
+                                className="btn btn-success btn-sm"
+                                disabled={enviando}
+                                onClick={guardarEdicion}
+                            >
+                                {enviando ? (
+                                    <span 
+                                        className="spinner-border spinner-border-sm me-2" 
+                                        role="status" 
+                                        aria-hidden="true"
+                                    ></span>
+                                ):(
+                                    <>
+                                    <Save size={24}/>
+                                    </>
+                                )}
                             </button>
+
                             <button className="btn btn-outline-danger btn-sm" onClick={cancelarEdicion}>
                                 <X size={24}/>
                             </button>

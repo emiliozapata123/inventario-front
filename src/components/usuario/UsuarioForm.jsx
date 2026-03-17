@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useMensaje from "../notify/useMensaje";
 
-const UsuarioForm = ({usuario, addUsuario, setMostrarModal}) => {
+const UsuarioForm = ({usuario, addUsuario, setMostrarModal, enviando}) => {
     const {cargarMensaje,mensaje} = useMensaje();
     const [formulario, setFormulario] = useState({
         nombre:usuario?.nombre || "",
@@ -39,7 +39,6 @@ const UsuarioForm = ({usuario, addUsuario, setMostrarModal}) => {
         if (!campoValido) return;
         
         addUsuario(formulario);
-        setMostrarModal(false);
     };
 
     return (
@@ -82,7 +81,25 @@ const UsuarioForm = ({usuario, addUsuario, setMostrarModal}) => {
                         
                         <div className="d-flex justify-content-center gap-3">
                             <button className="btn btn-outline-secondary w-100"type="button" onClick={()=> setMostrarModal(false)}>Cancelar</button>
-                            <button className="btn btn-primary w-100">Crear Usuario</button>
+                            <button 
+                                className="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                                disabled={enviando}
+                            >
+                                {enviando ? (
+                                    <>
+                                        <span 
+                                            className="spinner-border spinner-border-sm me-2" 
+                                            role="status" 
+                                            aria-hidden="true"
+                                        ></span>
+                                        Enviando...
+                                    </>
+                                ) : (
+                                    <>
+                                    Crear Usuario
+                                    </>
+                                )}
+                            </button>
                         </div>
                     </div>
                 </div>

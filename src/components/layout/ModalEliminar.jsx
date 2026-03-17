@@ -1,4 +1,4 @@
-const ModalEliminar = ({data,setMostrarModal,handleDelete,message}) => {
+const ModalEliminar = ({data,setMostrarModal,handleDelete,message, enviando}) => {
     return (
        <div className="modal fade show d-block" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -17,7 +17,6 @@ const ModalEliminar = ({data,setMostrarModal,handleDelete,message}) => {
                     </div>
 
                     <div className="modal-body text-center">
-
                         <i className="bi bi-exclamation-triangle-fill text-danger fs-1 mb-3"></i>
 
                         <p className="text-muted">
@@ -40,11 +39,25 @@ const ModalEliminar = ({data,setMostrarModal,handleDelete,message}) => {
                             Cancelar
                         </button>
 
-                        <button
-                            className="btn btn-danger w-100"
-                            onClick={() => handleDelete(data.id)}
+                        <button 
+                            className="btn btn-danger d-flex justify-content-center align-items-center w-100"
+                            disabled={enviando}
+                            onClick={()=> handleDelete(data.id)}
                         >
-                            Eliminar
+                            {enviando ? (
+                                <>
+                                    <span 
+                                        className="spinner-border spinner-border-sm me-2" 
+                                        role="status" 
+                                        aria-hidden="true"
+                                    ></span>
+                                    Eliminando...
+                                </>
+                            ) : (
+                                <>
+                                Eliminar
+                                </>
+                            )}
                         </button>
 
                     </div>

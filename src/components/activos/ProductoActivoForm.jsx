@@ -3,7 +3,7 @@ import useMensaje from "../notify/useMensaje";
 import { NavLink } from "react-router-dom";
 import { Plus,ListUl } from "react-bootstrap-icons";
 
-const ProductoActivoForm = ({ addProductoActivo }) => {
+const ProductoActivoForm = ({ addProductoActivo, enviando }) => {
     const [formulario, setFormulario] = useState({});
     const {mensaje, cargarMensaje} = useMensaje();
 
@@ -87,9 +87,26 @@ const ProductoActivoForm = ({ addProductoActivo }) => {
                         />
                     </div>
                     <div className="d-flex justify-content-end gap-2">
-                        <button className="d-flex align-items-center btn btn-primary" onClick={handleOnClick}>
-                            <Plus size={24}/>
-                            Crear Producto
+                        <button 
+                            className="btn btn-primary d-flex align-items-center"
+                            disabled={enviando}
+                            onClick={handleOnClick}
+                        >
+                            {enviando ? (
+                                <>
+                                    <span 
+                                        className="spinner-border spinner-border-sm me-2" 
+                                        role="status" 
+                                        aria-hidden="true"
+                                    ></span>
+                                    Enviando...
+                                </>
+                            ) : (
+                                <>
+                                <Plus size={24} className="me-1" />
+                                Crear Producto
+                                </>
+                            )}
                         </button>
                         <NavLink 
                             to={"/home/activos/productos/list"}

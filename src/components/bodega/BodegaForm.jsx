@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useMensaje from "../notify/useMensaje";
+import { Plus } from "react-bootstrap-icons";
 
-const BodegaForm = ({ addBodega }) => {
+const BodegaForm = ({ addBodega, enviando }) => {
     const {cargarMensaje,mensaje} = useMensaje();
     const [nombre, setNombre] = useState("");
 
@@ -38,12 +39,27 @@ const BodegaForm = ({ addBodega }) => {
                 <div className="invalid-feedback d-block">{mensaje.nombre}</div>
             </div>  
             <div className="col-auto">
-                <button
-                    className="btn btn-primary d-flex align-items-center gap-2 px-3"
+                <button 
+                    className="btn btn-primary d-flex align-items-center"
+                    disabled={enviando}
                     onClick={handleOnClick}
                 >
-                <i className="bi bi-plus-lg"></i>
-                    Nueva Bodega
+                    {enviando ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm me-2" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Enviando...
+                        </>
+                    ) : (
+                        <>
+                        <Plus size={24} className="me-1" />
+                        Nueva Bodega
+                        </>
+                        
+                    )}
                 </button>
             </div>  
         </div>

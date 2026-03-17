@@ -9,7 +9,7 @@ const ActivoPage = () => {
     const [activos, setActivos] = useState([]);
     const [editandoId, setEditandoId] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [enviando, setEnviando] = useState(false);
 
     useEffect(()=> {
         getActivos();
@@ -31,21 +31,26 @@ const ActivoPage = () => {
     }
 
     const updateActivo = async (id,data) => {
+        if (enviando) return;
+        
+        setEnviando(true);
         try {
             await api(`api/activo/${id}/update/`,"PATCH", data);
+            setEditandoId(null);
             NotifySuccess("Activo actualizado correctamente.");
             getActivos();
 
         } catch (error) {
             console.error(error)
             NotifyError("Error al actualizar activo");
+        } finally {
+            setEnviando(false);
         }
     }
 
     return(
         <div>
             <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
-            
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Activos</h4>
                     <p className="text-muted mb-0">
@@ -114,6 +119,7 @@ const ActivoPage = () => {
                                         editandoId={editandoId}
                                         setEditandoId={setEditandoId}
                                         onUpdate={updateActivo}
+                                        enviando={enviando}
                                     />
                                 )))
                             )}

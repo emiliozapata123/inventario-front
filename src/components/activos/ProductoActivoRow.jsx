@@ -2,7 +2,7 @@ import { Pencil, Save, X } from "react-bootstrap-icons";
 import { useEffect, useState } from "react";
 import { NotifyError } from "../notify/Notify";
 
-const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
+const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, enviando}) => {
     const [formulario, setFormulario] = useState({});
 
     useEffect(()=> {
@@ -103,8 +103,24 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate}) => {
                 <div className="d-flex justify-content-center gap-1">
                     {producto.id === editandoId ? (
                         <>
-                            <button className="btn btn-success" onClick={guardarEdicion}>
-                                <Save size={18}/>
+                            <button 
+                                className="btn btn-success d-flex align-items-center"
+                                disabled={enviando}
+                                onClick={guardarEdicion}
+                            >
+                                {enviando ? (
+                                    <>
+                                        <span 
+                                            className="spinner-border spinner-border-sm me-2" 
+                                            role="status" 
+                                            aria-hidden="true"
+                                        ></span>
+                                    </>
+                                ) : (
+                                    <>
+                                    <Save size={18}/>
+                                    </>
+                                )}
                             </button>
                             <button className="btn btn-outline-danger" onClick={cancelarEdicion}>
                                 <X size={18}/>

@@ -6,6 +6,7 @@ import useMensaje from "../notify/useMensaje";
 
 const CambiarContrañena = ({setMostrarModal}) => {
     const {mensaje,cargarMensaje} = useMensaje();
+    const [enviando, setEnviando] = useState(false);
     const [formulario, setFormulario] = useState({
         actual:"",
         nueva:"",
@@ -51,6 +52,22 @@ const CambiarContrañena = ({setMostrarModal}) => {
         return true;
     }
     
+    const cambiarContrasena = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
+        try {
+            await api("accounts/user/update/","POST",data);
+            setMostrarModal(false);
+            NotifySuccess("Contraseña actualizada.");
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setEnviando(false);
+        }
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -90,13 +107,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
             password:formulario.confirmar
         };
 
-        try {
-            await api("accounts/user/update/","POST",data);
-            setMostrarModal(false);
-            NotifySuccess("Contraseña actualizada.");
-        } catch (error) {
-            console.error(error);
-        }
+        cambiarContrasena(data);
 
     }
 
@@ -166,8 +177,24 @@ const CambiarContrañena = ({setMostrarModal}) => {
                     >
                         Cancelar
                     </button>
-                    <button className="btn btn-primary w-100">
-                        Actualizar Contraseña
+                    <button 
+                        className="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                        disabled={enviando}
+                    >
+                        {enviando ? (
+                            <>
+                                <span 
+                                    className="spinner-border spinner-border-sm me-2" 
+                                    role="status" 
+                                    aria-hidden="true"
+                                ></span>
+                                Enviando...
+                            </>
+                        ) : (
+                            <>
+                            Actualizar Contraseña
+                            </>
+                        )}
                     </button>
                     </div>
                 </div>

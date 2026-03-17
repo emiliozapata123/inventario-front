@@ -13,6 +13,7 @@ const UsuarioPage = () => {
     const [usuario, setUsuario] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [enviando, setEnviando] = useState(false);
 
     useEffect(()=> {
         getUsuarios();
@@ -47,17 +48,26 @@ const UsuarioPage = () => {
     }
 
     const addUsuario = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("accounts/profile/form/","POST",data);
             getUsuarios();
+            setMostrarModal(false);
             NotifySuccess("Usuario agregado.");
 
         } catch (error) {
             console.error(error)
+        } finally {
+            setEnviando(false);
         }
     }
 
     const usuarioDelete =  async (id) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api(`accounts/profile/${id}/delete/`,"DELETE");
             getUsuarios();
@@ -68,7 +78,10 @@ const UsuarioPage = () => {
             console.error(error)
             NotifyError("Error al eliminar usuario");
             setMostrarModal(false);
+        } finally {
+            setEnviando(false);
         }
+
     }
 
     return(
@@ -137,9 +150,15 @@ const UsuarioPage = () => {
             </div>
         </section>
         {mostrarModal === "crear" ? (
-            <UsuarioForm setMostrarModal={setMostrarModal} addUsuario={addUsuario}/>
+            <UsuarioForm setMostrarModal={setMostrarModal} enviando={enviando} addUsuario={addUsuario}/>
         ):mostrarModal === "delete" && (
-            <ModalEliminar message={"Usuario"} data={usuario} setMostrarModal={setMostrarModal} handleDelete={usuarioDelete}/>
+            <ModalEliminar 
+                message={"Usuario"} 
+                enviando={enviando} 
+                data={usuario} 
+                setMostrarModal={setMostrarModal} 
+                handleDelete={usuarioDelete}
+            />
         )}
         </div>
     )   

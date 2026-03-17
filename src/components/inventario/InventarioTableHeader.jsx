@@ -1,4 +1,6 @@
-const InventarioTableHeader = ({ setBusqueda, busqueda, limpiarFormulario, handleClick }) => {
+import { Plus } from "react-bootstrap-icons";
+
+const InventarioTableHeader = ({ setBusqueda, busqueda, limpiarFormulario, handleClick, enviando }) => {
     return (
         <div className="row align-items-center mb-2 g-2">
             <div className="col-md-6">
@@ -27,10 +29,26 @@ const InventarioTableHeader = ({ setBusqueda, busqueda, limpiarFormulario, handl
                     </button>
 
                     <button 
-                        className="btn btn-primary"
+                        className="btn btn-primary d-flex align-items-center"
+                        disabled={enviando}
                         onClick={handleClick}
                     >
-                        Registrar Ingreso
+                        {enviando ? (
+                            <>
+                                <span 
+                                    className="spinner-border spinner-border-sm me-2" 
+                                    role="status" 
+                                    aria-hidden="true"
+                                ></span>
+                                Enviando...
+                            </>
+                        ) : (
+                            <>
+                            <Plus size={24} className="me-1" />
+                            Registrar Ingreso
+                            </>
+                            
+                        )}
                     </button>
                 </div>
             </div>

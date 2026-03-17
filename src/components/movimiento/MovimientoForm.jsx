@@ -12,6 +12,7 @@ const MovimientoForm = () => {
     const { mensaje, cargarMensaje } = useMensaje();
     const [loading, setLoading] = useState(true);
     const [busqueda, setBusqueda] = useState("");
+    const [enviando, setEnviando] = useState(false);
     const [formulario, setFormulario] = useState({
         productos:[],
         bodega:"",
@@ -62,13 +63,18 @@ const MovimientoForm = () => {
     }
 
     const addMovimiento = async () => {
+        if (enviando) return;
+        setEnviando(true);
+
         try {
             await api("api/movimiento/create/","POST",formulario);
-            NotifySuccess("Movimiento Registrado.");
             cargarInventario(formulario.bodega);
+            NotifySuccess("Movimiento Registrado.");
 
         } catch (error) {
             console.error(error);
+        } finally {
+            setEnviando(false);
         }
     }
 
@@ -126,6 +132,7 @@ const MovimientoForm = () => {
                         limpiar={limpiarFormulario}
                         loading={loading}
                         busqueda={busqueda}
+                        enviando={enviando}
                     />
                 </div>
             </div>

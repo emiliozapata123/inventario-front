@@ -14,11 +14,15 @@ const ProductoPage = () => {
     const [productos, setProductos] = useState([]);
     const [producto, setProducto] = useState({});
     const [loading, setLoading] = useState(true);
+    const [enviando, setEnviando] = useState(false);
 
     useEffect(()=> {
         getProductos();
+    },[]);
+
+    useEffect(()=> {
         if (!mostrarModal) setProducto({});
-    },[mostrarModal]);
+    }, [mostrarModal]);
 
     const busquedaProductos = productos.filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
 
@@ -38,26 +42,42 @@ const ProductoPage = () => {
     }
 
     const addProducto = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("api/producto/form/","POST",data);
             getProductos();
+            setMostrarModal(false);
             NotifySuccess("Producto agregado.");
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
+
+        } finally {
+            setEnviando(false);
         }
     }
 
     const updateProducto = async (id,data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
-            await api(`api/producto/${id}/update/`,"PATCH",data)
-            NotifySuccess("Producto actualizado.")
+            await api(`api/producto/${id}/update/`,"PATCH",data);
             getProductos();
+            setMostrarModal(false);
+            NotifySuccess("Producto actualizado.")
         } catch (error) {
             console.error(error);
+        } finally {
+            setEnviando(false);
         }
     }
     const productoDelete =  async (id) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api(`api/producto/${id}/delete/`,"DELETE");
             getProductos();
@@ -65,9 +85,11 @@ const ProductoPage = () => {
             NotifySuccess("Producto eliminado correctamente.");
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
             NotifyError("Error, El producto tiene stock en el inventario.");
             setMostrarModal(false);
+        } finally {
+            setEnviando(false);
         }
     }
 
@@ -146,6 +168,7 @@ const ProductoPage = () => {
                     updateProducto={updateProducto} 
                     producto={producto}
                     action={mostrarModal}
+                    enviando={enviando}
                 />
             )}
             {mostrarModal === "delete" && (

@@ -11,6 +11,7 @@ const ProductoActivoList = () => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [editandoId, setEditandoId] = useState(null);
+    const [enviando, setEnviando] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -33,7 +34,9 @@ const ProductoActivoList = () => {
     }
 
     const updateProductoActivo = async (id,data) => {
+        if (enviando) return;
 
+        setEnviando(true);
         try {
             await api(`api/activo/producto/${id}/update/`, "PATCH", data);
             NotifySuccess("Producto actualizado correctamente.");
@@ -43,6 +46,8 @@ const ProductoActivoList = () => {
         } catch (error) {
             console.error(error);
             NotifyError("Error al actualizar.");
+        } finally {
+            setEnviando(false);
         }
     }
 
@@ -90,6 +95,7 @@ const ProductoActivoList = () => {
                                     editandoId={editandoId}
                                     setEditandoId={setEditandoId}
                                     onUpdate={updateProductoActivo}
+                                    enviando={enviando}
                                 />
                             ))
                         )}

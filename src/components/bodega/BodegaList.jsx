@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Eye } from "react-bootstrap-icons";
+import { Eye, Save } from "react-bootstrap-icons";
 import { NavLink } from "react-router-dom";
 import { NotifyError } from "../notify/Notify";
 
-const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoId}) => {
+const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoId, enviando}) => {
     const [nombre, setNombre] = useState("");
 
     const iniciarEdicion = () => {
@@ -43,8 +43,24 @@ const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoI
             <td>
                 {editandoId === bodega.id ? (
                     <div className="d-flex gap-1 justify-content-center">
-                        <button onClick={guardarEdicion} className="btn btn-warning d-flex gap-1 align-items-center">
-                            <i className="bi bi-pencil"></i>
+                        <button 
+                            className="btn btn-success d-flex align-items-center"
+                            disabled={enviando}
+                            onClick={guardarEdicion}
+                        >
+                            {enviando ? (
+                                <>
+                                    <span 
+                                        className="spinner-border spinner-border-sm me-2" 
+                                        role="status" 
+                                        aria-hidden="true"
+                                    ></span>
+                                </>
+                            ) : (
+                                <>
+                                <Save size={16} />
+                                </>
+                            )}
                         </button>
                         <button onClick={cancelarEdicion} className="btn btn-outline-danger d-flex gap-1 align-items-center">
                             <i className="bi bi-x-lg"></i>

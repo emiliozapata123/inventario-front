@@ -13,6 +13,7 @@ const InventarioForm = () => {
     const [loading, setLoading] = useState(true);
     const [busqueda, setBusqueda] = useState("");
     const [productos, setProductos] = useState([]);
+    const [enviando, setEnviando] = useState(false);
     const [formulario, setFormulario] = useState({
         productos:[],
         bodega:"",
@@ -53,12 +54,18 @@ const InventarioForm = () => {
     };
 
     const agregarProductoBodega = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("api/inventario/ingresar/producto/","POST",data);
+            limpiarFormulario();
             NotifySuccess("Productos ingresados al inventario correctamente.");
 
         } catch (error) {
             console.error(error)
+        } finally {
+            setEnviando(false);
         }
     }
     
@@ -101,7 +108,6 @@ const InventarioForm = () => {
         if (!campoValido) return;
 
         agregarProductoBodega(formulario);
-        limpiarFormulario();
       
     };
 
@@ -128,6 +134,8 @@ const InventarioForm = () => {
                     busqueda={busqueda} 
                     handleClick={handleClick}
                     limpiarFormulario={limpiarFormulario}
+                    enviando={enviando}
+
                 />
 
                 <IngresoMultipleProductos

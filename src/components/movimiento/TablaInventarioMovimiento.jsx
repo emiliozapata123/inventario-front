@@ -1,7 +1,8 @@
 import Loading from "../layout/Loading";
 import ProductoMovimientoRow from "./ProductoMovimientoRow";
+import { Plus } from "react-bootstrap-icons";
 
-const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda}) => {
+const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda, enviando}) => {
     const busquedaProductos = productos?.filter((p)=> p?.producto?.nombre?.toLowerCase().includes(busqueda?.toLowerCase()));
 
     const toggleProducto = (producto) => {
@@ -112,7 +113,27 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
             </div>
             <div className="d-flex justify-content-end gap-3 mt-2">
                 <button className="btn btn-outline-secondary"type="button" onClick={limpiar}>Cancelar</button>
-                <button className="btn btn-primary" onClick={handleClick}>Registrar Consumo</button>
+                <button 
+                    className="btn btn-primary d-flex align-items-center"
+                    disabled={enviando}
+                    onClick={handleClick}
+                >
+                    {enviando ? (
+                        <>
+                            <span 
+                                className="spinner-border spinner-border-sm me-2" 
+                                role="status" 
+                                aria-hidden="true"
+                            ></span>
+                            Enviando...
+                        </>
+                    ) : (
+                        <>
+                        <Plus size={24} className="me-1" />
+                        Registrar Movimiento
+                        </>
+                    )}
+                </button>
             </div>
         </>
     )
