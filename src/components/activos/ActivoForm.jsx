@@ -68,7 +68,7 @@ const ActivoForm = () => {
 
         } catch (error) {
             console.error(error);
-            
+
         } finally {
             setEnviando(false);
         }
@@ -117,7 +117,7 @@ const ActivoForm = () => {
                 <h2 className="mb-4 blue-title">Registrar Activo</h2>
             </div>
             
-            <ProductoActivoForm addProductoActivo={addProductoActivo}/>
+            <ProductoActivoForm addProductoActivo={addProductoActivo} enviando={enviando}/>
 
             <SelectProducto 
                 setFomulario={setFormulario} 
