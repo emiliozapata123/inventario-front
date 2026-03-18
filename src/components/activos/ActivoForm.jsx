@@ -109,7 +109,7 @@ const ActivoForm = () => {
     };
 
     return (
-        <div className="container py-4" style={{ maxWidth: "70rem" }}>
+        <div className="py-4 m-auto" style={{ maxWidth: "70rem" }}>
             <div className="d-flex gap-3">
                 <button className="d-flex gap-2 align-items-center btn btn-outline-secondary mb-4" onClick={()=> navigate(-1)}>
                     <ArrowLeft/>
@@ -160,7 +160,7 @@ const ActivoForm = () => {
                 </div>
             </div>
 
-            <div className="card shadow-sm mb-3">
+            <div className="card shadow-sm">
                 <div className="card-header fw-semibold bg-blue">
                     Asignación
                 </div>
@@ -211,35 +211,34 @@ const ActivoForm = () => {
                                 onChange={(e)=> handleChange(e)}
                             />
                         </div>
+                        <div className="d-flex justify-content-start gap-2">
+                            <button 
+                                className="btn btn-primary d-flex align-items-center"
+                                disabled={enviando}
+                                onClick={handleOnClick}
+                            >
+                                {enviando ? (
+                                    <>
+                                        <span 
+                                            className="spinner-border spinner-border-sm me-2" 
+                                            role="status" 
+                                            aria-hidden="true"
+                                        ></span>
+                                        Enviando...
+                                    </>
+                                ) : (
+                                    <>
+                                    <Plus size={24} className="me-1" />
+                                    Registrar Activo
+                                    </>
+                                )}
+                            </button>
+                            <button className="btn btn-outline-secondary" onClick={limpiarFormulario}>
+                                Cancelar
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="d-flex justify-content-start gap-2 p-3 pt-0">
-                <button 
-                    className="btn btn-primary d-flex align-items-center"
-                    disabled={enviando}
-                    onClick={handleOnClick}
-                >
-                    {enviando ? (
-                        <>
-                            <span 
-                                className="spinner-border spinner-border-sm me-2" 
-                                role="status" 
-                                aria-hidden="true"
-                            ></span>
-                            Enviando...
-                        </>
-                    ) : (
-                        <>
-                        <Plus size={24} className="me-1" />
-                        Registrar Activo
-                        </>
-                    )}
-                </button>
-                <button className="btn btn-outline-secondary" onClick={limpiarFormulario}>
-                    Cancelar
-                </button>
             </div>
         </div>
     )

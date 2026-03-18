@@ -92,18 +92,15 @@ const BodegaPage = () => {
     }
 
     return(
-        <>
-            <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
-                <div>
-                    <h4 className="fw-bold mb-1 blue-title">Gestión de Bodegas</h4>
-                    <p className="text-muted mb-0">
-                        Administra todas las bodegas de la plataforma
-                    </p>
-                </div>
-                    
+        <div className="py-4 m-auto" style={{maxWidth:"75rem"}}>
+            <div className="d-flex flex-column align-items-start mb-4">
+                <h4 className="fw-bold mb-1 blue-title">Gestión de Bodegas</h4>
+                <p className="text-muted mb-0">
+                    Administra todas las bodegas de la plataforma
+                </p>
             </div>
 
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">
+            <section className="card border-0 shadow-sm p-2">
                 <div className="row">
                     <div className="col-md-5">
                         <div className="mb-2 position-relative">
@@ -175,7 +172,7 @@ const BodegaPage = () => {
                     onDelete={bodegaDelete}
                 />
             )}
-        </>
+        </div>
     )
 }
 export default BodegaPage;

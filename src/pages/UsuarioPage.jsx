@@ -84,81 +84,77 @@ const UsuarioPage = () => {
     }
 
     return(
-        <div>
-        <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
-            
-            <div>
-            <h4 className="fw-bold mb-1 blue-title">Gestión de Usuarios</h4>
-            <p className="text-muted mb-0">
-                Administra todos los usuarios de la plataforma
-            </p>
+        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <div>
+                    <h4 className="fw-bold mb-1 blue-title">Gestión de Usuarios</h4>
+                    <p className="text-muted mb-0">
+                        Administra todos los usuarios de la plataforma
+                    </p>
+                </div>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => setMostrarModal("crear")}
+                    >
+                    <i className="bi bi-plus-lg me-2"></i>
+                    Nuevo Usuario
+                </button>
             </div>
+            <section className="card border-0 shadow-sm p-2">
+                <div className="mb-2 position-relative">
+                    <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
+                        <i className="bi bi-search"></i>
+                    </span>
 
-            <button
-            className="btn btn-primary d-flex align-items-center gap-2 px-3"
-            onClick={() => setMostrarModal("crear")}
-            >
-            <i className="bi bi-plus-lg"></i>
-            Nuevo Usuario
-            </button>
-        </div>
-        <section className="card border-0 shadow-sm p-2 ms-3 me-3">
-
-            <div className="mb-2 position-relative">
-            <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
-                <i className="bi bi-search"></i>
-            </span>
-
-            <input
-                type="text"
-                className="form-control ps-5"
-                placeholder="Buscar usuarios..."
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-            />
-            </div>
-
-            <div className="card table-responsive">
-                <table className="table table-hover align-middle mb-0">
-                    <thead className="bg-blue">
-                    <tr>
-                        <th>Nombre Completo</th>
-                        <th>Correo</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {loading ? (
-                            <tr>
-                                <td colSpan="3" className="text-center py-5">
-                                    <Loading/>
-                                </td>
-                            </tr>
-                        ):(
-                            busquedaUsuarios.map(u => (
-                                <UsuarioList
-                                    key={u.id} 
-                                    user={u} 
-                                    setMostrarModal={()=> {setMostrarModal("delete"); setUsuario(u)}}
-                                    currentUser={currentUser}
-                                />
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        {mostrarModal === "crear" ? (
-            <UsuarioForm setMostrarModal={setMostrarModal} enviando={enviando} addUsuario={addUsuario}/>
-        ):mostrarModal === "delete" && (
-            <ModalEliminar 
-                message={"Usuario"} 
-                enviando={enviando} 
-                data={usuario} 
-                setMostrarModal={setMostrarModal} 
-                onDelete={usuarioDelete}
-            />
-        )}
+                    <input
+                        type="text"
+                        className="form-control ps-5"
+                        placeholder="Buscar usuarios..."
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                </div>
+                <div className="card table-responsive">
+                    <table className="table table-hover align-middle mb-0">
+                        <thead className="bg-blue">
+                        <tr>
+                            <th>Nombre Completo</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                <tr>
+                                    <td colSpan="3" className="text-center py-5">
+                                        <Loading/>
+                                    </td>
+                                </tr>
+                            ):(
+                                busquedaUsuarios.map(u => (
+                                    <UsuarioList
+                                        key={u.id} 
+                                        user={u} 
+                                        setMostrarModal={()=> {setMostrarModal("delete"); setUsuario(u)}}
+                                        currentUser={currentUser}
+                                    />
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            {mostrarModal === "crear" ? (
+                <UsuarioForm setMostrarModal={setMostrarModal} enviando={enviando} addUsuario={addUsuario}/>
+            ):mostrarModal === "delete" && (
+                <ModalEliminar 
+                    message={"Usuario"} 
+                    enviando={enviando} 
+                    data={usuario} 
+                    setMostrarModal={setMostrarModal} 
+                    onDelete={usuarioDelete}
+                />
+            )}
         </div>
     )   
 }

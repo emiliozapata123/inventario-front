@@ -1,3 +1,12 @@
+.container {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+.show{
+  background-color:  rgba(0,0, 0, .3);
+}
+
+
 input.form-control,
 textarea.form-control,
 select.form-select {

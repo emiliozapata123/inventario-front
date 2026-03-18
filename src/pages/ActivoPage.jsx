@@ -49,8 +49,8 @@ const ActivoPage = () => {
     }
 
     return(
-        <div>
-            <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
+        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap flex gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Activos</h4>
                     <p className="text-muted mb-0">
@@ -58,28 +58,22 @@ const ActivoPage = () => {
                     </p>
                 </div>
                 <div className="d-flex gap-2">
-                    <div>
-                        <NavLink
-                            to={"/home/activos/resumen"}
-                            className="btn btn-success d-flex align-items-center gap-2 px-3"
-                            >
-                            Ver resumen activos
-                        </NavLink>
-                    </div>
-                    <div className="d-flex gap-2">
-                        <NavLink
-                            to={"/home/activos/registrar"}
-                            className="btn btn-primary d-flex align-items-center gap-2 px-3"
-                            >
-                            <i className="bi bi-plus-lg"></i>
-                            Registrar Activo
-                        </NavLink>
-                    </div>
+                    <NavLink
+                        to={"/home/activos/resumen"}
+                        className="btn btn-success"
+                        >
+                        Ver resumen activos
+                    </NavLink>
+                    <NavLink
+                        to={"/home/activos/registrar"}
+                        className="btn btn-primary"
+                        >
+                        <i className="bi bi-plus-lg me-2"></i>
+                        Registrar Activo
+                    </NavLink>
                 </div>
-                
-                
             </div>
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">
+            <section className="card border-0 shadow-sm p-2">
                 <div className="card table-responsive table-scroll">
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">

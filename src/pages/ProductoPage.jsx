@@ -92,9 +92,10 @@ const ProductoPage = () => {
         }
     }
 
+    
     return(
-        <>
-            <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
+        <div className="py-4 m-auto" style={{ maxWidth: "75rem" }}>
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestion de Productos</h4>
                     <p className="text-muted mb-0">
@@ -103,36 +104,36 @@ const ProductoPage = () => {
                 </div>
 
                 <button
-                    className="btn btn-primary d-flex align-items-center gap-2 px-3"
+                    className="btn btn-primary"
                     onClick={() => setMostrarModal("form")}
                     >
-                    <i className="bi bi-plus-lg"></i>
+                    <i className="bi bi-plus-lg me-2"></i>
                     Nuevo Producto
                 </button>
             </div>
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">
+            <section className="card border-0 shadow-sm p-2">
                 <div className="mb-2 position-relative">
-                <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
-                    <i className="bi bi-search"></i>
-                </span>
-                <input
-                    type="text"
-                    className="form-control ps-5"
-                    placeholder="Buscar Productos..."
-                    value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
-                />
+                    <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
+                        <i className="bi bi-search"></i>
+                    </span>
+                    <input
+                        type="text"
+                        className="form-control ps-5"
+                        placeholder="Buscar Productos..."
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
                 </div>
                 <div className="card table-responsive" style={{maxHeight:"31rem",overflow:"auto"}}>
                     <table className="table table-hover align-middle mb-0">
-                        <thead className="bg-blue text-center">
+                        <thead className="bg-blue">
                             <tr>
                                 <th>Producto</th>
                                 <th>Descripcion</th>
-                                <th>Acciones</th>
+                                <th className="text-cen">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody className="text-center">
+                        <tbody>
                             {loading ? (
                                 <tr>
                                     <td colSpan="3" className="text-center py-5">
@@ -179,7 +180,7 @@ const ProductoPage = () => {
                     enviando={enviando}
                 />
             )}
-        </>
+        </div>
     )
 } 
 export default ProductoPage;

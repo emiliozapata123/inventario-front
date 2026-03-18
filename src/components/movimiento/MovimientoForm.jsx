@@ -102,13 +102,13 @@ const MovimientoForm = () => {
     }
 
     return (
-        <div className="container">
-            <div className="d-flex pt-3 gap-2">
+        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+            <div className="d-flex gap-2 mb-4">
                 <button
-                    className="btn btn-outline-secondary mb-3 d-flex align-items-center gap-2"
+                    className="btn btn-outline-dark"
                     onClick={() => navigate(-1)}
                 >
-                    <ArrowLeft size={16} />
+                    <ArrowLeft size={16} className="me-2"/>
                     Volver
                 </button>
                 <h3 className="fw-bol mb-2 blue-title">

@@ -39,21 +39,21 @@ const MovimientoPage = () => {
     }
 
     return(
-        <>
-            <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
+        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                 <h4 className="fw-bold mb-1 blue-title">Gestion de Movimientos</h4>
                 <p className="text-muted mb-0">
                     Historial de movimientos
                 </p>
                 </div>
-                <NavLink to={"/home/movimiento/form"} className="btn btn-primary d-flex gap-1 align-items-center">
-                    <i className="bi bi-plus-lg"></i>
+                <NavLink to={"/home/movimiento/form"} className="btn btn-primary">
+                    <i className="bi bi-plus-lg me-2"></i>
                     Registrar Consumo
                 </NavLink>
             </div>
 
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">                
+            <section className="card border-0 shadow-sm p-2">                
                 <FiltroMovimientos 
                     setPorFecha={setPorFecha} 
                     setTipoMovimiento={setTipoMovimiento} 
@@ -97,7 +97,7 @@ const MovimientoPage = () => {
                     </table>
                 </div>
             </section>
-        </>
+        </div>
     )
 }
 export default MovimientoPage;

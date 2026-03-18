@@ -53,8 +53,8 @@ const InventarioPage = () => {
     }
 
     return(
-        <div>
-            <div className="d-flex justify-content-between align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
+        <div className="py-4 m-auto" style={{maxWidth:"75rem"}}>
+            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión Inventario de Bodegas</h4>
                     <p className="text-muted mb-0">
@@ -62,14 +62,14 @@ const InventarioPage = () => {
                     </p>
                 </div>
                 <NavLink to={"/home/inventario/ingresar/producto"}
-                    className="btn btn-primary d-flex align-items-center gap-2 px-3"
+                    className="btn btn-primary"
                     >
-                    <i className="bi bi-plus-lg"></i>
+                    <i className="bi bi-plus-lg me-2"></i>
                     Ingresar Producto
                 </NavLink>
             </div>
 
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">
+            <section className="card border-0 shadow-sm p-2">
                 <FiltroInventario
                     setPorBodega={setPorBodega}
                     setPorProducto={setPorProducto}

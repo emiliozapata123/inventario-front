@@ -142,7 +142,7 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
                         </button>
 
                         <button 
-                            className="btn btn-success d-flex align-items-center"
+                            className="btn btn-primary d-flex align-items-center"
                             disabled={enviando}
                             onClick={handleOnClick}
                         >
@@ -153,18 +153,17 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
                                         role="status" 
                                         aria-hidden="true"
                                     ></span>
-                                    Enviando...
+                                    Actualizando...
                                 </>
                             ) : (
                                 <>
-                                <Plus size={24} className="me-1" />
+                                <Plus size={24} className="me-2" />
                                 Actualizar
                                 </>
                                 
                             )}
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
