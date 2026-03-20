@@ -16,6 +16,7 @@ const MovimientoForm = () => {
     const [formulario, setFormulario] = useState({
         productos:[],
         bodega:"",
+        fechaMovimiento:""
     });
 
     const navigate = useNavigate();
@@ -98,6 +99,7 @@ const MovimientoForm = () => {
         }
 
         addMovimiento(formulario);
+        limpiarFormulario();
 
     }
 
@@ -123,6 +125,7 @@ const MovimientoForm = () => {
                         cargarInventario={cargarInventario}
                         busqueda={busqueda}
                         setBusqueda={setBusqueda}
+                        setFormulario={setFormulario}
                     />
                     <TablaInventarioMovimiento
                         handleClick={handleClick}

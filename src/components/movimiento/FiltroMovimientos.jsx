@@ -10,7 +10,6 @@ const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
                     type="date"
                     className="form-control ps-5"
                     value={filtros.fecha}
-                    placeholder="Filtrar por fecha"
                     onChange={(e) => actualizarFiltro("fecha",e.target.value)}
                 />
             </div>

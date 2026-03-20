@@ -27,7 +27,7 @@ const MovimientoPage = () => {
     }
    
     const movimientosFiltrados = movimientos?.filter((m) => {
-        if (filtros?.fecha && m.movimiento.fechaRegistro !== filtros?.fecha) return false;
+        if (filtros?.fecha && m.movimiento.fechaMovimiento !== filtros?.fecha) return false;
 
         if (filtros?.tipo && m.movimiento.tipo !== filtros?.tipo) return false;
 
@@ -73,7 +73,7 @@ const MovimientoPage = () => {
                         <thead className="bg-blue">
                             <tr>
                                 <th className="text-center">Tipo Movimiento</th>
-                                <th>Fecha Registro</th>
+                                <th>Fecha Movimiento</th>
                                 <th>Fecha Entrega</th>
                                 <th>Bodega</th>
                                 <th>Producto</th>

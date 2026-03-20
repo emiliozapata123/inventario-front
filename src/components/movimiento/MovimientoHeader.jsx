@@ -1,16 +1,12 @@
 import useFetch from "../notify/useFetch";
 
-const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInventario}) => {
+const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInventario, setFormulario}) => {
     const { data:bodegas } = useFetch("api/bodega/list/");
 
     return (
-        <>
-            <div className="d-flex justify-content-around">
-                <h6 className="fw-bold mb-3">Seleccionar Producto</h6>
-                <h6 className="fw-bold mb-3">Buscar por Bodega</h6>
-            </div>
+        <div className="row g-2 mb-2">
             <div className="row justify-content-center g-2">
-                <div className="col-6">
+                <div className="col-md-4">
                     <div className="position-relative">
                         <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
                             <i className="bi bi-search"></i>
@@ -25,10 +21,10 @@ const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInv
                     </div>
                 </div>
 
-                <div className="col-6">
+                <div className="col-md-4">
                     <div className="dropdown">
                         <button className={`btn btn-outline-primary w-100 dropdown-toggle ${mensaje.bodega ? "btn-outline-danger":""}`}data-bs-toggle="dropdown">
-                            {!formulario.bodega?"Seleccionar Bodega":bodegas.find((b)=> b.id === formulario.bodega)?.nombre}
+                            {!formulario.bodega?"Buscar por Bodega":bodegas.find((b)=> b.id === formulario.bodega)?.nombre}
                         </button>
 
                         <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
@@ -46,8 +42,22 @@ const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInv
                         <div className="invalid-feedback d-block">{mensaje.bodega}</div>
                     </div>
                 </div>
+                <div className="col-md-4">
+                    <input
+                        type="date"
+                        className="form-control ps-5"
+                        value={formulario.fechaMovimiento}
+                        placeholder="Filtrar por fecha"
+                        onChange={(e) => 
+                            setFormulario(prev => ({
+                                ...prev,
+                                fechaMovimiento:e.target.value
+                            }))
+                        }
+                    />
+                </div>
             </div>
-        </>
+        </div>
     )
 }
 export default MovimientoHeader;
