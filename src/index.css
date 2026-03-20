@@ -23,14 +23,15 @@ select.form-select {
   color: #000;
 }
 
-.table-scroll {
-  max-height: calc(100vh - 10rem);
+.table-scroll-y {
+  max-height: 32rem;
   overflow-y: auto;
 }
+  /*
 .table-scroll-filters {
   max-height: calc(100vh - 14rem);
   overflow-y: auto;
-}
+} */
 .table thead th {
   position: sticky;
   top: 0;

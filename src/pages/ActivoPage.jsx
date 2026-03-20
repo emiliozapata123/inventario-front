@@ -4,16 +4,103 @@ import { NavLink } from "react-router-dom";
 import ActivoList from "../components/activos/ActivoList";
 import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import Loading from "../components/layout/Loading";
+import FiltrosActivosAsignados from "../components/activos/FiltroActivosAsignados";
 
 const ActivoPage = () => {
     const [activos, setActivos] = useState([]);
     const [editandoId, setEditandoId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [enviando, setEnviando] = useState(false);
+    const [filtros, setFiltros] = useState({
+       busqueda:"",
+       fecha:"",
+       numero:"",
+       usuario:"",
+       cargo:"",
+       ubicacion:""
+    });
+
 
     useEffect(()=> {
         getActivos();
     },[]);
+
+    const actualizarFiltro = (name,value) => {
+        setFiltros((prev) => ({
+            ...prev,
+            [name]:value
+        }));
+    }
+
+    const filtrarActivos = activos.filter((a) => {
+        const lista = [
+            a.activo?.tipoProducto.toLowerCase(),
+            a?.numeroInventario?.toLowerCase(),
+            a?.numeroSerie?.toLowerCase(),
+            a?.usuario?.toLowerCase(),
+            a?.cargo?.toLowerCase(),
+            a?.ubicacion?.toLowerCase()
+        ];
+
+        let encontrado = false;
+
+        for (let i = 0; i<lista.length; i++) {
+            const value = lista[i];
+
+            if (value && value.includes(filtros?.busqueda.toLowerCase().trim())) {
+                encontrado = true;
+                break;
+            }
+        }
+
+        const fecha = a.fechaEntrega.includes(filtros.fecha);
+
+        let cumple = true;
+
+        if (filtros?.usuario === "con usuario") {
+            if (!a.usuario) {
+                cumple = false;
+            }
+        }
+        if (filtros?.usuario === "sin usuario") {
+            if (a.usuario) {
+                cumple = false;
+            }
+        }
+        if (filtros?.cargo === "con cargo") {
+            if (!a.cargo) {
+                cumple = false;
+            }
+        }
+        if (filtros?.cargo === "sin cargo") {
+            if (a.cargo) {
+                cumple = false;
+            }
+        }
+        if (filtros?.ubicacion === "con ubicacion") {
+            if (!a.ubicacion) {
+                cumple = false;
+            }
+        }
+        if (filtros?.ubicacion === "sin ubicacion") {
+            if (a.ubicacion) {
+                cumple = false;
+            }
+        }
+        if (filtros?.numero === "con numero") {
+            if (!a.numeroInventario) {
+                cumple = false;
+            }
+        }
+        if (filtros?.numero === "sin numero") {
+            if (a.numeroInventario) {
+                cumple = false;
+            }
+        }
+
+        if (encontrado && cumple && fecha) return true;
+        return false;
+    });
 
     const getActivos = async () => {
         setLoading(true);
@@ -33,7 +120,7 @@ const ActivoPage = () => {
     const updateActivo = async (id,data) => {
         if (enviando) return;
         
-        setEnviando(true);
+        setEnviando(false);
         try {
             await api(`api/activo/${id}/update/`,"PATCH", data);
             setEditandoId(null);
@@ -49,12 +136,12 @@ const ActivoPage = () => {
     }
 
     return(
-        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
-            <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap flex gap-3">
+        <div className="pt-4 m-auto">
+            <div className="d-flex justify-content-between align-items-center flex-wrap flex gap-3 mb-4">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Activos</h4>
                     <p className="text-muted mb-0">
-                        Administra todos los activos de la plataforma
+                        Administra todos los filtrarActivos de la plataforma
                     </p>
                 </div>
                 <div className="d-flex gap-2">
@@ -62,7 +149,7 @@ const ActivoPage = () => {
                         to={"/home/activos/resumen"}
                         className="btn btn-success"
                         >
-                        Ver resumen activos
+                        Ver resumen Activos
                     </NavLink>
                     <NavLink
                         to={"/home/activos/registrar"}
@@ -74,7 +161,12 @@ const ActivoPage = () => {
                 </div>
             </div>
             <section className="card border-0 shadow-sm p-2">
-                <div className="card table-responsive table-scroll">
+                <FiltrosActivosAsignados 
+                    filtros={filtros} 
+                    actualizarFiltro={actualizarFiltro} 
+                />
+
+                <div className="card table-responsive table-scroll-y">
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
@@ -99,14 +191,14 @@ const ActivoPage = () => {
                                     </td>
                                 </tr>
                             ):(
-                                activos?.length === 0 ? (
+                                filtrarActivos?.length === 0 ? (
                                     <tr>
                                         <td colSpan="11" className="text-center py-4 text-muted">
-                                            No hay activos
+                                            No hay Activos
                                         </td>
                                     </tr>
                                 ):(
-                                    activos?.map(a => (
+                                    filtrarActivos?.map(a => (
                                     <ActivoList
                                         key={a.id} 
                                         activo={a} 

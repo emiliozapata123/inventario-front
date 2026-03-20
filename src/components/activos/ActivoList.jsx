@@ -61,7 +61,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
             </td>
             <td className="wrap-text">
                 
-                {!activo?.activo.descripcion?"Sin descripcion":activo.activo.descripcion}
+                {!activo?.activo.descripcion?<span className="badge bg-light text-dark border">—</span>:activo.activo.descripcion}
             </td>
             <td>
                 {editandoId === activo.id ? (
@@ -73,7 +73,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                        onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.numeroInventario?"N/A":activo.numeroInventario
+                    !activo?.numeroInventario?<span className="badge bg-light text-dark border">—</span>:activo.numeroInventario
                 )}
             </td>
             <td>
@@ -86,15 +86,15 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.numeroSerie?"Sin nro serie":activo.numeroSerie
+                    !activo?.numeroSerie?<span className="badge bg-light text-dark border">—</span>:activo.numeroSerie
                 )}
             </td>
             <td>
-                {!activo?.activo.marca?"Sin marca":activo.activo.marca}
+                {!activo?.activo.marca?<span className="badge bg-light text-dark border">—</span>:activo.activo.marca}
             </td>
             <td>
                 
-                {!activo?.activo.modelo?"Sin modelo":activo.activo.modelo}
+                {!activo?.activo.modelo?<span className="badge bg-light text-dark border">—</span>:activo.activo.modelo}
             </td>
             <td>
                 {editandoId === activo.id ? (
@@ -106,7 +106,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.ubicacion?"Sin ubicacion":activo.ubicacion
+                    !activo?.ubicacion?<span className="badge bg-light text-dark border">—</span>:activo.ubicacion
                 )}
             </td>
             <td>
@@ -119,7 +119,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo.usuario?"Por definir":activo.usuario
+                    !activo.usuario?<span className="badge bg-light text-dark border">—</span>:activo.usuario
 
                 )}
             </td>
@@ -133,7 +133,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.cargo?"Sin cargo":activo.cargo
+                    !activo?.cargo?<span className="badge bg-light text-dark border">—</span>:activo.cargo
 
                 )}
             </td>

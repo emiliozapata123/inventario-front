@@ -2,7 +2,7 @@ const ProductoList = ({producto, setMostrarModal}) => {
     return (
         <tr>
             <td>{producto.nombre}</td>
-            <td>{!producto.descripcion ? "Sin descripcion":producto.descripcion}</td>
+            <td>{!producto.descripcion ? <span className="badge bg-light text-dark border">—</span>:producto.descripcion}</td>
             <td>
                 <div className="d-flex gap-1 justify-content-center">
                     <button className="btn btn-warning" onClick={()=> setMostrarModal("update")}>

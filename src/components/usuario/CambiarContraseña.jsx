@@ -114,12 +114,13 @@ const CambiarContrañena = ({setMostrarModal}) => {
     return(
         <form className="modal fade show d-block" tabIndex="-1" onSubmit={handleSubmit}>
             <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content border-0 shadow rounded-4">
+                <div className="modal-content border-0 shadow rounded-2">
                 <div className="modal-header border-0 pb-0">
                     <h5 className="modal-title fw-bold">Cambiar Contraseña</h5>
                     <button
                         type="button"
                         className="btn-close"
+                        disabled={enviando}
                         onClick={() => setMostrarModal(false)}>
                     </button>
                 </div>
@@ -173,6 +174,7 @@ const CambiarContrañena = ({setMostrarModal}) => {
                     <button
                         className="btn btn-outline-secondary w-100"
                         type="button"
+                        disabled={enviando}
                         onClick={() => setMostrarModal(false)}
                     >
                         Cancelar

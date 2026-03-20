@@ -11,22 +11,35 @@ const InventarioPage = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
     const [inventario, setInventario] = useState([]);
     const [inventarioSelect, setInventarioSelect] = useState({});
-    const [porProducto, setPorProducto] = useState("");
-    const [porBodega, setPorBodega] = useState("");
-    const [inventarioFiltrado, setInventarioFiltrado] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [enviando, setEnviando] = useState(false);
+    const [busqueda, setBusqueda] = useState({
+        producto:"",
+        bodega:""
+    });
 
     useEffect(()=> {
         getInventario();
     }, []);
 
-    useEffect(()=> {
-        const busquedaProducto = inventario?.filter((i) => i.producto.nombre.toLowerCase().includes(porProducto.toLowerCase()));
-        const productoBodega = busquedaProducto?.filter((b) => b.bodega.nombre.toLowerCase().includes(porBodega.toLowerCase()));
 
-        setInventarioFiltrado(productoBodega);
-    }, [porBodega,porProducto,inventario]);
+    const actualizarBusqueda = (name,value) => {
+        setBusqueda((prev) => ({
+            ...prev,
+            [name]:value
+        }));
+    } 
+    
+    const busquedaInventario = inventario?.filter((i) => {
+        if (!busqueda) return true;
 
+        const productoLower = busqueda?.producto.toLowerCase().trim();
+        const producto = i.producto.nombre.toLowerCase().includes(productoLower);
+
+        const bodega = i.bodega.nombre.includes(busqueda?.bodega);
+
+        return producto && bodega;
+    });
 
     const getInventario = async () => {
         setLoading(true);
@@ -43,17 +56,24 @@ const InventarioPage = () => {
     }
     
     const actualizarStock = async (data) => {
+        if (enviando) return;
+
+        setEnviando(true);
         try {
             await api("api/inventario/ingresar/producto/","POST",data);
+            setMostrarModal(false);
             getInventario();
             NotifySuccess("stock de inventario actualizado.");
         } catch (error) {
-            console.error(error);   
+            console.error(error);  
+
+        } finally {
+            setEnviando(false);
         }
     }
 
     return(
-        <div className="py-4 m-auto" style={{maxWidth:"75rem"}}>
+        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión Inventario de Bodegas</h4>
@@ -70,14 +90,9 @@ const InventarioPage = () => {
             </div>
 
             <section className="card border-0 shadow-sm p-2">
-                <FiltroInventario
-                    setPorBodega={setPorBodega}
-                    setPorProducto={setPorProducto}
-                    porBodega={porBodega}
-                    porProducto={porProducto}
-                />
+                <FiltroInventario actualizarBusqueda={actualizarBusqueda} busqueda={busqueda}/>
 
-                <div className="card shadow-sm table-responsive table-scroll-filters">
+                <div className="card shadow-sm table-responsive table-scroll-y">
                     <div className="card-body p-0">
                         <table className="table table-hover mb-0">
                             <thead className="bg-blue">
@@ -104,14 +119,21 @@ const InventarioPage = () => {
                                         </td>
                                     </tr>
                                 ):(
-                                    inventarioFiltrado?.map((i)=> (
+                                    busquedaInventario.length === 0 ? (
+                                        <tr>
+                                            <td colSpan="5" className="text-center py-4 text-muted">
+                                                No se encontraron productos
+                                            </td>
+                                        </tr>
+                                    ):(
+                                        busquedaInventario?.map((i)=> (
                                         <InventarioList
                                             key={i.id}
                                             item={i}
                                             setMostrarModal={(data)=> {setMostrarModal(true); setInventarioSelect(data)}}
                                             
                                         />
-                                    ))
+                                    )))
                                 ))}
                             </tbody>
                         </table>
@@ -119,7 +141,7 @@ const InventarioPage = () => {
                 </div>
             </section>
             {mostrarModal && (
-                <ActualizarStockForm item={inventarioSelect} setMostrarModal={setMostrarModal} actualizarStock={actualizarStock}/>
+                <ActualizarStockForm item={inventarioSelect} enviando={enviando} setMostrarModal={setMostrarModal} actualizarStock={actualizarStock}/>
             )}
         </div>
     )

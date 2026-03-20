@@ -16,11 +16,24 @@ const ProductoActivoList = () => {
     const [eliminando, setEliminando] = useState(false);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [producto, setProducto] = useState({});
+    const [busqueda, setBusqueda] = useState("");
     const navigate = useNavigate();
 
     useEffect(()=> {
         cargarProductos();
     }, []);
+
+
+    const productosFiltrados = productos?.filter((p) => {
+        const busquedaLower = busqueda?.toLowerCase().trim();
+        if (!busquedaLower) return true;
+
+        const tipoProducto = p.tipoProducto.toLowerCase().includes(busquedaLower);
+
+        const marca = p.marca?.toLowerCase().includes(busquedaLower);
+
+        return tipoProducto || marca;
+    });
 
     //productos de tipo activos
     const cargarProductos = async () => {
@@ -76,10 +89,10 @@ const ProductoActivoList = () => {
 
     return (
 
-        <>
-            <div className="d-flex align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
-                <button className="d-flex gap-2 align-items-center btn btn-outline-secondary mb-3" onClick={()=> navigate(-1)}>
-                    <ArrowLeft/>
+        <div className="pt-4 m-auto" style={{maxWidth:"75rem"}}>
+            <div className="d-flex align-items-center mb-4 flex-wrap gap-3">
+                <button className="btn btn-outline-dark" onClick={()=> navigate(-1)}>
+                    <ArrowLeft className="me-2"/>
                     Volver
                 </button>
                 <div>
@@ -90,8 +103,21 @@ const ProductoActivoList = () => {
                 </div>
             </div>
             
-            <section className="card border-0 shadow-sm p-2 ms-3 me-3">
-                <div className="card table-responsive shadow-sm" style={{maxHeight:"33rem",overflow:"auto"}}>
+            <section className="card border-0 shadow-sm p-2">
+                <div className="mb-2 position-relative">
+                    <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
+                        <i className="bi bi-search"></i>
+                    </span>
+
+                    <input
+                        type="text"
+                        className="form-control ps-5"
+                        placeholder="Buscar productos por tipo y marca..."
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)}
+                    />
+                </div>
+                <div className="card table-responsive shadow-sm table-scroll-y">
                     <table className={`table ${!editandoId ? "table-hover":""}`}>
                         <thead className="bg-blue">
                             <tr>
@@ -111,18 +137,26 @@ const ProductoActivoList = () => {
                                     </td>
                                 </tr>
                             ):(
-                            productos?.map((p) => (
-                                <ProcuctoActivoRow 
-                                    producto={p}
-                                    editandoId={editandoId}
-                                    setEditandoId={setEditandoId}
-                                    onUpdate={updateProductoActivo}
-                                    enviando={enviando}
-                                    eliminando={eliminando}
-                                    setMostrarModal={()=> {setMostrarModal(true); setProducto(p)}}
-                                />
-                            ))
-                        )}
+                                productosFiltrados.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="5" className="text-center py-5">
+                                            No se encontraron productos
+                                        </td>
+                                    </tr>
+                                ):(
+                                    productosFiltrados?.map((p) => (
+                                        <ProcuctoActivoRow 
+                                            producto={p}
+                                            editandoId={editandoId}
+                                            setEditandoId={setEditandoId}
+                                            onUpdate={updateProductoActivo}
+                                            enviando={enviando}
+                                            eliminando={eliminando}
+                                            setMostrarModal={()=> {setMostrarModal(true); setProducto(p)}}
+                                        />
+                                    ))
+                                )
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -136,7 +170,7 @@ const ProductoActivoList = () => {
                     enviando={eliminando}
                 />
             )}
-        </>
+        </div>
     )
 }
 export default ProductoActivoList;

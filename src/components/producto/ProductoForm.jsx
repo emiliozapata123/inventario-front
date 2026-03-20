@@ -1,14 +1,11 @@
 import { useState } from "react";
 import useMensaje from "../notify/useMensaje";
 
-const ProductoForm = ({producto, addProducto, updateProducto, setMostrarModal, action, enviando}) => {
+const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, action, enviando }) => {
     const {cargarMensaje,mensaje} = useMensaje();
     const [formulario, setFormulario] = useState({
         nombre:producto?.nombre || "",
         descripcion:producto?.descripcion || "",
-        tipo:producto?.tipo || "",
-        marca:producto?.marca || "",
-        modelo:producto?.modelo || ""
     });
 
     const danger = (name,mensaje) => {
@@ -29,15 +26,23 @@ const ProductoForm = ({producto, addProducto, updateProducto, setMostrarModal, a
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formulario.nombre){
+        if (!formulario.nombre.trim()){
             danger("nombre","ingrese nombre del producto");
             return;
         }
-    
+
+        const data = {
+            ...formulario,
+            nombre:formulario.nombre.trim(),
+            descripcion:formulario.descripcion.trim()
+        }
+
         if (action === "form"){
-            addProducto(formulario);
+            
+            addProducto(data);
         } else {
-            updateProducto(producto.id,formulario);
+
+            updateProducto(producto.id,data);
         }
     };
 
@@ -47,7 +52,12 @@ const ProductoForm = ({producto, addProducto, updateProducto, setMostrarModal, a
                 <div className="modal-content border-0 shadow rounded-2">
                     <div className="modal-header border-0 pb-0">
                         <h5 className="modal-title fw-bold">{action === "form" ? "Crear Nuevo Producto":"Editar Producto"}</h5>
-                        <button type="button" className="btn-close" onClick={()=> setMostrarModal(false)}></button>
+                        <button 
+                            type="button" 
+                            disabled={enviando} 
+                            className="btn-close" 
+                            onClick={()=> setMostrarModal(false)}>
+                        </button>
                     </div>
 
                     <div className="modal-body">
@@ -77,7 +87,13 @@ const ProductoForm = ({producto, addProducto, updateProducto, setMostrarModal, a
                             <div className="invalid-feedback d-block">{mensaje.descripcion}</div>
                         </div>
                         <div className="d-flex justify-content-center gap-3">
-                            <button className="btn btn-outline-secondary w-100"type="button" onClick={()=> setMostrarModal(false)}>Cancelar</button>
+                            <button 
+                                className="btn btn-outline-secondary w-100"
+                                disabled={enviando}
+                                type="button" onClick={()=> setMostrarModal(false)}
+                            >
+                                Cancelar
+                            </button>
                             <button 
                                 className="btn btn-primary d-flex justify-content-center align-items-center w-100"
                                 disabled={enviando}
@@ -93,7 +109,7 @@ const ProductoForm = ({producto, addProducto, updateProducto, setMostrarModal, a
                                     </>
                                 ) : (
                                     <>
-                                    {action === "form" ? "Registrar Producto":"Editar Producto"}
+                                    {action === "form" ? "Crear Producto":"Editar Producto"}
                                     </>
                                 )}
                             </button>

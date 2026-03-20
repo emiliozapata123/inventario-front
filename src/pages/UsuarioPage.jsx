@@ -84,7 +84,7 @@ const UsuarioPage = () => {
     }
 
     return(
-        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Usuarios</h4>
@@ -114,7 +114,7 @@ const UsuarioPage = () => {
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
                 </div>
-                <div className="card table-responsive">
+                <div className="card table-responsive table-scroll-y">
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                         <tr>
@@ -131,14 +131,21 @@ const UsuarioPage = () => {
                                     </td>
                                 </tr>
                             ):(
-                                busquedaUsuarios.map(u => (
+                                busquedaUsuarios.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="3" className="text-center py-5">
+                                            no se encontraron usuarios
+                                        </td>
+                                    </tr>
+                                ):(
+                                    busquedaUsuarios.map(u => (
                                     <UsuarioList
                                         key={u.id} 
                                         user={u} 
                                         setMostrarModal={()=> {setMostrarModal("delete"); setUsuario(u)}}
                                         currentUser={currentUser}
                                     />
-                                ))
+                                )))
                             )}
                         </tbody>
                     </table>

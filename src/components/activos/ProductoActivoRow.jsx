@@ -84,7 +84,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                         onChange={(e)=> iniciarEdicion(e)} 
                     />
                 ):(
-                    !producto?.marca?"Sin marca":producto.marca
+                    !producto?.marca?<span className="badge bg-light text-dark border">—</span>:producto.marca
                 )}
             </td>
             <td className="text-center">
@@ -96,7 +96,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                         onChange={(e)=> iniciarEdicion(e)} 
                     />
                 ):(
-                    !producto?.modelo?"Sin modelo":producto.modelo
+                    !producto?.modelo?<span className="badge bg-light text-dark border">—</span>:producto.modelo
                 )}
             </td>
             <td>

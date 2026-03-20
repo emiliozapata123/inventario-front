@@ -7,22 +7,34 @@ import Loading from "../components/layout/Loading";
 
 const MovimientoPage = () => {
     const [movimientos, setMovimientos] = useState([]);
-    const [tipoMovimiento, setTipoMovimiento] = useState("");
-    const [porBodega, setPorBodega] = useState("");
-    const [porFecha, setPorFecha] = useState("");
-    const [movFiltrado, setMovFiltrado] = useState([]);
+    const [filtros, setFiltros] = useState({
+        fecha:"",
+        tipo:"",
+        bodega:""
+    });
     const [loading, setLoading] = useState(true);
 
     useEffect(()=> {
         cargarMovimientos();
     }, []);
 
-    useEffect(()=> {
-        const fecha = movimientos.filter((m)=> m.movimiento.fechaRegistro.includes(porFecha));
-        const tipo = fecha.filter((m)=> m.movimiento.tipo.includes(tipoMovimiento));
-        const bodega = tipo.filter((t)=> t.movimiento.bodega.nombre.includes(porBodega));
-        setMovFiltrado(bodega);
-    }, [tipoMovimiento,porBodega,movimientos,porFecha]);
+    const actualizarFiltro = (name,value) => {
+
+        setFiltros((prev) => ({
+            ...prev,
+            [name]:value
+        }));
+    }
+   
+    const movimientosFiltrados = movimientos?.filter((m) => {
+        if (filtros?.fecha && m.movimiento.fechaRegistro !== filtros?.fecha) return false;
+
+        if (filtros?.tipo && m.movimiento.tipo !== filtros?.tipo) return false;
+
+        if (filtros?.bodega && m.movimiento.bodega.nombre !== filtros?.bodega) return false;
+       
+        return true;
+    });
 
     const cargarMovimientos = async () => {
         setLoading(true);
@@ -39,7 +51,7 @@ const MovimientoPage = () => {
     }
 
     return(
-        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                 <h4 className="fw-bold mb-1 blue-title">Gestion de Movimientos</h4>
@@ -54,15 +66,9 @@ const MovimientoPage = () => {
             </div>
 
             <section className="card border-0 shadow-sm p-2">                
-                <FiltroMovimientos 
-                    setPorFecha={setPorFecha} 
-                    setTipoMovimiento={setTipoMovimiento} 
-                    setPorBodega={setPorBodega}
-                    porBodega={porBodega}
-                    porFecha={porFecha}
-                    tipoMovimiento={tipoMovimiento}
-                />
-                <div className="card shadow-sm table-responsive table-scroll-filters">
+                <FiltroMovimientos actualizarFiltro={actualizarFiltro} filtros={filtros}/>
+
+                <div className="card shadow-sm table-responsive table-scroll-y">
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
@@ -82,14 +88,14 @@ const MovimientoPage = () => {
                                     </td>
                                 </tr>
                             ):(
-                                movFiltrado.length === 0 ? (
+                                movimientosFiltrados.length === 0 ? (
                                     <tr>
                                         <td colSpan="6" className="text-center">
                                             No hay movimientos registrados
                                         </td>
                                     </tr>
                                 ):(
-                                    movFiltrado.map((m)=> (
+                                    movimientosFiltrados.map((m)=> (
                                     <MovimientoList movimiento={m}/>
                                 )))
                             )}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../../services/Api";
 import IngresoMultipleProductos from "./IngresoMultipleProducto";
 import useMensaje from "../notify/useMensaje";
@@ -10,9 +10,7 @@ import InventarioTableHeader from "./InventarioTableHeader";
 
 const InventarioForm = () => {
     const {mensaje, cargarMensaje} = useMensaje();
-    const [loading, setLoading] = useState(true);
     const [busqueda, setBusqueda] = useState("");
-    const [productos, setProductos] = useState([]);
     const [enviando, setEnviando] = useState(false);
     const [formulario, setFormulario] = useState({
         productos:[],
@@ -20,24 +18,6 @@ const InventarioForm = () => {
         fechaEntrega:""
     });
     const navigate = useNavigate();
-
-    useEffect(() => {
-        cargarProductos();
-    }, []);
-
-    const cargarProductos = async () => {
-        setLoading(true);
-
-        try {
-            const resProductos = await api("api/producto/list/");
-
-            setProductos(await resProductos.json());
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);
@@ -139,12 +119,10 @@ const InventarioForm = () => {
                 />
 
                 <IngresoMultipleProductos
-                    productos={productos}
                     seleccionados={formulario.productos}
                     setSeleccionados={setFormulario}
                     limpiarFormulario={limpiarFormulario}
                     handleClick={handleClick}
-                    loading={loading}
                     busqueda={busqueda}
                 />
             </div>

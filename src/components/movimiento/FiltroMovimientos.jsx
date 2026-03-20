@@ -1,30 +1,30 @@
 import useFetch from "../notify/useFetch";
 
-const FiltroMovimientos = ({setPorBodega,setPorFecha,setTipoMovimiento,porBodega,porFecha,tipoMovimiento}) => {
+const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
     const { data:bodegas } = useFetch("api/bodega/list/");
     
     return (
-        <div className="d-flex gap-1 flex-column flex-md-row mb-2">
+        <div className="row g-2 mb-2">
             <div className="col-md-4">
                 <input
                     type="date"
                     className="form-control ps-5"
-                    value={porFecha}
+                    value={filtros.fecha}
                     placeholder="Filtrar por fecha"
-                    onChange={(e) => setPorFecha(e.target.value)}
+                    onChange={(e) => actualizarFiltro("fecha",e.target.value)}
                 />
             </div>
             <div className="col-md-4">
                 <div className="dropdown">
                     <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
-                        {!tipoMovimiento?"Filtrar por tipo movimiento":tipoMovimiento}
+                        {!filtros.tipo?"Filtrar por tipo movimiento":filtros.tipo}
                     </button>
 
                     <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
                         <li>
                             <button 
                                 className="dropdown-item" 
-                                onClick={()=> setTipoMovimiento("")}
+                                onClick={()=> actualizarFiltro("tipo","")}
                             >
                                 Todos
                             </button>
@@ -32,7 +32,7 @@ const FiltroMovimientos = ({setPorBodega,setPorFecha,setTipoMovimiento,porBodega
                         <li>
                             <button 
                                 className="dropdown-item" 
-                                onClick={()=> setTipoMovimiento("Entrada")}
+                                onClick={()=> actualizarFiltro("tipo","Entrada")}
                             >
                                 Entrada
                             </button>
@@ -40,7 +40,7 @@ const FiltroMovimientos = ({setPorBodega,setPorFecha,setTipoMovimiento,porBodega
                         <li>
                             <button 
                                 className="dropdown-item" 
-                                onClick={()=> setTipoMovimiento("Salida")}
+                                onClick={()=> actualizarFiltro("tipo","Salida")}
                             >
                                 Salida
                             </button>
@@ -52,14 +52,14 @@ const FiltroMovimientos = ({setPorBodega,setPorFecha,setTipoMovimiento,porBodega
             <div className="col-md-4">
                 <div className="dropdown">
                     <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
-                        {!porBodega?"Filtrar Por Bodega":porBodega}
+                        {!filtros.bodega?"Filtrar Por Bodega":filtros.bodega}
                     </button>
 
                     <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
                         <li>
                             <button 
                                 className="dropdown-item" 
-                                onClick={()=> setPorBodega("")}
+                                onClick={()=> actualizarFiltro("bodega","")}
                             >
                                 Todos
                             </button>
@@ -68,7 +68,7 @@ const FiltroMovimientos = ({setPorBodega,setPorFecha,setTipoMovimiento,porBodega
                             <li key={b.id}>
                                 <button 
                                     className="dropdown-item" 
-                                    onClick={()=> setPorBodega(b.nombre)}
+                                    onClick={()=> actualizarFiltro("bodega",b.nombre)}
                                 >
                                     {b.nombre}
                                 </button>

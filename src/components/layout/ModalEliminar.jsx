@@ -2,7 +2,7 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
     return (
        <div className="modal fade show d-block" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content border-0 shadow rounded-4 p-3">
+                <div className="modal-content border-0 shadow rounded-2 p-3">
 
                     <div className="modal-header border-0">
                         <h5 className="modal-title fw-bold">
@@ -12,6 +12,7 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
                         <button
                             type="button"
                             className="btn-close"
+                            disabled={enviando}
                             onClick={() => setMostrarModal(false)}
                         ></button>
                     </div>
@@ -34,6 +35,7 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
 
                         <button
                             className="btn btn-outline-secondary w-100"
+                            disabled={enviando}
                             onClick={() => setMostrarModal(false)}
                         >
                             Cancelar

@@ -92,14 +92,13 @@ const BodegaPage = () => {
     }
 
     return(
-        <div className="py-4 m-auto" style={{maxWidth:"75rem"}}>
+        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
             <div className="d-flex flex-column align-items-start mb-4">
                 <h4 className="fw-bold mb-1 blue-title">Gestión de Bodegas</h4>
                 <p className="text-muted mb-0">
                     Administra todas las bodegas de la plataforma
                 </p>
             </div>
-
             <section className="card border-0 shadow-sm p-2">
                 <div className="row">
                     <div className="col-md-5">
@@ -121,7 +120,7 @@ const BodegaPage = () => {
                     </div>
                 </div>
 
-                <div className="card table-responsive">
+                <div className="card table-responsive table-scroll-y">
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
@@ -146,17 +145,27 @@ const BodegaPage = () => {
                                         </td>
                                     </tr>
                                 ):(
-                                busquedaBodegas.map(b => (
-                                    <BodegaList 
-                                        key={b.id} 
-                                        bodega={b} 
-                                        setMostrarModal={(action)=> {setMostrarModal(action); setBodega(b)}}
-                                        setEditandoId={setEditandoId}
-                                        editandoId={editandoId}
-                                        onUpdate={updateBodega}
-                                        editando={editando}
-                                    />
-                                )))
+                                    busquedaBodegas.length === 0 ? (
+                                        <tr>
+                                            <td colSpan="4" className="text-center py-4 text-muted">
+                                                No se encontraron bodegas
+                                            </td>
+                                        </tr>
+                                    ):(
+                                        busquedaBodegas.map(b => (
+                                            <BodegaList 
+                                                key={b.id} 
+                                                bodega={b} 
+                                                setMostrarModal={(action)=> {setMostrarModal(action); setBodega(b)}}
+                                                setEditandoId={setEditandoId}
+                                                editandoId={editandoId}
+                                                onUpdate={updateBodega}
+                                                editando={editando}
+                                            />
+                                    
+                                        )
+                                    )
+                                ))
                             )}
                         </tbody>
                     </table>

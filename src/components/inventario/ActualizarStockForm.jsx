@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useMensaje from "../notify/useMensaje";
-import { Plus } from "react-bootstrap-icons";
 
 const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando}) => {
     const {mensaje, cargarMensaje} = useMensaje();
@@ -157,7 +156,6 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
                                 </>
                             ) : (
                                 <>
-                                <Plus size={24} className="me-2" />
                                 Actualizar
                                 </>
                                 

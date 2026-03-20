@@ -9,7 +9,7 @@ const InventarioList = ({ item, setMostrarModal }) => {
                 {item?.stock}
             </td>
             <td className="text-center fw-bold">
-                {!item?.stockMinimo?"sin stock minimo definido":item?.stockMinimo}
+                {!item?.stockMinimo?<span className="badge bg-light text-dark border">—</span>:item?.stockMinimo}
             </td>
             <td>
                 <div>
