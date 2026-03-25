@@ -1,8 +1,4 @@
-import useFetch from "../notify/useFetch";
-
-const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInventario, setFormulario}) => {
-    const { data:bodegas } = useFetch("api/bodega/list/");
-
+const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, handleOnChange, bodegas}) => {
     return (
         <div className="row g-2 mb-2">
             <div className="row justify-content-center g-2">
@@ -32,7 +28,7 @@ const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInv
                                 <li key={b.id}>
                                     <button 
                                         className="dropdown-item" 
-                                        onClick={()=> cargarInventario(b.id)}
+                                        onClick={()=> handleOnChange("bodega", b)}
                                     >
                                         {b.nombre}
                                     </button>
@@ -48,12 +44,7 @@ const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, cargarInv
                         className="form-control ps-5"
                         value={formulario.fechaMovimiento}
                         placeholder="Filtrar por fecha"
-                        onChange={(e) => 
-                            setFormulario(prev => ({
-                                ...prev,
-                                fechaMovimiento:e.target.value
-                            }))
-                        }
+                        onChange={(e) => handleOnChange("fechaMovimiento", e.target.value)}
                     />
                 </div>
             </div>

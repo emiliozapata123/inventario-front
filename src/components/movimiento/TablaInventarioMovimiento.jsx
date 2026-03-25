@@ -2,27 +2,22 @@ import Loading from "../layout/Loading";
 import ProductoMovimientoRow from "./ProductoMovimientoRow";
 import { Plus } from "react-bootstrap-icons";
 
-const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda, enviando}) => {
+const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda, setMovimiento}) => {
     const busquedaProductos = productos?.filter((p)=> p?.producto?.nombre?.toLowerCase().includes(busqueda?.toLowerCase()));
 
     const toggleProducto = (producto) => {
-        setSeleccionados(prev => {
+        const id = producto.producto.id;
+        setSeleccionados((prev) => ({
+            ...prev,
+            productos:prev.productos.some(p => p.id === id) ? prev.productos.filter(p => p.id !== id):
+            [...prev.productos,{id,cantidad:1}]     
+        }));
 
-            const existe = prev.productos.find(p => p.id === producto.producto.id);
-
-            if(existe){
-                return {
-                    ...prev,
-                    productos: prev.productos.filter(p => p.id !== producto.producto.id)
-                }
-            }
-
-            return {
-                ...prev,
-                productos: [...prev.productos, {id: producto.producto.id, cantidad:1}]
-            }
-
-        });
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:prev.productos.some(p => p.id === id) ? prev.productos.filter(p => p.id !== id):
+            [...prev.productos,{id,producto:producto.producto,cantidad:1}]
+        }));
 
     }
 
@@ -34,7 +29,16 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                 ? {...p, cantidad:p.cantidad+1}
                 : p
             )
-        }))
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:prev.productos.map(p => 
+                p.id === id && p.cantidad < stock
+                ? {...p, cantidad:p.cantidad+1}
+                : p
+            )
+        }));
     }
 
     const disminuir = (id) => {
@@ -45,7 +49,16 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                 ? {...p, cantidad:p.cantidad-1}
                 : p
             )
-        }))
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:prev.productos.map(p => 
+                p.id === id && p.cantidad < 1
+                ? {...p, cantidad:p.cantidad-1}
+                : p
+            )
+        }));
     }
 
     const ingresarCantidad = (id, cantidad, stock) => {
@@ -56,6 +69,15 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
         setSeleccionados(prev => ({
             ...prev,
             productos: prev.productos.map(p =>
+                p.id === id
+                ? {...p, cantidad:Number(cantidad)}
+                : p
+            )
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:prev.productos.map(p => 
                 p.id === id
                 ? {...p, cantidad:Number(cantidad)}
                 : p
@@ -77,69 +99,52 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                         </tr>
                     </thead>
                     <tbody>
-                        {productos.length === 0 ? (
+                        {loading ? (
                             <tr>
                                 <td colSpan="5" className="text-center py-5">
-                                    No hay productos, selecciona una bodega
+                                    <Loading/>
                                 </td>
                             </tr>
-                        ):( 
-                            loading ? (
-                                <tr>
-                                    <td colSpan="5" className="text-center py-5">
-                                        <Loading/>
-                                    </td>
-                                </tr>
-                        ):(
-                            busquedaProductos.length === 0 ? (
+                            
+                        ) : productos.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="text-center py-5">
+                                    Selecciona una bodega para mostrar productos
+                                </td>
+                            </tr>
+                        ) : busquedaProductos.length === 0 ? (
                                 <tr>
                                     <td colSpan="5" className="text-center py-5">
                                         No se encontraron productos
                                     </td>
                                 </tr>
-                            ):(
-                                busquedaProductos?.map(p => {
-                                const seleccionado = seleccionados.find(s => s.id === p.producto.id);
+                        ) : busquedaProductos?.map(p => {
+                            const seleccionado = seleccionados.find(s => s.id === p.producto.id);
 
-                                return (
-                                    <ProductoMovimientoRow
-                                        key={p.id}
-                                        p={p}
-                                        seleccionado={seleccionado}
-                                        toggleProducto={toggleProducto}
-                                        ingresarCantidad={ingresarCantidad}
-                                        aumentar={aumentar}
-                                        disminuir={disminuir}
-                                    />
-                                )
-                            })
-                        )))}
+                            return (
+                                <ProductoMovimientoRow
+                                    key={p.id}
+                                    p={p}
+                                    seleccionado={seleccionado}
+                                    toggleProducto={toggleProducto}
+                                    ingresarCantidad={ingresarCantidad}
+                                    aumentar={aumentar}
+                                    disminuir={disminuir}
+                                />
+                            )
+                        })}
 
                     </tbody>
                 </table>
             </div>
             <div className="d-flex justify-content-end gap-3 mt-2">
-                <button className="btn btn-outline-secondary"type="button" onClick={limpiar}>Cancelar</button>
+                <button className="btn-light-hover" type="button" onClick={limpiar}>Cancelar</button>
                 <button 
-                    className="btn btn-primary d-flex align-items-center"
-                    disabled={enviando}
+                    className="btn btn-primary d-flex align-items-center rounded-1"
                     onClick={handleClick}
                 >
-                    {enviando ? (
-                        <>
-                            <span 
-                                className="spinner-border spinner-border-sm me-2" 
-                                role="status" 
-                                aria-hidden="true"
-                            ></span>
-                            Enviando...
-                        </>
-                    ) : (
-                        <>
-                        <Plus size={24} className="me-1" />
-                        Registrar Movimiento
-                        </>
-                    )}
+                    <Plus size={24} className="me-1" />
+                    Registrar Movimiento
                 </button>
             </div>
         </>

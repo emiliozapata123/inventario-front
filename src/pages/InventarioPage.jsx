@@ -82,7 +82,7 @@ const InventarioPage = () => {
                     </p>
                 </div>
                 <NavLink to={"/home/inventario/ingresar/producto"}
-                    className="btn btn-primary"
+                    className="btn btn-primary rounded-1"
                     >
                     <i className="bi bi-plus-lg me-2"></i>
                     Ingresar Producto
@@ -100,7 +100,7 @@ const InventarioPage = () => {
                                     <th>Producto</th>
                                     <th>Bodega</th>
                                     <th className="text-center">Cantidad</th>
-                                    <th className="text-center">Stock Minimo</th>
+                                    <th className="text-center text-nowrap">Stock Minimo</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -115,7 +115,7 @@ const InventarioPage = () => {
                                 inventario.length === 0 ? (
                                     <tr>
                                         <td colSpan="5" className="text-center py-4 text-muted">
-                                            No hay productos en el inventario de bodega
+                                            No hay productos en el inventario
                                         </td>
                                     </tr>
                                 ):(

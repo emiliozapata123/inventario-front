@@ -5,12 +5,16 @@ import ActivoList from "../components/activos/ActivoList";
 import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import Loading from "../components/layout/Loading";
 import FiltrosActivosAsignados from "../components/activos/FiltroActivosAsignados";
+import ModalEliminar from "../components/layout/ModalEliminar";
 
 const ActivoPage = () => {
     const [activos, setActivos] = useState([]);
+    const [activo, setActivo] = useState({});
     const [editandoId, setEditandoId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [enviando, setEnviando] = useState(false);
+    const [eliminando, setEliminando] = useState(false);
+    const [mostrarModal, setMostrarModal] = useState(false);
     const [filtros, setFiltros] = useState({
        busqueda:"",
        fecha:"",
@@ -20,10 +24,9 @@ const ActivoPage = () => {
        ubicacion:""
     });
 
-
     useEffect(()=> {
         getActivos();
-    },[]);
+    }, []);
 
     const actualizarFiltro = (name,value) => {
         setFiltros((prev) => ({
@@ -120,12 +123,13 @@ const ActivoPage = () => {
     const updateActivo = async (id,data) => {
         if (enviando) return;
         
-        setEnviando(false);
+        setEnviando(true);
         try {
             await api(`api/activo/${id}/update/`,"PATCH", data);
-            setEditandoId(null);
             NotifySuccess("Activo actualizado correctamente.");
             getActivos();
+            setEditandoId(null);
+
 
         } catch (error) {
             console.error(error)
@@ -133,6 +137,26 @@ const ActivoPage = () => {
         } finally {
             setEnviando(false);
         }
+    }
+
+    const deleteActivo = async (id) => {
+        if (eliminando) return;
+
+        setEliminando(true);
+        try {
+            await api(`api/activo/${id}/delete/`, "DELETE");
+            NotifySuccess("Activo eliminado correctamente.");
+            setMostrarModal(false);
+            getActivos();
+
+        } catch (error) {
+            console.error(error);
+            NotifyError("Error al eliminar activo.");
+
+        } finally {
+            setEliminando(false);
+        }
+
     }
 
     return(
@@ -147,13 +171,13 @@ const ActivoPage = () => {
                 <div className="d-flex gap-2">
                     <NavLink
                         to={"/home/activos/resumen"}
-                        className="btn btn-success"
+                        className="btn btn-success rounded-1"
                         >
                         Ver resumen Activos
                     </NavLink>
                     <NavLink
                         to={"/home/activos/registrar"}
-                        className="btn btn-primary"
+                        className="btn btn-primary rounded-1"
                         >
                         <i className="bi bi-plus-lg me-2"></i>
                         Registrar Activo
@@ -206,6 +230,7 @@ const ActivoPage = () => {
                                         setEditandoId={setEditandoId}
                                         onUpdate={updateActivo}
                                         enviando={enviando}
+                                        setMostrarModal={()=> {setMostrarModal(true); setActivo(a)}}
                                     />
                                 )))
                             )}
@@ -213,6 +238,9 @@ const ActivoPage = () => {
                     </table>
                 </div>
             </section>
+            {mostrarModal && (
+                <ModalEliminar data={activo} message={"Activo"} setMostrarModal={setMostrarModal} onDelete={deleteActivo} enviando={eliminando}/>
+            )}
         </div>
     )
 }

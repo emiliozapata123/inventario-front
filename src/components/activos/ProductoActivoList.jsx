@@ -111,7 +111,7 @@ const ProductoActivoList = () => {
 
                     <input
                         type="text"
-                        className="form-control ps-5"
+                        className="form-control ps-5 rounded-1"
                         placeholder="Buscar productos por tipo y marca..."
                         value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)}

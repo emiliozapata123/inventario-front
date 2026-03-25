@@ -12,8 +12,8 @@ const MovimientoList = ({movimiento}) => {
                     {movimiento?.movimiento.tipo}
                 </span>
             </td>
-            <td>{movimiento?.movimiento.fechaMovimiento}</td>
-            <td>{!movimiento?.movimiento.fechaEntrega ?<span className="badge bg-light text-dark border">—</span>: movimiento.movimiento.fechaEntrega}</td>
+            <td className="text-center">{movimiento?.movimiento.fechaMovimiento}</td>
+            <td className="text-center">{!movimiento?.movimiento.fechaEntrega ?<span className="badge bg-light text-dark border">—</span>: movimiento.movimiento.fechaEntrega}</td>
             
             <td>{movimiento?.movimiento.bodega.nombre}</td>
             <td>{movimiento?.producto.nombre}</td>

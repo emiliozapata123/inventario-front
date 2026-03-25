@@ -104,7 +104,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                     {producto.id === editandoId ? (
                         <>
                             <button 
-                                className="btn btn-success d-flex justify-content-center align-items-center"
+                                className="btn btn-success d-flex justify-content-center align-items-center rounded-1"
                                 disabled={enviando}
                                 onClick={guardarEdicion}
                             >
@@ -124,18 +124,18 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                                     </>
                                 )}
                             </button>
-                            <button className="btn btn-outline-danger d-flex justify-content-center" onClick={cancelarEdicion}>
+                            <button className="btn btn-outline-danger d-flex justify-content-center rounded-1" onClick={cancelarEdicion}>
                                 <X size={24}/>
                                 Cancelar
                             </button>
                         </>
                     ):(
                         <>
-                        <button className="d-flex align-items-center gap-1 btn btn-warning" onClick={()=> setEditandoId(producto.id)}>
+                        <button className="d-flex align-items-center gap-1 btn btn-warning rounded-1" onClick={()=> setEditandoId(producto.id)}>
                             <Pencil/>
                             Editar
                         </button>
-                        <button className="d-flex align-items-center gap-1 btn btn-danger" onClick={setMostrarModal}>
+                        <button className="d-flex align-items-center gap-1 btn btn-danger rounded-1" onClick={setMostrarModal}>
                             <Trash/>
                             Eliminar
                         </button>

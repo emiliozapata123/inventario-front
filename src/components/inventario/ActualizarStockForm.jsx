@@ -134,14 +134,14 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
 
                     <div className="modal-footer border-0">
                         <button 
-                            className="btn btn-outline-secondary"
+                            className="btn btn-light-hover"
                             onClick={() => setMostrarModal(false)}
                         >
                             Cancelar
                         </button>
 
                         <button 
-                            className="btn btn-primary d-flex align-items-center"
+                            className="btn btn-primary justify-content-center d-flex rounded-1 w-25"
                             disabled={enviando}
                             onClick={handleOnClick}
                         >

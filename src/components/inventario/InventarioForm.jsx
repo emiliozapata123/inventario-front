@@ -7,17 +7,27 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import InventarioHeader from "./InventarioHeader";
 import InventarioTableHeader from "./InventarioTableHeader";
+import PrevisualizacionMovimiento from "../movimiento/PrevisualizacionMovimiento";
 
 const InventarioForm = () => {
     const {mensaje, cargarMensaje} = useMensaje();
     const [busqueda, setBusqueda] = useState("");
     const [enviando, setEnviando] = useState(false);
+    const [previsualizacion, setPrevisualizacion] = useState(false);
+    const [movimiento, setMovimiento] = useState({
+        productos:[],
+        bodega:"",
+        fechaEntrega:""
+    });
+
     const [formulario, setFormulario] = useState({
         productos:[],
         bodega:"",
         fechaEntrega:""
     });
     const navigate = useNavigate();
+
+    console.log("movimiento: ",movimiento)
 
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);
@@ -26,10 +36,16 @@ const InventarioForm = () => {
         }, 3000);
     }
 
-    const handleChange = (name, valor) => {
+    const handleChange = (name, value) => {
         setFormulario(prev => ({
             ...prev,
-            [name]:name==="fechaEntrega"?valor: Number(valor)
+            [name]:name==="fechaEntrega"? value: Number(value.id)
+        }));
+
+        setMovimiento(prev => ({
+            ...prev,
+            [name]:value
+
         }));
     };
 
@@ -40,10 +56,13 @@ const InventarioForm = () => {
         try {
             await api("api/inventario/ingresar/producto/","POST",data);
             limpiarFormulario();
+            setPrevisualizacion(false);
             NotifySuccess("Productos ingresados al inventario correctamente.");
 
         } catch (error) {
             console.error(error)
+            NotifyError("Error al ingresar producto a inventario.");
+
         } finally {
             setEnviando(false);
         }
@@ -55,11 +74,14 @@ const InventarioForm = () => {
             bodega:"",
             fechaEntrega:""
         });
+        setMovimiento({
+            productos:[],
+            bodega:"",
+            fechaEntrega:""
+        });
     }
 
-    const handleClick = async (e) => {
-        e.preventDefault();
-
+    const handleOnClick = () => {
         let campoValido = true;
 
         if (formulario.productos.length === 0){
@@ -87,9 +109,14 @@ const InventarioForm = () => {
 
         if (!campoValido) return;
 
+        setPrevisualizacion(true);
+
+    }
+
+    const handleConfirmar = () => {
         agregarProductoBodega(formulario);
-      
-    };
+
+    }
 
     return (
         <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
@@ -112,20 +139,29 @@ const InventarioForm = () => {
                 <InventarioTableHeader 
                     setBusqueda={setBusqueda} 
                     busqueda={busqueda} 
-                    handleClick={handleClick}
+                    setPrevisualizacion={setPrevisualizacion}
                     limpiarFormulario={limpiarFormulario}
                     enviando={enviando}
-
+                    handleOnClick={handleOnClick}
                 />
 
                 <IngresoMultipleProductos
                     seleccionados={formulario.productos}
                     setSeleccionados={setFormulario}
+                    setMovimiento={setMovimiento}
                     limpiarFormulario={limpiarFormulario}
-                    handleClick={handleClick}
                     busqueda={busqueda}
                 />
             </div>
+            {previsualizacion && (
+                <PrevisualizacionMovimiento 
+                    setPrevisualizacion={setPrevisualizacion} 
+                    movimiento={movimiento}
+                    handleConfirmar={handleConfirmar}
+                    enviando={enviando}
+                    action={"entrada"}
+                />
+            )}
         </div>
     );
 };

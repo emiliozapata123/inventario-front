@@ -93,7 +93,7 @@ const UsuarioPage = () => {
                     </p>
                 </div>
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-primary rounded-1"
                     onClick={() => setMostrarModal("crear")}
                     >
                     <i className="bi bi-plus-lg me-2"></i>
@@ -108,7 +108,7 @@ const UsuarioPage = () => {
 
                     <input
                         type="text"
-                        className="form-control ps-5"
+                        className="form-control ps-5 rounded-1"
                         placeholder="Buscar usuarios..."
                         value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)}

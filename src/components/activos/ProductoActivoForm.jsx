@@ -25,14 +25,16 @@ const ProductoActivoForm = ({ addProductoActivo, cargando }) => {
         }));
     }
 
-    const handleOnClick = () => {
+    const handleOnClick = async () => {
 
         if (!formulario.tipoProducto) {
             danger("tipoProducto","ingrese el tipo de producto");
             return;
         }
-        addProductoActivo(formulario);
-        setFormulario({});
+        const creado = await addProductoActivo(formulario);
+        if (creado) {
+            setFormulario({});
+        }
     }
 
     return (
@@ -88,7 +90,7 @@ const ProductoActivoForm = ({ addProductoActivo, cargando }) => {
                     </div>
                     <div className="d-flex justify-content-end gap-2">
                         <button 
-                            className="btn btn-primary d-flex align-items-center"
+                            className="btn btn-primary d-flex align-items-center rounded-1"
                             disabled={cargando}
                             onClick={handleOnClick}
                         >
@@ -110,7 +112,7 @@ const ProductoActivoForm = ({ addProductoActivo, cargando }) => {
                         </button>
                         <NavLink 
                             to={"/home/activos/productos/list"}
-                            className="btn btn-success d-flex align-items-center gap-2" 
+                            className="btn btn-success d-flex align-items-center gap-2 rounded-1" 
                             onClick={handleOnClick}>
                             <ListUl size={22}/>
                             Ver Listado

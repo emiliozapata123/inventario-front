@@ -29,7 +29,7 @@ const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoI
             <td>
                 {editandoId === bodega.id ? (
                     <input
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={nombre}
                         onChange={(e)=> setNombre(e.target.value)}
                     />

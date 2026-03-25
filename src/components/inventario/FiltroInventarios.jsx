@@ -11,7 +11,7 @@ const FiltroInventario = ({ actualizarBusqueda, busqueda }) => {
                 </span>
                 <input
                     type="text"
-                    className="form-control ps-5"
+                    className="form-control ps-5 rounded-1"
                     placeholder="Buscar Producto..."
                     value={busqueda?.producto}
                     onChange={(e) => actualizarBusqueda("producto",e.target.value)}
@@ -19,7 +19,7 @@ const FiltroInventario = ({ actualizarBusqueda, busqueda }) => {
             </div>
             <div className="col-md-6">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary w-100 dropdown-toggle rounded-1" data-bs-toggle="dropdown">
                         {!busqueda.bodega?"Filtrar Por Bodega":busqueda.bodega}
                     </button>
 

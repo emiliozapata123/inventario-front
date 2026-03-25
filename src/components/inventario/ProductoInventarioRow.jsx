@@ -9,7 +9,7 @@ const ProductoInventarioRow = ({
     ingresarCantidad, 
     aumentarStockMinimo, 
     ingresarStockMinimo, 
-    disminuirStockMinimo }) => {
+    disminuirStockMinimo}) => {
 
     return (
         <tr key={producto.id} className={seleccionado ? "table-success" : ""}>
@@ -18,7 +18,7 @@ const ProductoInventarioRow = ({
                     type="checkbox"
                     className="form-check-input fs-5"
                     checked={!!seleccionado}
-                    onChange={()=> handleSelected(producto.id)}
+                    onChange={()=> handleSelected(producto)}
                 />
             </td>
             <td>{producto.nombre}</td>

@@ -30,16 +30,15 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
             </div>
 
             <div className="user-card p-3 mb-4">
-                <div className="d-flex align-items-center mb-2">
+                <div className="d-flex gap-2 align-items-center mb-2">
                     <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
                         style={{width:"35px",height:"35px"}}>
                         {user?.nombre.charAt(0).toUpperCase()}
                     </div>
-        
-                <span className="fw-semibold">{user?.nombre}</span>
+                    <span className="fw-semibold">{user?.nombre}</span>
                 </div>
                 <button 
-                    className="btn btn-sm btn-blue mt-3 w-100"
+                    className="btn btn-sm btn-blue mt-3 w-100 rounded-4"
                     onClick={() => setMostrarModal(true)}
                 >
                     Cambiar contraseña

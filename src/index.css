@@ -1,6 +1,6 @@
 .container {
   background-color: #f3f4f6;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 .show{
   background-color:  rgba(0,0, 0, .3);
@@ -122,4 +122,17 @@ select.form-select {
 .dropdown-scroll{
     max-height: 20rem;
     overflow-y: auto;
+}
+
+.btn-light-hover {
+  background-color: transparent;
+  color: #000000;
+  transition: all 0.2s ease;
+  border: 0;
+  border-radius: .2rem;
+}
+
+.btn-light-hover:hover {
+  background-color: #d8d9da;  /* Gris muy claro */
+  color: #000000;
 }

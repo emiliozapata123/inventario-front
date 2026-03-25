@@ -118,27 +118,27 @@ const ProductoPage = () => {
                 </div>
 
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-primary rounded-1"
                     onClick={() => setMostrarModal("form")}
                     >
                     <i className="bi bi-plus-lg me-2"></i>
                     Nuevo Producto
                 </button>
             </div>
-            <section className="card border-0 shadow-sm p-2">
+            <section className="card shadow-sm border-0 p-2">
                 <div className="mb-2 position-relative">
                     <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
                         <i className="bi bi-search"></i>
                     </span>
                     <input
                         type="text"
-                        className="form-control ps-5"
+                        className="form-control ps-5 rounded-1"
                         placeholder="Buscar Productos..."
                         value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
                 </div>
-                <div className="card table-responsive table-scroll-y">
+                <div className="card table-scroll-y table-responsive">
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
@@ -169,12 +169,12 @@ const ProductoPage = () => {
                                             </td>
                                         </tr>
                                     ):(
-                                         busquedaProductos.map(p => (
-                                            <ProductoList 
-                                                key={p.id} 
-                                                producto={p} 
-                                                setMostrarModal={(action)=> {setMostrarModal(action); setProducto(p)}}
-                                            />
+                                        busquedaProductos.map(p => (
+                                        <ProductoList 
+                                            key={p.id} 
+                                            producto={p} 
+                                            setMostrarModal={(action)=> {setMostrarModal(action); setProducto(p)}}
+                                        />
                                    ))
                                 ))
                             )}

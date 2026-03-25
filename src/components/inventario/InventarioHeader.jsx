@@ -10,7 +10,7 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                     <div className="col-md-6">
                         <label>Bodega donde se guardarán los productos</label>
                         <div className="dropdown">
-                            <button className={`btn btn-outline-primary w-100 dropdown-toggle ${mensaje.bodega ? "btn-outline-danger":""}`}data-bs-toggle="dropdown">
+                            <button className={`btn btn-outline-primary rounded-1 w-100 dropdown-toggle ${mensaje.bodega ? "btn-outline-danger":""}`}data-bs-toggle="dropdown">
                                 {!formulario.bodega?"Seleccionar Bodega":bodegas.find((b)=> b.id === formulario.bodega)?.nombre}
                             </button>
 
@@ -19,7 +19,7 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                                     <li key={b.id}>
                                         <button 
                                             className="dropdown-item" 
-                                            onClick={()=> handleChange("bodega",b.id)}
+                                            onClick={()=> handleChange("bodega",b)}
                                         >
                                             {b?.nombre}
                                         </button>
@@ -34,7 +34,7 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                         <label className="fw-semibold">Fecha de entrega</label>
                         <input
                             type="date"
-                            className={`form-control ${mensaje.fechaEntrega?"is-invalid":""}`}
+                            className={`form-control rounded-1 ${mensaje.fechaEntrega?"is-invalid":""}`}
                             value={formulario.fechaEntrega}
                             onChange={(e)=> handleChange("fechaEntrega",e.target.value)}
                         />

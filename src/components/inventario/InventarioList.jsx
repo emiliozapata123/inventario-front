@@ -13,7 +13,7 @@ const InventarioList = ({ item, setMostrarModal }) => {
             </td>
             <td>
                 <div>
-                    <button className="btn btn-success " onClick={()=> setMostrarModal(item)}>
+                    <button className="btn btn-success rounded-1 d-flex btn-sm align-items-center" onClick={()=> setMostrarModal(item)}>
                         <Plus size={24}/>
                         Stock
                     </button>

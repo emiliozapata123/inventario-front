@@ -68,7 +68,7 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
                             <label className="fw-semibold">Nombre del Producto</label>
                             <input
                                 type="text"
-                                className={`form-control ${mensaje.nombre?"is-invalid":""}`}
+                                className={`form-control rounded-1 ${mensaje.nombre?"is-invalid":""}`}
                                 value={formulario.nombre}
                                 placeholder="Ingrese nombre de producto"
                                 onChange={(e)=> handleChange("nombre",e.target.value)}
@@ -78,7 +78,7 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
                         <div className="mb-3">
                             <label className="fw-semibold">Descripcion de Producto</label>
                             <textarea
-                                className={`form-control ${mensaje.descripcion?"is-invalid":""}`}
+                                className={`form-control rounded-1 ${mensaje.descripcion?"is-invalid":""}`}
                                 rows="2"
                                 value={formulario.descripcion}
                                 placeholder="Descripción detallada del producto..."
@@ -86,16 +86,16 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
                             ></textarea>
                             <div className="invalid-feedback d-block">{mensaje.descripcion}</div>
                         </div>
-                        <div className="d-flex justify-content-center gap-3">
+                        <div className="d-flex justify-content-end gap-2 flex-wrap">
                             <button 
-                                className="btn btn-outline-secondary w-100"
+                                className="btn-light-hover w-25"
                                 disabled={enviando}
                                 type="button" onClick={()=> setMostrarModal(false)}
                             >
                                 Cancelar
                             </button>
                             <button 
-                                className="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                                className="btn btn-primary d-flex justify-content-center align-items-center w-auto rounded-1"
                                 disabled={enviando}
                             >
                                 {enviando ? (
@@ -119,7 +119,6 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
             </div>
         </form>
     )
-
 }
 export default ProductoForm;
 

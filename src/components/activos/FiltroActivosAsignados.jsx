@@ -10,9 +10,9 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
                         <Search/>
                     </span>
                     <input
-                        className="form-control ps-5"
+                        className="form-control ps-5 rounded-1"
                         value={filtros.busqueda}
-                        placeholder="Busqueda rapida"
+                        placeholder="Busqueda rapida..."
                         onChange={(e) => actualizarFiltro("busqueda",e.target.value)}
                     />
                 </div>
@@ -20,7 +20,7 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
             <div className="col-md-2">
                 <input
                     type="date"
-                    className="form-control ps-5"
+                    className="form-control ps-5 rounded-1"
                     value={filtros.fecha}
                     placeholder="Filtrar por fecha"
                     onChange={(e) => actualizarFiltro("fecha",e.target.value)}
@@ -28,7 +28,7 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
             </div>
             <div className="col-md-2">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.numero?"Estado de inventario":filtros.numero}
                     </button>
 
@@ -62,7 +62,7 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
             </div>
             <div className="col-md-2">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.usuario?"Asignacion de usuario":filtros.usuario}
                     </button>
 
@@ -96,7 +96,7 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
             </div>
             <div className="col-md-2">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.cargo?"Asignacion de cargo":filtros.cargo}
                     </button>
 
@@ -130,7 +130,7 @@ const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
             </div>
             <div className="col-md-2">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.ubicacion?"Por ubicacion":filtros.ubicacion}
                     </button>
 

@@ -59,7 +59,7 @@ const UsuarioForm = ({usuario, addUsuario, setMostrarModal, enviando}) => {
                             <label className="fw-semibold">Nombre Completo</label>
                             <input
                                 type="text"
-                                className={`form-control ${mensaje.nombre?"is-invalid":""}`}
+                                className={`form-control rounded-1 ${mensaje.nombre?"is-invalid":""}`}
                                 value={formulario.nombre}
                                 placeholder="Ingrese nombre completo"
                                 onChange={(e)=> handleChange("nombre",e.target.value)}
@@ -71,7 +71,7 @@ const UsuarioForm = ({usuario, addUsuario, setMostrarModal, enviando}) => {
                             <label className="fw-semibold">Correo Electronico</label>
                             <input
                             type="text"
-                            className={`form-control ${mensaje.correo?"is-invalid":""}`}
+                            className={`form-control rounded-1 ${mensaje.correo?"is-invalid":""}`}
                             value={formulario.correo}
                             placeholder="Ingrese correo electronico"
                             onChange={(e)=> handleChange("correo",e.target.value)}
@@ -79,10 +79,10 @@ const UsuarioForm = ({usuario, addUsuario, setMostrarModal, enviando}) => {
                             <div className="invalid-feedback d-block">{mensaje.correo}</div>
                         </div>
                         
-                        <div className="d-flex justify-content-center gap-3">
-                            <button className="btn btn-outline-secondary w-100"type="button" onClick={()=> setMostrarModal(false)}>Cancelar</button>
+                        <div className="d-flex justify-content-end gap-2">
+                            <button className="btn-light-hover w-25"type="button" onClick={()=> setMostrarModal(false)}>Cancelar</button>
                             <button 
-                                className="btn btn-primary d-flex justify-content-center align-items-center w-100"
+                                className="btn btn-primary d-flex justify-content-center align-items-center w-auto rounded-1"
                                 disabled={enviando}
                             >
                                 {enviando ? (

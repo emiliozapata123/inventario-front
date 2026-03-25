@@ -59,7 +59,7 @@ const MovimientoPage = () => {
                     Historial de movimientos
                 </p>
                 </div>
-                <NavLink to={"/home/movimiento/form"} className="btn btn-primary">
+                <NavLink to={"/home/movimiento/form"} className="btn btn-primary rounded-1">
                     <i className="bi bi-plus-lg me-2"></i>
                     Registrar Consumo
                 </NavLink>
@@ -72,9 +72,9 @@ const MovimientoPage = () => {
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
-                                <th className="text-center">Tipo Movimiento</th>
-                                <th>Fecha Movimiento</th>
-                                <th>Fecha Entrega</th>
+                                <th className="text-center text-nowrap">Tipo Movimiento</th>
+                                <th className="text-nowrap text-center">Fecha Movimiento</th>
+                                <th className="text-nowrap text-center">Fecha Entrega</th>
                                 <th>Bodega</th>
                                 <th>Producto</th>
                                 <th className="text-center">Cantidad</th>

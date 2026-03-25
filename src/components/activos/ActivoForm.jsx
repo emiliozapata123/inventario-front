@@ -66,10 +66,12 @@ const ActivoForm = () => {
             await api("api/activo/producto/create/", "POST", data);
             NotifySuccess("Procucto Activo creado.");
             cargarProductos();
+            return true;
 
         } catch (error) {
             console.error(error);
-
+            return false;
+            
         } finally {
             setCargando(false);
         }
@@ -213,7 +215,7 @@ const ActivoForm = () => {
                         </div>
                         <div className="d-flex justify-content-start gap-2">
                             <button 
-                                className="btn btn-primary d-flex align-items-center"
+                                className="btn btn-primary d-flex align-items-center rounded-1 w-auto"
                                 disabled={enviando}
                                 onClick={handleOnClick}
                             >
@@ -233,7 +235,7 @@ const ActivoForm = () => {
                                     </>
                                 )}
                             </button>
-                            <button className="btn btn-outline-secondary" onClick={limpiarFormulario}>
+                            <button className="btn-light-hover w-auto" onClick={limpiarFormulario}>
                                 Cancelar
                             </button>
                         </div>

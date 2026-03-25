@@ -8,14 +8,14 @@ const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
             <div className="col-md-4">
                 <input
                     type="date"
-                    className="form-control ps-5"
+                    className="form-control ps-5 rounded-1"
                     value={filtros.fecha}
                     onChange={(e) => actualizarFiltro("fecha",e.target.value)}
                 />
             </div>
             <div className="col-md-4">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.tipo?"Filtrar por tipo movimiento":filtros.tipo}
                     </button>
 
@@ -50,7 +50,7 @@ const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
             
             <div className="col-md-4">
                 <div className="dropdown">
-                    <button className="btn btn-outline-primary w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                    <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
                         {!filtros.bodega?"Filtrar Por Bodega":filtros.bodega}
                     </button>
 

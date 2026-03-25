@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NotifyError } from "../notify/Notify";
 import { Save, X} from "react-bootstrap-icons";
 
-const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) => {
+const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, setMostrarModal }) => {
     const [formulario, setFormulario] = useState({});
 
     useEffect(()=> {
@@ -68,7 +68,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                        type="text"
                        name="numeroInventario"
-                       className="form-control p-1"
+                       className="form-control p-1 rounded-1"
                        value={formulario.numeroInventario}
                        onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -81,7 +81,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                         type="text"
                         name="numeroSerie"
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={formulario.numeroSerie}
                         onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -101,7 +101,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                         type="text"
                         name="ubicacion"
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={formulario.ubicacion}
                         onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -114,7 +114,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                         type="text"
                         name="usuario"
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={formulario.usuario}
                         onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -128,7 +128,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                         type="text"
                         name="cargo"
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={formulario.cargo}
                         onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -142,7 +142,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                     <input
                         type="date"
                         name="fechaEntrega"
-                        className="form-control p-1"
+                        className="form-control p-1 rounded-1"
                         value={formulario.fechaEntrega}
                         onChange={(e)=> iniciarEdicion(e)}
                     />
@@ -151,7 +151,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                 )}
             </td>
             <td>
-                <div className="d-flex gap-2 justify-content-center">
+                <div className="d-flex gap-1 justify-content-center">
                     {editandoId === activo.id ? (
                         <>  <button
                                 className="btn btn-success btn-sm"
@@ -177,9 +177,16 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando }) =
                         </>
                         
                     ):(
+
+                        <>
                         <button className="btn btn-warning d-flex gap-2" onClick={()=> setEditandoId(activo.id)}>
                             <i className="bi bi-pencil"></i>
                         </button>
+                        <button className="btn btn-danger d-flex gap-2" onClick={setMostrarModal}>
+                            <i className="bi bi-trash"></i>
+                        </button>
+                        </>
+                        
                     )}
                     
                 </div>

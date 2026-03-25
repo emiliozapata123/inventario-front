@@ -5,7 +5,7 @@ const UsuarioList = ({user, currentUser, setMostrarModal}) => {
             <td>{user.correo}</td>
             
             <td>
-                <button onClick={setMostrarModal} className={`btn btn-danger d-flex gap-1 
+                <button onClick={setMostrarModal} className={`btn btn-danger rounded-1 d-flex gap-1 
                     ${user.id === currentUser.id ? "disabled" :""}`
                 }>
                     <i className="bi bi-trash"></i>

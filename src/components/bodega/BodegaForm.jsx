@@ -31,7 +31,7 @@ const BodegaForm = ({ addBodega, enviando }) => {
             <div className="col">
                 <input
                     type="text"
-                    className={`form-control ${mensaje.nombre?"is-invalid":""}`}
+                    className={`form-control rounded-1 ${mensaje.nombre?"is-invalid":""}`}
                     value={nombre}
                     placeholder="Ingrese nombre de la bodega"
                     onChange={(e)=> setNombre(e.target.value)}
@@ -40,7 +40,7 @@ const BodegaForm = ({ addBodega, enviando }) => {
             </div>  
             <div className="col-auto">
                 <button 
-                    className="btn btn-primary d-flex align-items-center"
+                    className="btn btn-primary d-flex align-items-center rounded-1"
                     disabled={enviando}
                     onClick={handleOnClick}
                 >

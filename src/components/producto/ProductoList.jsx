@@ -1,16 +1,18 @@
+import { Pencil, Trash } from "react-bootstrap-icons";
+
 const ProductoList = ({producto, setMostrarModal}) => {
     return (
         <tr>
             <td>{producto.nombre}</td>
             <td>{!producto.descripcion ? <span className="badge bg-light text-dark border">—</span>:producto.descripcion}</td>
             <td>
-                <div className="d-flex gap-1 justify-content-center">
-                    <button className="btn btn-warning" onClick={()=> setMostrarModal("update")}>
-                        <i className="bi bi-pencil me-2"></i>
+                <div className="d-flex gap-1">
+                    <button className="btn btn-warning rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("update")}>
+                        <Pencil className="me-2"/>
                         Editar
                     </button>
-                    <button className="btn btn-danger" onClick={()=> setMostrarModal("delete")}>
-                        <i className="bi bi-trash me-2"></i>
+                    <button className="btn btn-danger rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("delete")}>
+                        <Trash  className="me-2"/>
                         Eliminar
                     </button>
                 </div>

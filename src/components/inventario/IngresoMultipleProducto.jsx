@@ -3,7 +3,7 @@ import Loading from "../layout/Loading";
 import ProductoInventarioRow from "./ProductoInventarioRow";
 import api from "../../services/Api";
 
-const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda}) => {
+const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, setMovimiento }) => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -27,14 +27,21 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda}) 
 
     const busquedaProductos = productos?.filter((p)=> p?.nombre?.toLowerCase().includes(busqueda?.toLowerCase()));
 
-    const handleSelected = (id) => {
+    const handleSelected = (producto) => {
+        const id = producto.id;
+
         setSeleccionados((prev) => ({
             ...prev,
-            productos:
-                prev.productos.some(p => p.id === id) ? prev.productos.filter(p => p.id !== id):
-                [...prev.productos,
-                    {id,cantidad:1,stockMinimo:0}
-                ]
+            productos:prev.productos.some(p => p.id === id) 
+                ? prev.productos.filter(p => p.id !== id)
+                : [...prev.productos, {id,cantidad:1,stockMinimo:0}]
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:prev.productos.some(p => p.id === id) 
+                ? prev.productos.filter(p => p.id !== id) 
+                : [...prev.productos, {id, producto, cantidad:1, stockMinimo:0}]
         }));
     };
 
@@ -42,54 +49,97 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda}) 
         setSeleccionados((prev) => ({
             ...prev,
             productos: 
-            prev.productos.map(p => p.id === id ? {
-            ...p,
-            cantidad:p.cantidad+1
-            }:p)}
-        ));
+            prev.productos.map(p => p.id === id 
+                ? {...p, cantidad:p.cantidad+1}
+                : p
+            )
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:
+            prev.productos.map(p => p.id === id 
+                ? {...p, cantidad:p.cantidad+1}
+                : p
+            )
+        }));
     }
 
     const disminuir = (id) => {
         setSeleccionados((prev) => ({
             ...prev,
             productos:
-            prev.productos.map(p => p.id === id && p.cantidad > 1 ? {
-                ...p,
-                cantidad:p.cantidad-1
-            }:p)}
-        ));
+            prev.productos.map(p => p.id === id && p.cantidad > 1 
+                ? {...p, cantidad:p.cantidad-1}
+                : p
+            )
+        }));
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:
+            prev.productos.map(p => p.id === id 
+                ? {...p, cantidad:p.cantidad-1}
+                : p
+            )
+        }));
+
     };
 
     const aumentarStockMinimo = (id) => {
         setSeleccionados((prev) => ({
             ...prev,
             productos: 
-            prev.productos.map(p => p.id === id ? {
-            ...p,
-            stockMinimo:p.stockMinimo+1
-            }:p)}
-        ));
+            prev.productos.map(p => p.id === id 
+                ? {...p, stockMinimo:p.stockMinimo+1}
+                : p
+            )
+        }));
+        setMovimiento((prev) => ({
+            ...prev,
+            productos: 
+            prev.productos.map(p => p.id === id 
+                ? {...p, stockMinimo:p.stockMinimo+1}
+                : p
+            )
+        }));
     }
 
     const disminuirStockMinimo = (id) => {
         setSeleccionados((prev) => ({
             ...prev,
             productos:
-            prev.productos.map(p => p.id === id && p.stockMinimo > 0 ? {
-                ...p,
-                stockMinimo:p.stockMinimo-1
-            }:p)}
-        ));
+            prev.productos.map(p => p.id === id && p.stockMinimo > 0 
+                ? {...p, stockMinimo:p.stockMinimo-1}
+                : p
+            )
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:
+            prev.productos.map(p => p.id === id && p.stockMinimo > 0 
+                ? {...p, stockMinimo:p.stockMinimo-1}
+                : p
+            )
+        }));
     };
 
     const ingresarStockMinimo = (id, stockMinimo) => {
         setSeleccionados((prev) => ({
             ...prev,
             productos:
-            prev.productos.map((p)=> p.id === id ? {
-                ...p,
-                stockMinimo:Number(stockMinimo)
-            }:p)
+            prev.productos.map((p)=> p.id === id 
+                ? {...p, stockMinimo:Number(stockMinimo)}
+                : p
+            )
+        }));
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:
+            prev.productos.map((p)=> p.id === id 
+                ? {...p, stockMinimo:Number(stockMinimo)}
+                : p
+            )
         }));
     }
 
@@ -97,10 +147,19 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda}) 
         setSeleccionados((prev) => ({
             ...prev,
             productos:
-            prev.productos.map(p => p.id === id ? {
-                ...p,
-                cantidad: Number(cantidad)
-            }:p)
+            prev.productos.map(p => p.id === id 
+                ? {...p, cantidad: Number(cantidad)}
+                : p
+            )
+        }));
+
+        setMovimiento((prev) => ({
+            ...prev,
+            productos:
+            prev.productos.map(p => p.id === id 
+                ? {...p, cantidad: Number(cantidad)}
+                : p
+            )
         }));
     }
 

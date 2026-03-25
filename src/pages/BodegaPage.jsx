@@ -108,7 +108,7 @@ const BodegaPage = () => {
                             </span>
                             <input
                                 type="text"
-                                className="form-control ps-5"
+                                className="form-control ps-5 rounded-1"
                                 placeholder="Buscar Bodegas..."
                                 value={busqueda}
                                 onChange={(e) => setBusqueda(e.target.value)}

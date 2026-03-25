@@ -31,10 +31,10 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
 
                     </div>
 
-                    <div className="d-flex border-0 d-flex gap-3">
+                    <div className="d-flex border-0 justify-content-end gap-2">
 
                         <button
-                            className="btn btn-outline-secondary w-100"
+                            className="w-25 btn-light-hover"
                             disabled={enviando}
                             onClick={() => setMostrarModal(false)}
                         >
@@ -42,7 +42,7 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
                         </button>
 
                         <button 
-                            className="btn btn-danger d-flex justify-content-center align-items-center w-100"
+                            className={`btn btn-danger ${enviando ? "w-auto":"w-25"} d-flex justify-content-center align-items-center rounded-1`}
                             disabled={enviando}
                             onClick={()=> onDelete(data.id)}
                         >
