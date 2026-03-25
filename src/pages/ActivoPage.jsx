@@ -194,16 +194,16 @@ const ActivoPage = () => {
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
-                                <th>Tipo Producto</th>
+                                <th className="text-nowrap">Tipo Producto</th>
                                 <th>Descripcion</th>
-                                <th>N° Inventario</th>
-                                <th>N° Serie</th>
+                                <th className="text-nowrap">N° Inventario</th>
+                                <th className="text-nowrap">N° Serie</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th>Ubicacion</th>
                                 <th>Usuario</th>
                                 <th>Cargo</th>
-                                <th>Fecha Entrega</th>
+                                <th className="text-nowrap">Fecha Entrega</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>

@@ -38,7 +38,7 @@ const Login = () => {
 
         } catch (error) {
             console.error(error);
-            NotifyError("Datos incorrectos.");
+            NotifyError("El correo electronico o la contraseña no son correctos. Intentalo de nuevo.");
         } finally {
             setEnviando(false);
         }
