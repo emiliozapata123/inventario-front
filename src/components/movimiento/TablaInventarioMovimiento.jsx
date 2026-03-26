@@ -3,7 +3,8 @@ import ProductoMovimientoRow from "./ProductoMovimientoRow";
 import { Plus } from "react-bootstrap-icons";
 
 const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda, setMovimiento}) => {
-    const busquedaProductos = productos?.filter((p)=> p?.producto?.nombre?.toLowerCase().includes(busqueda?.toLowerCase()));
+    const busquedaLower = busqueda?.toLowerCase();
+    const busquedaProductos = productos?.filter((p)=> p?.producto?.nombre?.toLowerCase().includes(busquedaLower));
 
     const toggleProducto = (producto) => {
         const id = producto.producto.id;
@@ -18,7 +19,6 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
             productos:prev.productos.some(p => p.id === id) ? prev.productos.filter(p => p.id !== id):
             [...prev.productos,{id,producto:producto.producto,cantidad:1}]
         }));
-
     }
 
     const aumentar = (id, stock) => {
@@ -87,13 +87,13 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
 
     return(
         <>
-            <div className="card table-responsive table-scroll mt-2" style={{maxHeight:"27rem",overflow:"auto"}}>
-                <table className="table table-hover">
+            <div className="card table-responsive table-scroll" style={{maxHeight:"27rem",overflow:"auto"}}>
+                <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>
                             <th></th>
                             <th>Producto</th>
-                            <th className="text-center">Cantidad Disponible</th>
+                            <th className="text-center text-nowrap">Cantidad Disponible</th>
                             <th>Descripcion</th>
                             <th className="text-center">Cantidad</th>
                         </tr>
@@ -101,20 +101,20 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="5" className="text-center py-5">
+                                <td colSpan="5" className="text-center">
                                     <Loading/>
                                 </td>
                             </tr>
                             
                         ) : productos.length === 0 ? (
                             <tr>
-                                <td colSpan="5" className="text-center py-5">
+                                <td colSpan="5" className="text-center">
                                     Selecciona una bodega para mostrar productos
                                 </td>
                             </tr>
                         ) : busquedaProductos.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5" className="text-center py-5">
+                                    <td colSpan="5" className="text-center">
                                         No se encontraron productos
                                     </td>
                                 </tr>

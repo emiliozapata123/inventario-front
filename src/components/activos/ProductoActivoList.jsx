@@ -6,6 +6,7 @@ import ProcuctoActivoRow from "./ProductoActivoRow";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import ModalEliminar from "../layout/ModalEliminar";
+import BusquedaProductoHeader from "./BusquedaProductoHeader";
 
 
 const ProductoActivoList = () => {
@@ -29,10 +30,10 @@ const ProductoActivoList = () => {
         if (!busquedaLower) return true;
 
         const tipoProducto = p.tipoProducto.toLowerCase().includes(busquedaLower);
-
+        const descripcion = p.descripcion?.toLowerCase().includes(busquedaLower);
         const marca = p.marca?.toLowerCase().includes(busquedaLower);
-
-        return tipoProducto || marca;
+        const modelo = p.modelo?.toLowerCase().includes(busquedaLower);
+        return tipoProducto || descripcion || marca || modelo;
     });
 
     //productos de tipo activos
@@ -104,31 +105,19 @@ const ProductoActivoList = () => {
             </div>
             
             <section className="card border-0 shadow-sm p-2">
-                <div className="mb-2 position-relative">
-                    <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
-                        <i className="bi bi-search"></i>
-                    </span>
-
-                    <input
-                        type="text"
-                        className="form-control ps-5 rounded-1"
-                        placeholder="Buscar productos por tipo y marca..."
-                        value={busqueda}
-                        onChange={(e) => setBusqueda(e.target.value)}
-                    />
-                </div>
+                <BusquedaProductoHeader busqueda={busqueda} setBusqueda={setBusqueda}/>
+                
                 <div className="card table-responsive shadow-sm table-scroll-y">
-                    <table className={`table ${!editandoId ? "table-hover":""}`}>
+                    <table className={`table mb-0 ${!editandoId ? "table-hover":""}`}>
                         <thead className="bg-blue">
                             <tr>
-                                <th>Tipo de Producto</th>
+                                <th className="text-nowrap">Tipo de Producto</th>
                                 <th>Descripcion</th>
                                 <th className="text-center">Marca</th>
                                 <th className="text-center">Modelo</th>
                                 <th className="text-center">Acciones</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             {loading ? (
                                 <tr>

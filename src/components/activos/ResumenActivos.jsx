@@ -37,35 +37,34 @@ const ResumenActivos = () => {
             </div>
             
             <section className="card border-0 shadow-sm p-2 ms-3 me-3">
-            <div className="card table-responsive shadow-sm" style={{maxHeight:"36rem",overflow:"auto"}}>
-
-                <table className="table table-hover">
-                    <thead className="bg-blue">
-                        <tr>
-                            <th>Tipo de Producto</th>
-                            <th className="text-center">Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loading ? (
+                <div className="card table-responsive shadow-sm" style={{maxHeight:"36rem",overflow:"auto"}}>
+                    <table className="table table-hover mb-0">
+                        <thead className="bg-blue">
                             <tr>
-                                <td colSpan="2" className="text-center py-5">
-                                    <Loading/>
-                                </td>
+                                <th>Tipo de Producto</th>
+                                <th className="text-center">Cantidad</th>
                             </tr>
-                        ):(
-                        equipos.map((e, index) => (
-                            <tr key={index}>
-                                <td>{e?.activo__tipoProducto}</td>
-                                <td className="text-center fw-bold">
-                                    {e?.cantidad}
-                                </td>
-                            </tr>
-                        ))
-                    )}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                <tr>
+                                    <td colSpan="2" className="text-center py-5">
+                                        <Loading/>
+                                    </td>
+                                </tr>
+                            ):(
+                            equipos.map((e, index) => (
+                                <tr key={index}>
+                                    <td>{e?.activo__tipoProducto}</td>
+                                    <td className="text-center fw-bold">
+                                        {e?.cantidad}
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </>
         

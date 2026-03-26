@@ -166,7 +166,7 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, s
     return (
         <>
             <div className="card table-responsive table-scroll" style={{maxHeight:"27rem",overflow:"auto"}}>
-                <table className="table table-hover">
+                <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>
                             <th></th>

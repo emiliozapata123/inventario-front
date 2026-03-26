@@ -7,7 +7,7 @@ const PrevisualizacionMovimiento = ({ setPrevisualizacion, enviando, movimiento,
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content border-0 shadow rounded-2">
                     <div className="modal-header border-0 pb-0">
-                        <h5 className="modal-title fw-bold">Previsualizacion de Movimiento</h5>
+                        <h5 className="modal-title fw-bold blue-title">Previsualizacion de Movimiento</h5>
                         <button 
                             type="button" 
                             disabled={enviando} 

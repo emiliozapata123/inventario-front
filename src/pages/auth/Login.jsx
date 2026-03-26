@@ -66,7 +66,7 @@ const Login = () => {
             password:password
         };
 
-        iniciarSesion(data);
+        await iniciarSesion(data);
     }
 
     return (

@@ -3,9 +3,10 @@ import api from "../../services/Api";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import { useEffect, useState } from "react";
 import ProductoActivoForm from "./ProductoActivoForm";
-import SelectProducto from "./SelectProducto";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Plus } from "react-bootstrap-icons";
+import SelectProductoTable from "./SelectProductoTable";
+import SelectProductoButton from "./SelectProductoButton";
 
 const ActivoForm = () => {
     const [activos, setActivos] = useState([]);
@@ -13,6 +14,8 @@ const ActivoForm = () => {
     const [formulario, setFormulario] = useState({});
     const [enviando, setEnviando] = useState(false);
     const [cargando, setCargando] = useState(false);
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -32,13 +35,17 @@ const ActivoForm = () => {
 
     //productos de tipo activos
     const cargarProductos = async () => {
+        setLoading(true);
         try {
             const response = await api("api/activo/producto/list/");
             setProductos(await response.json());
 
         } catch (error) {
             console.error(error);
-        } 
+
+        } finally {
+            setLoading(false);
+        }
     }
     
     const addActivo = async (data) => {
@@ -53,6 +60,7 @@ const ActivoForm = () => {
         } catch (error) {
             console.log(error);
             NotifyError("Error al registrar activo.");
+
         } finally{
             setEnviando(false);
         }
@@ -122,11 +130,16 @@ const ActivoForm = () => {
             
             <ProductoActivoForm addProductoActivo={addProductoActivo} cargando={cargando}/>
 
-            <SelectProducto 
-                setFomulario={setFormulario} 
-                formulario={formulario} 
-                productos={productos}
-            />
+            <SelectProductoButton formulario={formulario} setMostrarModal={setMostrarModal} productos={productos}/>
+
+            {mostrarModal && (
+                <SelectProductoTable
+                    setFormulario={setFormulario}
+                    productos={productos}
+                    setMostrarModal={setMostrarModal}
+                    loading={loading}
+                />
+            )}
 
             <div className="card shadow-sm mb-4">
                 <div className="card-header fw-semibold bg-blue">
