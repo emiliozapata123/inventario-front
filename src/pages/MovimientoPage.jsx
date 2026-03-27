@@ -96,7 +96,7 @@ const MovimientoPage = () => {
                                     </tr>
                                 ):(
                                     movimientosFiltrados.map((m)=> (
-                                    <MovimientoList movimiento={m}/>
+                                    <MovimientoList key={m.id} movimiento={m}/>
                                 )))
                             )}
                         </tbody>

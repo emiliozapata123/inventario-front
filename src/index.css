@@ -136,3 +136,7 @@ select.form-select {
   background-color: #d8d9da;  /* Gris muy claro */
   color: #000000;
 }
+
+.btn-arrow-light:hover {
+  background-color: #d8d9da;
+}

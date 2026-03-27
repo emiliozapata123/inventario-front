@@ -1,8 +1,7 @@
 import Loading from "../layout/Loading";
 import ProductoMovimientoRow from "./ProductoMovimientoRow";
-import { Plus } from "react-bootstrap-icons";
 
-const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, handleClick, limpiar, loading, busqueda, setMovimiento}) => {
+const SelectProductoMovimiento = ({productos, seleccionados, setSeleccionados, loading, busqueda, setMovimiento }) => {
     const busquedaLower = busqueda?.toLowerCase();
     const busquedaProductos = productos?.filter((p)=> p?.producto?.nombre?.toLowerCase().includes(busquedaLower));
 
@@ -91,11 +90,11 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                 <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>
-                            <th></th>
                             <th>Producto</th>
                             <th className="text-center text-nowrap">Cantidad Disponible</th>
                             <th>Descripcion</th>
                             <th className="text-center">Cantidad</th>
+                            <th className="text-center">Seleccionar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,21 +136,12 @@ const TablaInventarioMovimiento = ({productos, seleccionados, setSeleccionados, 
                     </tbody>
                 </table>
             </div>
-            <div className="d-flex justify-content-end gap-3 mt-2">
-                <button className="btn-light-hover" type="button" onClick={limpiar}>Cancelar</button>
-                <button 
-                    className="btn btn-primary d-flex align-items-center rounded-1"
-                    onClick={handleClick}
-                >
-                    <Plus size={24} className="me-1" />
-                    Registrar Movimiento
-                </button>
-            </div>
+            
         </>
     )
 }
 
-export default TablaInventarioMovimiento;
+export default SelectProductoMovimiento;
 
 
 

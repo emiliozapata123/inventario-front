@@ -3,17 +3,9 @@ import { Dash, Plus } from "react-bootstrap-icons";
 const ProductoMovimientoRow = ({seleccionado, toggleProducto, ingresarCantidad, p, aumentar, disminuir}) => {
     return (
         <tr key={p.id} className={seleccionado ? "table-success" : ""}>
-            <td>
-                <input
-                    type="checkbox"
-                    className="form-check-input fs-5"
-                    checked={!!seleccionado}
-                    onChange={()=> toggleProducto(p)}
-                />
-            </td>
             <td>{p.producto.nombre}</td>
             <td className="text-center">{p.stock}</td>
-            <td>{!p.producto.descripcion ? "Sin descripcion" : p.producto.descripcion}</td>
+            <td className="text-break">{!p.producto.descripcion ? "Sin descripcion" : p.producto.descripcion}</td>
             <td>
                 {seleccionado && (
                     <div className="d-flex justify-content-center align-items-center gap-2">
@@ -38,8 +30,15 @@ const ProductoMovimientoRow = ({seleccionado, toggleProducto, ingresarCantidad, 
                             <Plus size={16}/>
                         </button>
                     </div>
-                    
                 )}
+            </td>
+            <td className="text-center">
+                <input
+                    type="checkbox"
+                    className="form-check-input fs-5"
+                    checked={!!seleccionado}
+                    onChange={()=> toggleProducto(p)}
+                />
             </td>
         </tr>
     )

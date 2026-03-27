@@ -3,8 +3,8 @@ import { Plus } from "react-bootstrap-icons";
 const InventarioList = ({ item, setMostrarModal }) => {
     return (
         <tr>
-            <td>{item?.producto.nombre}</td>
-            <td>{item?.bodega.nombre}</td>
+            <td className="text-break">{item?.producto.nombre}</td>
+            <td className="text-break">{item?.bodega.nombre}</td>
             <td className="text-center"> 
                 {item?.stock}
             </td>

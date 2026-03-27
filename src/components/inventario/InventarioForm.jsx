@@ -1,13 +1,13 @@
 import { useState } from "react";
 import api from "../../services/Api";
-import IngresoMultipleProductos from "./IngresoMultipleProducto";
+import SeleccionarProducto from "./SeleccionarProducto";
 import useMensaje from "../notify/useMensaje";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import InventarioHeader from "./InventarioHeader";
-import InventarioTableHeader from "./InventarioTableHeader";
 import PrevisualizacionMovimiento from "../movimiento/PrevisualizacionMovimiento";
+import Busqueda from "../layout/Busqueda";
 
 const InventarioForm = () => {
     const {mensaje, cargarMensaje} = useMensaje();
@@ -120,32 +120,35 @@ const InventarioForm = () => {
 
     return (
         <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
-            <div className="d-flex align-items-start gap-2">
-                <button
-                    className="btn btn-outline-dark"
-                    onClick={() => navigate(-1)}
-                >
-                    <ArrowLeft size={16} className="me-2"/>
-                    Volver
-                </button>
-                <h3 className="fw-bold mb-4 blue-title">Ingreso de Productos</h3>
+            <div className="d-flex justify-content-between">
+                <div className="d-flex align-items-start">
+                    <button
+                        className="btn btn-arrow-light blue-title"
+                        onClick={() => navigate(-1)}
+                    >
+                        <ArrowLeft size={28}/>
+                    </button>
+                    <h3 className="fw-bold mb-4 blue-title">Ingreso de Productos</h3>
+                </div>
+                <div>
+                    <button className="btn btn-primary rounded-1 text-nowrap" onClick={handleOnClick}>
+                        Previsualizar Ingreso
+                    </button>
+                </div>
             </div>
+           
             <InventarioHeader 
                 formulario={formulario}
                 mensaje={mensaje}
                 handleChange={handleChange}
             />
             <div className="card shadow-sm p-2">
-                <InventarioTableHeader 
+                <Busqueda
                     setBusqueda={setBusqueda} 
                     busqueda={busqueda} 
-                    setPrevisualizacion={setPrevisualizacion}
-                    limpiarFormulario={limpiarFormulario}
-                    enviando={enviando}
-                    handleOnClick={handleOnClick}
                 />
 
-                <IngresoMultipleProductos
+                <SeleccionarProducto
                     seleccionados={formulario.productos}
                     setSeleccionados={setFormulario}
                     setMovimiento={setMovimiento}

@@ -27,8 +27,8 @@ const BodegaForm = ({ addBodega, enviando }) => {
     };
 
     return (
-        <div className="row">
-            <div className="col">
+        <div className="d-flex gap-2 mb--2">
+            <div className="flex-grow-1">
                 <input
                     type="text"
                     className={`form-control rounded-1 ${mensaje.nombre?"is-invalid":""}`}
@@ -36,9 +36,9 @@ const BodegaForm = ({ addBodega, enviando }) => {
                     placeholder="Ingrese nombre de la bodega"
                     onChange={(e)=> setNombre(e.target.value)}
                 />
-                <div className="invalid-feedback d-block">{mensaje.nombre}</div>
-            </div>  
-            <div className="col-auto">
+                <div className="invalid-feedback d-block m-auto">{mensaje.nombre}</div>
+            </div>
+            <div>
                 <button 
                     className="btn btn-primary d-flex align-items-center rounded-1"
                     disabled={enviando}

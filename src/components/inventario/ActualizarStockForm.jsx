@@ -42,10 +42,10 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
         }
 
         if (!formulario.productos[0].cantidad) {
-            danger("stock","ingrese stock a actualizar");
+            danger("stock","debe ingresar cantidad");
             return;
         }
-
+        
         if (formulario.productos[0].cantidad <= 0) {
             danger("stock","cantidad no valida");
             return;
@@ -141,7 +141,7 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
                         </button>
 
                         <button 
-                            className="btn btn-primary justify-content-center d-flex rounded-1 w-25"
+                            className="btn btn-primary justify-content-center d-flex rounded-1 w-auto"
                             disabled={enviando}
                             onClick={handleOnClick}
                         >

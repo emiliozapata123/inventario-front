@@ -3,10 +3,10 @@ import { Pencil, Trash } from "react-bootstrap-icons";
 const ProductoList = ({producto, setMostrarModal}) => {
     return (
         <tr>
-            <td>{producto.nombre}</td>
-            <td>{!producto.descripcion ? <span className="badge bg-light text-dark border">—</span>:producto.descripcion}</td>
+            <td className="text-break">{producto.nombre}</td>
+            <td className="text-break">{!producto.descripcion ? <span className="badge bg-light text-dark border">—</span>:producto.descripcion}</td>
             <td>
-                <div className="d-flex gap-1">
+                <div className="d-flex gap-1 justify-content-center">
                     <button className="btn btn-warning rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("update")}>
                         <Pencil className="me-2"/>
                         Editar

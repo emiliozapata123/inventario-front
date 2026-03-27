@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Loading from "../layout/Loading";
-import ProductoInventarioRow from "./ProductoInventarioRow";
+import SelectProductoRow from "./SelectProductoRow";
 import api from "../../services/Api";
 
-const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, setMovimiento }) => {
+const SeleccionarProducto = ({ seleccionados, setSeleccionados, busqueda, setMovimiento }) => {
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, s
 
     const busquedaProductos = productos?.filter((p)=> p?.nombre?.toLowerCase().includes(busqueda?.toLowerCase()));
 
-    const handleSelected = (producto) => {
+    const handleOnSelected = (producto) => {
         const id = producto.id;
 
         setSeleccionados((prev) => ({
@@ -163,17 +163,33 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, s
         }));
     }
 
+    const handleOnCantidad = (action, id, value) => {
+        if (action === "aumentar") {
+            aumentar(id);
+        } else if (action === "disminuir") {
+            disminuir(id);
+        } else if (action === "aumentarStockMinimo") {
+            aumentarStockMinimo(id);
+        } else if (action === "disminuirStockMinimo") {
+            disminuirStockMinimo(id);
+        } else if (action === "ingresarStockMinimo") {
+            ingresarStockMinimo(id,value);
+        } else if (action === "ingresar") {
+            ingresarCantidad(id,value);
+        }
+    }
+
     return (
         <>
             <div className="card table-responsive table-scroll" style={{maxHeight:"27rem",overflow:"auto"}}>
                 <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>
-                            <th></th>
                             <th>Producto</th>
                             <th>Descripcion</th>
                             <th className="text-center th-nowrap">Ingresar Cantidad</th>
                             <th className="text-center th-nowrap">Stock Minimo</th>
+                            <th className="text-center">Seleccionar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -200,17 +216,13 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, s
                                 busquedaProductos?.map(p => {
                                 const seleccionado = seleccionados.find(s => s.id === p.id);
                                 return (
-                                    <ProductoInventarioRow
+                                    <SelectProductoRow
                                         key={p.id}
                                         producto={p}
                                         seleccionado={seleccionado}
-                                        handleSelected={handleSelected}
-                                        aumentar={aumentar}
-                                        ingresarCantidad={ingresarCantidad}
-                                        disminuir={disminuir}
-                                        aumentarStockMinimo={aumentarStockMinimo}
-                                        ingresarStockMinimo={ingresarStockMinimo}
-                                        disminuirStockMinimo={disminuirStockMinimo}
+                                        handleOnSelected={handleOnSelected}
+                                        handleOnCantidad={handleOnCantidad}
+                                        
                                     />
                                 )})
                             ))
@@ -223,4 +235,4 @@ const IngresoMultipleProductos = ({ seleccionados, setSeleccionados, busqueda, s
     );
 };
 
-export default IngresoMultipleProductos;
+export default SeleccionarProducto;

@@ -9,7 +9,7 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
     const [mostrarModal, setMostrarModal] = useState(false);
     const navigate = useNavigate();
     const user = JSON.parse(sessionStorage.getItem("user"));
-    console.log("user logeado: ",user)
+    
     const logout = () => {
         sessionStorage.removeItem("access");
         sessionStorage.removeItem("refresh");

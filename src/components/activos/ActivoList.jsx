@@ -56,10 +56,10 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
 
     return (
         <tr>
-            <td className="wrap-text">
+            <td className="text-break">
                 {activo?.activo.tipoProducto}
             </td>
-            <td className="wrap-text">
+            <td className="text-break">
                 
                 {!activo?.activo.descripcion?<span className="badge bg-light text-dark border">—</span>:activo.activo.descripcion}
             </td>
@@ -96,7 +96,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                 
                 {!activo?.activo.modelo?<span className="badge bg-light text-dark border">—</span>:activo.activo.modelo}
             </td>
-            <td>
+            <td className="text-break">
                 {editandoId === activo.id ? (
                     <input
                         type="text"
@@ -109,7 +109,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                     !activo?.ubicacion?<span className="badge bg-light text-dark border">—</span>:activo.ubicacion
                 )}
             </td>
-            <td>
+            <td className="text-break">
                 {editandoId === activo.id ? (
                     <input
                         type="text"
@@ -123,7 +123,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
 
                 )}
             </td>
-            <td>
+            <td className="text-break">
                 {editandoId === activo.id ? (
                     <input
                         type="text"

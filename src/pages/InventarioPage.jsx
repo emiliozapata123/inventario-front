@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InventarioList from "../components/inventario/InventarioList";
 import api from "../services/Api";
-import { NotifySuccess } from "../components/notify/Notify";
+import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import { NavLink } from "react-router-dom";
 import ActualizarStockForm from "../components/inventario/ActualizarStockForm";
 import FiltroInventario from "../components/inventario/FiltroInventarios";
@@ -65,7 +65,8 @@ const InventarioPage = () => {
             getInventario();
             NotifySuccess("stock de inventario actualizado.");
         } catch (error) {
-            console.error(error);  
+            console.error(error);
+            NotifyError("Error al actualizar stock.");  
 
         } finally {
             setEnviando(false);

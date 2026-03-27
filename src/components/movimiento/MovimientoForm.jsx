@@ -5,7 +5,7 @@ import api from "../../services/Api";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import { ArrowLeft } from "react-bootstrap-icons";
 import MovimientoHeader from "./MovimientoHeader";
-import TablaInventarioMovimiento from "./TablaInventarioMovimiento";
+import SelectProductoMovimiento from "./SelectProductoMovimiento";
 import PrevisualizacionMovimiento from "./PrevisualizacionMovimiento";
 import useFetch from "../notify/useFetch";
 
@@ -154,19 +154,29 @@ const MovimientoForm = () => {
     }
 
     return (
-        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
-            <div className="d-flex gap-2 mb-4">
-                <button
-                    className="btn btn-outline-dark"
-                    onClick={() => navigate(-1)}
-                >
-                    <ArrowLeft size={16} className="me-2"/>
-                    Volver
-                </button>
-                <h3 className="fw-bol mb-2 blue-title">
-                    Formulario de movimientos
-                </h3>
+        <div className="pt-4 pb-2 m-auto" style={{maxWidth:"77rem"}}>
+            <div className="d-flex justify-content-between">
+                <div className="d-flex mb-3 justify-content-center">
+                    <button
+                        className="btn btn-arrow-light blue-title"
+                        onClick={() => navigate(-1)}
+                    >
+                        <ArrowLeft size={28}/>
+                    </button>
+                    <h3 className="fw-bol blue-title">
+                        Formulario de movimientos
+                    </h3>
+                </div>
+                <div>
+                    <button 
+                        className="btn btn-primary rounded-1 text-nowrap"
+                        onClick={handleClick}
+                    >
+                        Mostrar Previsualizacion
+                    </button>
+                </div>
             </div>
+            
             <div className="card shadow-sm">
                 <div className="card-body p-2">
                     <MovimientoHeader 
@@ -177,7 +187,7 @@ const MovimientoForm = () => {
                         handleOnChange={handleOnChange}
                         bodegas={bodegas}
                     />
-                    <TablaInventarioMovimiento
+                    <SelectProductoMovimiento
                         handleClick={handleClick}
                         productos={inventario} 
                         seleccionados={formulario.productos}

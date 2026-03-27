@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../layout/Loading";
 import api from "../../services/Api";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "react-bootstrap-icons";
 
 const ResumenActivos = () => {
     const [equipos, setEquipos] = useState([]);
@@ -28,12 +29,11 @@ const ResumenActivos = () => {
 
     return (
         <>
-            <div className="d-flex align-items-center mb-4 pt-4 flex-wrap gap-3 ms-3 me-3">
-                <button className="btn btn-outline-secondary" onClick={()=> navigate(-1)}>
-                    ← Volver
+            <div className="d-flex align-items-center mb-4 pt-4 flex-wrap ms-3 me-3">
+                <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
+                    <ArrowLeft size={28}/>
                 </button>
                 <h4 className="fw-bold blue-title">Resumen de Activos</h4>
-
             </div>
             
             <section className="card border-0 shadow-sm p-2 ms-3 me-3">

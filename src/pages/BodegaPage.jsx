@@ -5,6 +5,7 @@ import { NotifySuccess, NotifyError } from "../components/notify/Notify";
 import { useState, useEffect } from "react";
 import ModalEliminar from "../components/layout/ModalEliminar";
 import Loading from "../components/layout/Loading";
+import Busqueda from "../components/layout/Busqueda";
 
 const BodegaPage = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -100,20 +101,9 @@ const BodegaPage = () => {
                 </p>
             </div>
             <section className="card border-0 shadow-sm p-2">
-                <div className="row">
+                <div className="row g-2">
                     <div className="col-md-5">
-                        <div className="mb-2 position-relative">
-                            <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
-                                <i className="bi bi-search"></i>
-                            </span>
-                            <input
-                                type="text"
-                                className="form-control ps-5 rounded-1"
-                                placeholder="Buscar Bodegas..."
-                                value={busqueda}
-                                onChange={(e) => setBusqueda(e.target.value)}
-                            />
-                        </div>
+                        <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
                     </div>
                     <div className="col-md-7">
                         <BodegaForm addBodega={addBodega} enviando={enviando}/>

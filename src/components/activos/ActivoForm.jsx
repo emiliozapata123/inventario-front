@@ -120,10 +120,9 @@ const ActivoForm = () => {
 
     return (
         <div className="py-4 m-auto" style={{ maxWidth: "70rem" }}>
-            <div className="d-flex gap-3">
-                <button className="d-flex gap-2 align-items-center btn btn-outline-secondary mb-4" onClick={()=> navigate(-1)}>
-                    <ArrowLeft/>
-                    Volver
+            <div className="d-flex align-items-start">
+                <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
+                    <ArrowLeft size={28}/>
                 </button>
                 <h2 className="mb-4 blue-title">Registrar Activo</h2>
             </div>

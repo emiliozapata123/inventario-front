@@ -51,7 +51,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
     
     return (
         <tr>
-            <td>
+            <td className="text-break">
                 {producto?.id === editandoId ? (
                     <input
                         className="form-control p-1"
@@ -63,7 +63,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                     producto?.tipoProducto
                 )}
             </td>
-            <td>
+            <td className="text-break">
                 {producto?.id === editandoId ? (
                     <input
                         className="form-control p-1"
@@ -75,7 +75,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                     !producto?.descripcion?"Sin descripcion":producto.descripcion
                 )}
             </td>
-            <td className="text-center">
+            <td className="text-center text-break">
                 {producto?.id === editandoId ? (
                     <input
                         className="form-control p-1"
@@ -87,7 +87,7 @@ const ProcuctoActivoRow = ({producto, setEditandoId, editandoId, onUpdate, envia
                     !producto?.marca?<span className="badge bg-light text-dark border">—</span>:producto.marca
                 )}
             </td>
-            <td className="text-center">
+            <td className="text-center text-break">
                 {producto?.id === editandoId ? (
                     <input
                         className="form-control p-1"

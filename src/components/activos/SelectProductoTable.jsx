@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectProductoRow from "./SelectProductoRow";
-import BusquedaProductoHeader from "./BusquedaProductoHeader";
 import Loading from "../layout/Loading";
+import Busqueda from "../layout/Busqueda";
 
 const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loading }) => {
     const [seleccionado, setSeleccionado] = useState("");
@@ -34,17 +34,17 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                     </div>
 
                     <div className="modal-body">
-                        <BusquedaProductoHeader busqueda={busqueda} setBusqueda={setBusqueda}/>
+                        <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
 
                         <div className="card table-responsive" style={{maxHeight:"28rem",overflow:"auto"}}>
                             <table className="table table-hover mb-0">
                                 <thead className="bg-blue">
                                     <tr>
-                                        <th></th>
                                         <th className="text-nowrap">Tipo Producto</th>
                                         <th>Descripcion</th>
                                         <th>Marca</th>
                                         <th>Modelo</th>
+                                        <th className="text-center">Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tbody>

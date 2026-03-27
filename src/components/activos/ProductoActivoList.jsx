@@ -6,7 +6,7 @@ import ProcuctoActivoRow from "./ProductoActivoRow";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import ModalEliminar from "../layout/ModalEliminar";
-import BusquedaProductoHeader from "./BusquedaProductoHeader";
+import Busqueda from "../layout/Busqueda";
 
 
 const ProductoActivoList = () => {
@@ -92,9 +92,8 @@ const ProductoActivoList = () => {
 
         <div className="pt-4 m-auto" style={{maxWidth:"75rem"}}>
             <div className="d-flex align-items-center mb-4 flex-wrap gap-3">
-                <button className="btn btn-outline-dark" onClick={()=> navigate(-1)}>
-                    <ArrowLeft className="me-2"/>
-                    Volver
+                <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
+                    <ArrowLeft size={28}/>
                 </button>
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Listado de productos activos</h4>
@@ -105,7 +104,7 @@ const ProductoActivoList = () => {
             </div>
             
             <section className="card border-0 shadow-sm p-2">
-                <BusquedaProductoHeader busqueda={busqueda} setBusqueda={setBusqueda}/>
+                <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
                 
                 <div className="card table-responsive shadow-sm table-scroll-y">
                     <table className={`table mb-0 ${!editandoId ? "table-hover":""}`}>
