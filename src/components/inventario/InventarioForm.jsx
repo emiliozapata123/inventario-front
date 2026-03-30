@@ -143,10 +143,9 @@ const InventarioForm = () => {
                 handleChange={handleChange}
             />
             <div className="card shadow-sm p-2">
-                <Busqueda
-                    setBusqueda={setBusqueda} 
-                    busqueda={busqueda} 
-                />
+                <div className="mb-2">
+                    <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                </div>
 
                 <SeleccionarProducto
                     seleccionados={formulario.productos}

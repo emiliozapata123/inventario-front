@@ -34,7 +34,9 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                     </div>
 
                     <div className="modal-body">
-                        <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                        <div className="mb-2">
+                            <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                        </div>
 
                         <div className="card table-responsive" style={{maxHeight:"28rem",overflow:"auto"}}>
                             <table className="table table-hover mb-0">

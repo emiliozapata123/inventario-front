@@ -104,7 +104,9 @@ const ProductoActivoList = () => {
             </div>
             
             <section className="card border-0 shadow-sm p-2">
-                <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                <div className="mb-2">
+                    <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                </div>
                 
                 <div className="card table-responsive shadow-sm table-scroll-y">
                     <table className={`table mb-0 ${!editandoId ? "table-hover":""}`}>

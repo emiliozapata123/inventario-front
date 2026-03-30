@@ -1,6 +1,6 @@
 const Busqueda = ({ setBusqueda, busqueda }) => {
     return(
-        <div className="mb-2 position-relative">
+        <div className="position-relative">
             <span className="position-absolute top-50 translate-middle-y ms-3 text-muted">
                 <i className="bi bi-search"></i>
             </span>

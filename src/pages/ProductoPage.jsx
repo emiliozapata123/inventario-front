@@ -127,7 +127,9 @@ const ProductoPage = () => {
                 </button>
             </div>
             <section className="card shadow-sm border-0 p-2">
-                <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                <div className="mb-2">
+                    <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                </div>
                 
                 <div className="card table-scroll-y table-responsive">
                     <table className="table table-hover align-middle mb-0">

@@ -27,7 +27,7 @@ const BodegaForm = ({ addBodega, enviando }) => {
     };
 
     return (
-        <div className="d-flex gap-2 mb--2">
+        <div className="d-flex gap-2">
             <div className="flex-grow-1">
                 <input
                     type="text"

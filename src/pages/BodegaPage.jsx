@@ -101,7 +101,7 @@ const BodegaPage = () => {
                 </p>
             </div>
             <section className="card border-0 shadow-sm p-2">
-                <div className="row g-2">
+                <div className="row g-2 mb-2">
                     <div className="col-md-5">
                         <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
                     </div>
