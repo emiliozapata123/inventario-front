@@ -1,6 +1,6 @@
-.container {
+.bg-container {
   background-color: #f3f4f6;
-  min-height: 100dvh;
+  height: 100vh;
 }
 .show{
   background-color:  rgba(0,0, 0, .3);
@@ -22,16 +22,18 @@ select.form-select {
   background-color: #e0e0e0;
   color: #000;
 }
-
 .table-scroll-y {
-  max-height: 32rem;
-  overflow-y: auto;
+    max-height: 82vh; /* Ajusta la altura máxima deseada */
+    overflow-y: auto; /* Habilita scroll vertical */
+    display: block; /* Necesario para que max-height funcione en tables */
 }
-  /*
-.table-scroll-filters {
-  max-height: calc(100vh - 14rem);
-  overflow-y: auto;
-} */
+.table-scroll {
+    max-height: 75vh; /* Ajusta la altura máxima deseada */
+    overflow-y: auto; /* Habilita scroll vertical */
+    display: block; /* Necesario para que max-height funcione en tables */
+}
+
+
 .table thead th {
   position: sticky;
   top: 0;

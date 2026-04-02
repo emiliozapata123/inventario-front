@@ -86,7 +86,7 @@ const SelectProductoMovimiento = ({productos, seleccionados, setSeleccionados, l
 
     return(
         <>
-            <div className="card table-responsive table-scroll" style={{maxHeight:"27rem",overflow:"auto"}}>
+            <div className="table-responsive table-scroll-y">
                 <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>

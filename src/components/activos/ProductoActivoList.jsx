@@ -82,6 +82,7 @@ const ProductoActivoList = () => {
         } catch (error) {
             console.error(error);
             NotifyError("Error, El producto ya esta asignado.");
+
         } finally {
             setEliminando(false);
         }
@@ -90,7 +91,7 @@ const ProductoActivoList = () => {
 
     return (
 
-        <div className="pt-4 m-auto" style={{maxWidth:"75rem"}}>
+        <>
             <div className="d-flex align-items-center mb-4 flex-wrap gap-3">
                 <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
                     <ArrowLeft size={28}/>
@@ -160,7 +161,7 @@ const ProductoActivoList = () => {
                     enviando={eliminando}
                 />
             )}
-        </div>
+        </>
     )
 }
 export default ProductoActivoList;

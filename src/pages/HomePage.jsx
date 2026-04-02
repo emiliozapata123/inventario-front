@@ -45,12 +45,12 @@ const HomePage = () => {
     return (
         <>
         <NavBarMobile setSidebarOpen={setSidebarOpen} setMobile={setMobile} sidebarOpen={sidebarOpen} mobile={mobile}/>
-        <div className="d-flex vh-100">
+        <div className="d-flex">
             <Sidebar 
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             />
-            <div className="flex-grow-1 overflow-auto container">
+            <div className="bg-container p-1 p-md-3" style={{width:"100vw"}}>
                 <Routes>
                     <Route path="/" element={<Dashboard/>} />
                     <Route path="productos" element={<ProductoPage />} />

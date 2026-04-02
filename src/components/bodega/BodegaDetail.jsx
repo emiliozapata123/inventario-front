@@ -49,7 +49,7 @@ const BodegaDetail = () => {
 
 
     return (
-        <div className="pt-3 m-auto">
+        <>
             <button
                 className="btn btn-outline-secondary mb-3 d-flex align-items-center gap-2"
                 onClick={() => navigate(-1)}
@@ -76,7 +76,7 @@ const BodegaDetail = () => {
                 <div className="card-body">
                     <h5 className="mb-3 blue-title">Productos en esta bodega</h5>
 
-                    <div className="card table-responsive table-scroll-y" style={{maxHeight:"30rem"}}>
+                    <div className="card table-responsive table-scroll-y">
                         <table className="table table-hover align-middle">
                             <thead className="bg-blue">
                                 <tr>
@@ -105,7 +105,7 @@ const BodegaDetail = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 
 }

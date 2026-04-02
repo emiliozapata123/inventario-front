@@ -160,7 +160,7 @@ const ActivoPage = () => {
     }
 
     return(
-        <div className="pt-4 m-auto">
+        <>
             <div className="d-flex justify-content-between align-items-center flex-wrap flex gap-3 mb-4">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Activos</h4>
@@ -190,7 +190,7 @@ const ActivoPage = () => {
                     actualizarFiltro={actualizarFiltro} 
                 />
 
-                <div className="card table-responsive table-scroll-y">
+                <div className="table-responsive table-scroll-y">
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
@@ -241,7 +241,7 @@ const ActivoPage = () => {
             {mostrarModal && (
                 <ModalEliminar data={activo} message={"Activo"} setMostrarModal={setMostrarModal} onDelete={deleteActivo} enviando={eliminando}/>
             )}
-        </div>
+        </>
     )
 }
 export default ActivoPage;

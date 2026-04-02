@@ -93,7 +93,7 @@ const BodegaPage = () => {
     }
 
     return(
-        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
+        <>
             <div className="d-flex flex-column align-items-start mb-4">
                 <h4 className="fw-bold mb-1 blue-title">Gestión de Bodegas</h4>
                 <p className="text-muted mb-0">
@@ -110,7 +110,7 @@ const BodegaPage = () => {
                     </div>
                 </div>
 
-                <div className="card table-responsive table-scroll-y">
+                <div className="table-responsive table-scroll-y">
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
@@ -171,7 +171,7 @@ const BodegaPage = () => {
                     onDelete={bodegaDelete}
                 />
             )}
-        </div>
+        </>
     )
 }
 export default BodegaPage;

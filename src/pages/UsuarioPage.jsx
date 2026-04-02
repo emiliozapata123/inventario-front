@@ -84,7 +84,7 @@ const UsuarioPage = () => {
     }
 
     return(
-        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
+        <>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestión de Usuarios</h4>
@@ -162,7 +162,7 @@ const UsuarioPage = () => {
                     onDelete={usuarioDelete}
                 />
             )}
-        </div>
+        </>
     )   
 }
 export default UsuarioPage;

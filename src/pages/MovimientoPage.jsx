@@ -51,7 +51,7 @@ const MovimientoPage = () => {
     }
 
     return(
-        <div className="pt-4 m-auto" style={{maxWidth:"77rem"}}>
+        <>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                 <h4 className="fw-bold mb-1 blue-title">Gestion de Movimientos</h4>
@@ -67,8 +67,7 @@ const MovimientoPage = () => {
 
             <section className="card border-0 shadow-sm p-2">                
                 <FiltroMovimientos actualizarFiltro={actualizarFiltro} filtros={filtros}/>
-
-                <div className="card shadow-sm table-responsive table-scroll-y">
+                <div className="shadow-sm table-responsive table-scroll-y">
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
@@ -103,7 +102,7 @@ const MovimientoPage = () => {
                     </table>
                 </div>
             </section>
-        </div>
+        </>
     )
 }
 export default MovimientoPage;

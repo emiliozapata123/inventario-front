@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductoForm from "../components/producto/ProductoForm";
 import ProductoList from "../components/producto/ProductoList";
-import "../components/producto/Producto.css";
 import api from "../services/Api";
 import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import ModalEliminar from "../components/layout/ModalEliminar";
@@ -109,7 +108,7 @@ const ProductoPage = () => {
 
     
     return(
-        <div className="pt-4 m-auto" style={{ maxWidth: "75rem" }}>
+        <>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                 <div>
                     <h4 className="fw-bold mb-1 blue-title">Gestion de Productos</h4>
@@ -130,8 +129,7 @@ const ProductoPage = () => {
                 <div className="mb-2">
                     <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
                 </div>
-                
-                <div className="card table-scroll-y table-responsive">
+                <div className="table-responsive table-scroll-y">
                     <table className="table table-hover align-middle mb-0">
                         <thead className="bg-blue">
                             <tr>
@@ -195,7 +193,7 @@ const ProductoPage = () => {
                     enviando={enviando}
                 />
             )}
-        </div>
+        </>
     )
 } 
 export default ProductoPage;

@@ -173,15 +173,15 @@ const SeleccionarProducto = ({ seleccionados, setSeleccionados, busqueda, setMov
         } else if (action === "disminuirStockMinimo") {
             disminuirStockMinimo(id);
         } else if (action === "ingresarStockMinimo") {
-            ingresarStockMinimo(id,value);
+            ingresarStockMinimo(id, value);
         } else if (action === "ingresar") {
-            ingresarCantidad(id,value);
+            ingresarCantidad(id, value);
         }
     }
 
     return (
         <>
-            <div className="card table-responsive table-scroll" style={{maxHeight:"27rem",overflow:"auto"}}>
+            <div className="table-responsive table-scroll">
                 <table className="table table-hover mb-0">
                     <thead className="bg-blue">
                         <tr>
@@ -199,39 +199,35 @@ const SeleccionarProducto = ({ seleccionados, setSeleccionados, busqueda, setMov
                                     <Loading/>
                                 </td>
                             </tr>
-                        ):(productos.length === 0 ? (
+                        ) : productos.length === 0 ? (
                             <tr>
                                 <td colSpan="5" className="text-center py-5">
                                     No hay productos registrados
                                 </td>
                             </tr>
-                        ):(
-                            busquedaProductos.length === 0 ? (
+                        ) : busquedaProductos.length === 0 ? (
                                 <tr>
                                     <td colSpan="5" className="text-center py-5">
                                         No se encontraron productos
                                     </td>
                                 </tr>
-                            ):(
-                                busquedaProductos?.map(p => {
-                                const seleccionado = seleccionados.find(s => s.id === p.id);
-                                return (
-                                    <SelectProductoRow
-                                        key={p.id}
-                                        producto={p}
-                                        seleccionado={seleccionado}
-                                        handleOnSelected={handleOnSelected}
-                                        handleOnCantidad={handleOnCantidad}
-                                        
-                                    />
-                                )})
-                            ))
-                        )}
+                        ) : busquedaProductos?.map(p => {
+                            const seleccionado = seleccionados.find(s => s.id === p.id);
+                            return (
+                                <SelectProductoRow
+                                    key={p.id}
+                                    producto={p}
+                                    seleccionado={seleccionado}
+                                    handleOnSelected={handleOnSelected}
+                                    handleOnCantidad={handleOnCantidad}
+                                    
+                                />
+                            )})
+                        }
                     </tbody>
                 </table>
             </div>
         </>
-        
     );
 };
 

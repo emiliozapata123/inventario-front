@@ -154,8 +154,8 @@ const MovimientoForm = () => {
     }
 
     return (
-        <div className="pt-4 pb-2 m-auto" style={{maxWidth:"77rem"}}>
-            <div className="d-flex justify-content-between">
+        <>
+            <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex mb-3 justify-content-center">
                     <button
                         className="btn btn-arrow-light blue-title"
@@ -163,9 +163,14 @@ const MovimientoForm = () => {
                     >
                         <ArrowLeft size={28}/>
                     </button>
-                    <h3 className="fw-bol blue-title">
-                        Formulario de movimientos
-                    </h3>
+                    <div>
+                        <h3 className="fw-bol blue-title">
+                            Formulario de movimientos
+                        </h3>
+                        <p className="text-muted mb-0">
+                            Ingresa productos y gestiona movimientos de inventario
+                        </p>
+                    </div>
                 </div>
                 <div>
                     <button 
@@ -207,7 +212,7 @@ const MovimientoForm = () => {
                     enviando={enviando}
                 />
             )}
-        </div>
+        </>
     )
 }
 export default MovimientoForm;

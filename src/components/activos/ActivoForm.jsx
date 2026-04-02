@@ -119,7 +119,7 @@ const ActivoForm = () => {
     };
 
     return (
-        <div className="py-4 m-auto" style={{ maxWidth: "70rem" }}>
+        <>
             <div className="d-flex align-items-start">
                 <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
                     <ArrowLeft size={28}/>
@@ -254,7 +254,7 @@ const ActivoForm = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 export default ActivoForm;

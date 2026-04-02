@@ -119,7 +119,7 @@ const InventarioForm = () => {
     }
 
     return (
-        <div className="py-4 m-auto" style={{maxWidth:"77rem"}}>
+        <>
             <div className="d-flex justify-content-between">
                 <div className="d-flex align-items-start">
                     <button
@@ -164,7 +164,7 @@ const InventarioForm = () => {
                     action={"entrada"}
                 />
             )}
-        </div>
+        </>
     );
 };
 
