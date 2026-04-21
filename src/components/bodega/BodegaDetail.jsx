@@ -76,8 +76,8 @@ const BodegaDetail = () => {
                 <div className="card-body">
                     <h5 className="mb-3 blue-title">Productos en esta bodega</h5>
 
-                    <div className="card table-responsive table-scroll-y">
-                        <table className="table table-hover align-middle">
+                    <div className="table-responsive table-scroll-y">
+                        <table className="table table-hover">
                             <thead className="bg-blue">
                                 <tr>
                                     <th>Producto</th>
@@ -93,7 +93,7 @@ const BodegaDetail = () => {
                                         </td>
                                     </tr>
                                 ):(
-                                    bodega.productos?.map((p) => (
+                                    bodega?.productos?.map((p) => (
                                     <tr key={p.id}>
                                         <td>{p.nombre}</td>
                                         <td>{!p.descripcion?"Sin descripcion":p.descripcion}</td>

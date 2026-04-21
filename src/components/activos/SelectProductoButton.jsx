@@ -1,5 +1,7 @@
-const SelectProductoButton = ({formulario, setMostrarModal, productos }) => {
-    const producto = productos?.find(p => p.id === formulario?.activo);
+const SelectProductoButton = ({ formulario, setMostrarModal, productos }) => {
+    console.log("productos: ", productos);
+    const producto = productos?.find(p => Number(p.productoId) === formulario?.producto);
+    console.log("producto: ",producto)
 
     return(
         <div className="card shadow-sm mb-4">
@@ -13,14 +15,14 @@ const SelectProductoButton = ({formulario, setMostrarModal, productos }) => {
                             className="btn btn-outline-primary w-100 dropdown-toggle" 
                             onClick={() => setMostrarModal(true)}
                         >
-                            {!formulario?.activo ? (
+                            {!formulario?.producto ? (
                                 "Seleccionar Producto"
                             ):(
                                 <>
-                                {producto?.tipoProducto} {""} 
+                                {producto?.producto} {""}
                                 - {!producto?.descripcion?<span className="text-muted">sin descripcion</span>:producto.descripcion} {""} 
                                 - {!producto?.marca?<span className="text-muted">sin marca</span>:producto.marca} {""} 
-                                - {!producto.modelo?<span className="text-muted">sin modelo</span>:producto.modelo}
+                                - {!producto?.modelo?<span className="text-muted">sin modelo</span>:producto.modelo}
                                 </>
                             )}
                         </button>

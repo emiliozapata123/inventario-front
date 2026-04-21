@@ -27,8 +27,6 @@ const InventarioForm = () => {
     });
     const navigate = useNavigate();
 
-    console.log("movimiento: ",movimiento)
-
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);
         setTimeout(() => {
@@ -102,10 +100,6 @@ const InventarioForm = () => {
             danger("bodega","Seleccione una bodega");
             campoValido = false;
         }
-        if (!formulario.fechaEntrega){
-            danger("fechaEntrega","debe ingresar la fecha de entrega");
-            campoValido = false;
-        }
 
         if (!campoValido) return;
 
@@ -169,3 +163,4 @@ const InventarioForm = () => {
 };
 
 export default InventarioForm;
+

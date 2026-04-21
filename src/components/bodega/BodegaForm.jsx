@@ -3,7 +3,7 @@ import useMensaje from "../notify/useMensaje";
 import { Plus } from "react-bootstrap-icons";
 
 const BodegaForm = ({ addBodega, enviando }) => {
-    const {cargarMensaje,mensaje} = useMensaje();
+    const {cargarMensaje, mensaje} = useMensaje();
     const [nombre, setNombre] = useState("");
 
     const danger = (name,mensaje) => {

@@ -97,6 +97,7 @@ const InventarioPage = () => {
                         <thead className="bg-blue">
                             <tr>
                                 <th>Producto</th>
+                                <th>Descripcion</th>
                                 <th>Bodega</th>
                                 <th className="text-center">Cantidad</th>
                                 <th className="text-center text-nowrap">Stock Minimo</th>
@@ -106,21 +107,21 @@ const InventarioPage = () => {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="5" className="text-center py-5 text-muted">
+                                    <td colSpan="6" className="text-center py-5 text-muted">
                                         <Loading/>
                                     </td>
                                 </tr>
                             ):(
                             inventario.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5" className="text-center py-4 text-muted">
+                                    <td colSpan="6" className="text-center py-4 text-muted">
                                         No hay productos en el inventario
                                     </td>
                                 </tr>
                             ):(
                                 busquedaInventario.length === 0 ? (
                                     <tr>
-                                        <td colSpan="5" className="text-center py-4 text-muted">
+                                        <td colSpan="6" className="text-center py-4 text-muted">
                                             No se encontraron productos
                                         </td>
                                     </tr>

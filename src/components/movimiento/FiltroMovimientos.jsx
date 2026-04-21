@@ -1,7 +1,8 @@
+import Loading from "../layout/Loading";
 import useFetch from "../notify/useFetch";
 
 const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
-    const { data:bodegas } = useFetch("api/bodega/list/");
+    const { data:bodegas, loading } = useFetch("api/bodega/list/");
     
     return (
         <div className="row g-2 mb-2">
@@ -55,24 +56,30 @@ const FiltroMovimientos = ({ actualizarFiltro, filtros }) => {
                     </button>
 
                     <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
-                        <li>
-                            <button 
-                                className="dropdown-item" 
-                                onClick={()=> actualizarFiltro("bodega","")}
-                            >
-                                Todos
-                            </button>
-                        </li>
-                        {bodegas.map((b)=> (
-                            <li key={b.id}>
-                                <button 
-                                    className="dropdown-item" 
-                                    onClick={()=> actualizarFiltro("bodega",b.nombre)}
-                                >
-                                    {b.nombre}
-                                </button>
-                            </li>
-                        ))}
+                        {loading ? (
+                            <Loading/>
+                        ):(
+                            <>
+                                <li>
+                                    <button 
+                                        className="dropdown-item" 
+                                        onClick={()=> actualizarFiltro("bodega","")}
+                                    >
+                                        Todos
+                                    </button>
+                                </li>
+                                {bodegas.map((b)=> (
+                                    <li key={b.id}>
+                                        <button 
+                                            className="dropdown-item" 
+                                            onClick={()=> actualizarFiltro("bodega",b.nombre)}
+                                        >
+                                            {b.nombre}
+                                        </button>
+                                    </li>
+                                ))}
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

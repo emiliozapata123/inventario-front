@@ -79,7 +79,6 @@ const BodegaList = ({bodega, setMostrarModal, onUpdate, setEditandoId, editandoI
                     </NavLink>
                 </div>
                 )}
-                
             </td>
         </tr>
     )

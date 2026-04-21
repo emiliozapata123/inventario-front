@@ -21,7 +21,6 @@ const PrevisualizacionMovimiento = ({ setPrevisualizacion, enviando, movimiento,
                                 <span className="fw-semibold">Bodega:</span><br/>
                                 {movimiento.bodega.nombre}
                             </p>
-
                             <p className="mb-0">
                                 <span className="fw-semibold me-1">{action === "entrada" ? "Fecha Entrega:" : "Fecha Movimiento:"}</span>
                                 {movimiento?.fechaEntrega || movimiento?.fechaMovimiento}
@@ -41,7 +40,6 @@ const PrevisualizacionMovimiento = ({ setPrevisualizacion, enviando, movimiento,
                                 <tbody>
                                     {movimiento.productos.map((m)=> (
                                         <PrevisualizacionRow key={m.id} item={m} action={action}/>
-
                                     ))}
                                 </tbody>
                             </table>

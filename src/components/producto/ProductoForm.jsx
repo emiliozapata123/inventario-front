@@ -6,6 +6,9 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
     const [formulario, setFormulario] = useState({
         nombre:producto?.nombre || "",
         descripcion:producto?.descripcion || "",
+        tipo:producto?.tipo || "",
+        marca:producto?.marca || "",
+        modelo:producto?.modelo || ""
     });
 
     const danger = (name,mensaje) => {
@@ -86,6 +89,56 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
                             ></textarea>
                             <div className="invalid-feedback d-block">{mensaje.descripcion}</div>
                         </div>
+                        
+                        <div className="mb-3">
+                            <label className="fw-semibold">Marca</label>
+                            <input
+                                className={`form-control rounded-1 ${mensaje.marca?"is-invalid":""}`}
+                                rows="2"
+                                value={formulario.marca}
+                                placeholder="Marca del producto..."
+                                onChange={(e)=> handleChange("marca",e.target.value)}
+                            />
+                            <div className="invalid-feedback d-block">{mensaje.marca}</div>
+                        </div>
+                        <div className="mb-3">
+                            <label className="fw-semibold">Modelo</label>
+                            <input
+                                className={`form-control rounded-1 ${mensaje.modelo?"is-invalid":""}`}
+                                rows="2"
+                                value={formulario.modelo}
+                                placeholder="Modelo del producto..."
+                                onChange={(e)=> handleChange("modelo",e.target.value)}
+                            />
+                            <div className="invalid-feedback d-block">{mensaje.modelo}</div>
+                        </div>
+                        <div className="dropdown mb-3">
+                            <button className="btn btn-outline-primary rounded-1 w-100 dropdown-toggle" data-bs-toggle="dropdown">
+                                {!formulario.tipo?"Tipo de Producto":formulario.tipo}
+                            </button>
+
+                            <ul className="dropdown-menu w-100" style={{zIndex:4000}}>
+                                <li>
+                                    <button 
+                                        type="button"
+                                        className="dropdown-item" 
+                                        onClick={()=> handleChange("tipo","Consumible")}
+                                    >
+                                        Consumible
+                                    </button>
+                                </li>
+                                <li>
+                                    <button 
+                                        type="button"
+                                        className="dropdown-item" 
+                                        onClick={()=> handleChange("tipo","Activo")}
+                                    >
+                                        Activo
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <div className="d-flex justify-content-end gap-2 flex-wrap">
                             <button 
                                 className="btn-light-hover w-25"

@@ -2,20 +2,30 @@ import { useNavigate } from "react-router-dom";
 import api from "../../services/Api";
 import { NotifyError, NotifySuccess } from "../notify/Notify";
 import { useEffect, useState } from "react";
-import ProductoActivoForm from "./ProductoActivoForm";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { Plus } from "react-bootstrap-icons";
 import SelectProductoTable from "./SelectProductoTable";
 import SelectProductoButton from "./SelectProductoButton";
+import useFetch from "../notify/useFetch";
 
 const ActivoForm = () => {
+    const [formulario, setFormulario] = useState({
+        invId:"",
+        producto:"",
+        bodega:"",
+        numeroInventario:"",
+        numeroSerie:"",
+        ubicacion:"",
+        usuario:"",
+        cargo:"",
+        fechaMovimiento:""
+    });
     const [activos, setActivos] = useState([]);
     const [productos, setProductos] = useState([]);
-    const [formulario, setFormulario] = useState({});
     const [enviando, setEnviando] = useState(false);
-    const [cargando, setCargando] = useState(false);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { data:bodegas } = useFetch("api/bodega/list/");
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -36,8 +46,9 @@ const ActivoForm = () => {
     //productos de tipo activos
     const cargarProductos = async () => {
         setLoading(true);
+        
         try {
-            const response = await api("api/activo/producto/list/");
+            const response = await api("api/inventario/activo/list/");
             setProductos(await response.json());
 
         } catch (error) {
@@ -49,11 +60,29 @@ const ActivoForm = () => {
     }
     
     const addActivo = async (data) => {
+        setProductos(prev => prev.map(p => p.id === formulario.producto
+            ? {...p, cantidad: p.cantidad-1}
+            : p
+        ));
+
         if (enviando) return;
+
+        const dataMovimiento = {
+            ...formulario,
+            productos:[
+                {
+                    id:formulario.producto, 
+                    cantidad:1
+                }
+            ],
+            bodega:formulario.bodega,
+            fechaMovimiento:formulario.fechaMovimiento
+        };
 
         setEnviando(true);
         try {
             await api("api/activo/create/","POST",data);
+            await api("api/movimiento/create/", "POST", dataMovimiento);
             cargarActivos();
             NotifySuccess("Activo Registrado.");
 
@@ -65,25 +94,6 @@ const ActivoForm = () => {
             setEnviando(false);
         }
     }
-
-    const addProductoActivo = async (data) => {
-        if (cargando) return;
-
-        setCargando(true);
-        try {
-            await api("api/activo/producto/create/", "POST", data);
-            NotifySuccess("Procucto Activo creado.");
-            cargarProductos();
-            return true;
-
-        } catch (error) {
-            console.error(error);
-            return false;
-            
-        } finally {
-            setCargando(false);
-        }
-    } 
 
     const handleChange = (e) => {
         let name = e.target.name;
@@ -100,34 +110,28 @@ const ActivoForm = () => {
     }
 
     const handleOnClick = () => {
-        if (!formulario?.activo) {
+        if (!formulario?.producto) {
             NotifyError("Debe seleccionar un producto.");
             return;
         }
-        if (!formulario.fechaEntrega){
-            NotifyError("ingrese el fecha de entrega");
-            return;
-        }
 
-        const existe = activos.some((a)=> a.numeroInventario === formulario.numeroInventario);
+        const existe = activos.some((a) => a.numeroInventario === formulario.numeroInventario);
         if (existe) {
             NotifyError("Error, el numero de inventario ya existe.");
             return;
         }
-
         addActivo(formulario);
+
     };
 
     return (
         <>
             <div className="d-flex align-items-start">
-                <button className="btn btn-arrow-light blue-title" onClick={()=> navigate(-1)}>
+                <button className="btn btn-arrow-light blue-title" onClick={() => navigate(-1)}>
                     <ArrowLeft size={28}/>
                 </button>
                 <h2 className="mb-4 blue-title">Registrar Activo</h2>
             </div>
-            
-            <ProductoActivoForm addProductoActivo={addProductoActivo} cargando={cargando}/>
 
             <SelectProductoButton formulario={formulario} setMostrarModal={setMostrarModal} productos={productos}/>
 
@@ -137,6 +141,8 @@ const ActivoForm = () => {
                     productos={productos}
                     setMostrarModal={setMostrarModal}
                     loading={loading}
+                    bodegas={bodegas}
+                    formulario={formulario}
                 />
             )}
 
@@ -153,7 +159,7 @@ const ActivoForm = () => {
                             <input 
                                 className="form-control" 
                                 placeholder="N° Inventario"
-                                value={formulario?.numeroInventario || ""}
+                                value={formulario?.numeroInventario}
                                 name="numeroInventario"
                                 onChange={(e)=> handleChange(e)}
                             />
@@ -164,12 +170,11 @@ const ActivoForm = () => {
                             <input 
                                 className="form-control" 
                                 placeholder="N° Serie"
-                                value={formulario?.numeroSerie || ""}
+                                value={formulario?.numeroSerie}
                                 name="numeroSerie"
                                 onChange={(e)=> handleChange(e)}
                             />
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -187,7 +192,7 @@ const ActivoForm = () => {
                             <input 
                                 className="form-control" 
                                 placeholder="Ubicacion"
-                                value={formulario?.ubicacion || ""}
+                                value={formulario?.ubicacion}
                                 name="ubicacion"
                                 onChange={(e)=> handleChange(e)}
                             />
@@ -198,7 +203,7 @@ const ActivoForm = () => {
                             <input 
                                 className="form-control" 
                                 placeholder="Usuario"
-                                value={formulario?.usuario || ""}
+                                value={formulario?.usuario}
                                 name="usuario"
                                 onChange={(e)=> handleChange(e)}
                             />
@@ -209,19 +214,19 @@ const ActivoForm = () => {
                             <input 
                                 className="form-control" 
                                 placeholder="Cargo"
-                                value={formulario?.cargo || ""}
+                                value={formulario?.cargo}
                                 name="cargo"
                                 onChange={(e)=> handleChange(e)}
                             />
                         </div>
-
                         <div className="col-md-3">
-                            <label>Fecha de entrega</label>
+                            <label>Fecha Movimiento</label>
                             <input 
-                                type="date" 
+                                type="date"
                                 className="form-control" 
-                                value={formulario?.fechaEntrega || ""}
-                                name="fechaEntrega"
+                                placeholder="Fecha movimiento"
+                                value={formulario?.fechaMovimiento}
+                                name="fechaMovimiento"
                                 onChange={(e)=> handleChange(e)}
                             />
                         </div>

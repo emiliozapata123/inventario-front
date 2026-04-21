@@ -7,15 +7,8 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import MovimientoHeader from "./MovimientoHeader";
 import SelectProductoMovimiento from "./SelectProductoMovimiento";
 import PrevisualizacionMovimiento from "./PrevisualizacionMovimiento";
-import useFetch from "../notify/useFetch";
 
 const MovimientoForm = () => {
-    const [inventario, setInventario] = useState([]);
-    const { mensaje, cargarMensaje } = useMensaje();
-    const [loading, setLoading] = useState(false);
-    const [busqueda, setBusqueda] = useState("");
-    const [enviando, setEnviando] = useState(false);
-    const [previsualizacion, setPrevisualizacion] = useState(false);
     const [movimiento, setMovimiento] = useState({
         productos:[],
         bodega:"",
@@ -26,13 +19,16 @@ const MovimientoForm = () => {
         bodega:"",
         fechaMovimiento:""
     });
-    const { data:bodegas } = useFetch("api/bodega/list/");
+    const [inventario, setInventario] = useState([]);
+    const { mensaje, cargarMensaje } = useMensaje();
+    const [loading, setLoading] = useState(false);
+    const [busqueda, setBusqueda] = useState("");
+    const [enviando, setEnviando] = useState(false);
+    const [previsualizacion, setPrevisualizacion] = useState(false);
+   
     const navigate = useNavigate();
 
-    console.log("movimiento form: ",  movimiento)
-    console.log(" form: ",  formulario)
-
-    const danger = (name,mensaje) => {
+    const danger = (name, mensaje) => {
         cargarMensaje(name,mensaje);
 
         setTimeout(() => {
@@ -118,6 +114,8 @@ const MovimientoForm = () => {
 
         } catch (error) {
             console.error(error);
+            NotifyError("Error al registrar movimiento.");
+            
         } finally {
             setEnviando(false);
         }
@@ -190,7 +188,6 @@ const MovimientoForm = () => {
                         busqueda={busqueda}
                         setBusqueda={setBusqueda}
                         handleOnChange={handleOnChange}
-                        bodegas={bodegas}
                     />
                     <SelectProductoMovimiento
                         handleClick={handleClick}

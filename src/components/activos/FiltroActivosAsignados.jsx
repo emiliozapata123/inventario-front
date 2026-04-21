@@ -1,7 +1,6 @@
 import { Search } from "react-bootstrap-icons";
 
 const FiltrosActivosAsignados = ({ filtros, actualizarFiltro }) => {
-
     return (
         <div className="row g-2 mb-2">
             <div className="col-md-2">

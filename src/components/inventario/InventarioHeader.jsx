@@ -1,7 +1,8 @@
+import Loading from "../layout/Loading";
 import useFetch from "../notify/useFetch";
 
 const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
-    const {data:bodegas} = useFetch("api/bodega/list/");
+    const {data:bodegas, loading} = useFetch("api/bodega/list/");
 
     return (
         <div className="card shadow-sm mb-2">
@@ -15,7 +16,10 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                             </button>
 
                             <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
-                                {bodegas?.map((b)=> (
+                            {loading ? (
+                                <Loading/>
+                            ):(
+                                bodegas?.map((b)=> (
                                     <li key={b.id}>
                                         <button 
                                             className="dropdown-item" 
@@ -24,7 +28,8 @@ const InventarioHeader = ({ formulario, handleChange, mensaje }) => {
                                             {b?.nombre}
                                         </button>
                                     </li>
-                                ))}
+                                ))
+                            )}
                             </ul>
                             <div className="invalid-feedback d-block">{mensaje.bodega}</div>
                         </div>

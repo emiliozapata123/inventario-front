@@ -1,4 +1,9 @@
-const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, handleOnChange, bodegas}) => {
+import Loading from "../layout/Loading";
+import useFetch from "../notify/useFetch";
+
+const MovimientoHeader = ({ mensaje, busqueda, setBusqueda, formulario, handleOnChange }) => {
+    const { data:bodegas, loading } = useFetch("api/bodega/list/");
+
     return (
         <div className="row g-2 mb-2">
             <div className="col-md-4">
@@ -23,16 +28,21 @@ const MovimientoHeader = ({mensaje, busqueda, setBusqueda, formulario, handleOnC
                     </button>
 
                     <ul className="dropdown-menu w-100" style={{zIndex:2000}}>
-                        {bodegas.map((b)=> (
-                            <li key={b.id}>
-                                <button 
-                                    className="dropdown-item" 
-                                    onClick={()=> handleOnChange("bodega", b)}
-                                >
-                                    {b.nombre}
-                                </button>
-                            </li>
-                        ))}
+                        {loading ? (
+                            <Loading/>
+                        ):(
+                            bodegas.map((b)=> (
+                                <li key={b.id}>
+                                    <button 
+                                        className="dropdown-item" 
+                                        onClick={()=> handleOnChange("bodega", b)}
+                                    >
+                                        {b.nombre}
+                                    </button>
+                                </li>
+                            ))
+                        )}
+                        
                     </ul>
                     <div className="invalid-feedback d-block m-auto">{mensaje.bodega}</div>
                 </div>

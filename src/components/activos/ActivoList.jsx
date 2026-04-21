@@ -5,6 +5,8 @@ import { Save, X} from "react-bootstrap-icons";
 const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, setMostrarModal }) => {
     const [formulario, setFormulario] = useState({});
 
+    console.log("formulario: ", formulario)
+
     useEffect(()=> {
         if (editandoId === activo.id) {
             setFormulario(activo);
@@ -29,7 +31,6 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
             "ubicacion",
             "usuario",
             "cargo",
-            "fechaEntrega",
         ];
 
         for (let campo of campos) {
@@ -45,9 +46,9 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
         }
 
         const data = {...formulario}
-        delete data.activo;
+        delete data.producto;
 
-        onUpdate(editandoId,data);
+        onUpdate(editandoId, data);
     }
 
     const cancelarEdicion = () => {
@@ -57,11 +58,11 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
     return (
         <tr>
             <td className="text-break">
-                {activo?.activo.tipoProducto}
+                {activo?.producto?.nombre}
             </td>
             <td className="text-break">
                 
-                {!activo?.activo.descripcion?<span className="badge bg-light text-dark border">—</span>:activo.activo.descripcion}
+                {!activo?.producto?.descripcion?<span className="badge text-dark">—</span>:activo.producto.descripcion}
             </td>
             <td>
                 {editandoId === activo.id ? (
@@ -73,7 +74,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                        onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.numeroInventario?<span className="badge bg-light text-dark border">—</span>:activo.numeroInventario
+                    !activo?.numeroInventario?<span className="badge text-dark">—</span>:activo.numeroInventario
                 )}
             </td>
             <td>
@@ -86,15 +87,15 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.numeroSerie?<span className="badge bg-light text-dark border">—</span>:activo.numeroSerie
+                    !activo?.numeroSerie?<span className="badge text-dark">—</span>:activo.numeroSerie
                 )}
             </td>
             <td>
-                {!activo?.activo.marca?<span className="badge bg-light text-dark border">—</span>:activo.activo.marca}
+                {!activo?.producto?.marca?<span className="badge text-dark">—</span>:activo.producto.marca}
             </td>
             <td>
                 
-                {!activo?.activo.modelo?<span className="badge bg-light text-dark border">—</span>:activo.activo.modelo}
+                {!activo?.producto?.modelo?<span className="badge text-dark">—</span>:activo.producto.modelo}
             </td>
             <td className="text-break">
                 {editandoId === activo.id ? (
@@ -106,7 +107,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.ubicacion?<span className="badge bg-light text-dark border">—</span>:activo.ubicacion
+                    !activo?.ubicacion?<span className="badge text-dark">—</span>:activo.ubicacion
                 )}
             </td>
             <td className="text-break">
@@ -119,7 +120,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo.usuario?<span className="badge bg-light text-dark border">—</span>:activo.usuario
+                    !activo.usuario?<span className="badge text-dark">—</span>:activo.usuario
 
                 )}
             </td>
@@ -133,21 +134,8 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                         onChange={(e)=> iniciarEdicion(e)}
                     />
                 ):(
-                    !activo?.cargo?<span className="badge bg-light text-dark border">—</span>:activo.cargo
+                    !activo?.cargo?<span className="badge text-dark">—</span>:activo.cargo
 
-                )}
-            </td>
-            <td>
-                {editandoId === activo.id ? (
-                    <input
-                        type="date"
-                        name="fechaEntrega"
-                        className="form-control p-1 rounded-1"
-                        value={formulario.fechaEntrega}
-                        onChange={(e)=> iniciarEdicion(e)}
-                    />
-                ):(
-                    activo.fechaEntrega
                 )}
             </td>
             <td>
@@ -179,18 +167,15 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
                     ):(
 
                         <>
-                        <button className="btn btn-warning d-flex gap-2" onClick={()=> setEditandoId(activo.id)}>
+                        <button className="btn btn-warning d-flex gap-2" onClick={() => setEditandoId(activo.id)}>
                             <i className="bi bi-pencil"></i>
                         </button>
                         <button className="btn btn-danger d-flex gap-2" onClick={setMostrarModal}>
                             <i className="bi bi-trash"></i>
                         </button>
                         </>
-                        
                     )}
-                    
                 </div>
-                
             </td>
         </tr>
     )

@@ -2,23 +2,29 @@ import { useState } from "react";
 import SelectProductoRow from "./SelectProductoRow";
 import Loading from "../layout/Loading";
 import Busqueda from "../layout/Busqueda";
+import FilterBodega from "./FilterBodega";
 
-const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loading }) => {
-    const [seleccionado, setSeleccionado] = useState("");
+const SelectProductoTable = ({ setFormulario, formulario, productos, setMostrarModal, loading, bodegas }) => {
+    const [seleccionado, setSeleccionado] = useState({});
     const [busqueda, setBusqueda] = useState("");
 
-    const busquedaProductos = productos.filter((p) => {
-        const busquedaLower = busqueda?.toLowerCase();
-        if (!busquedaLower) return true;
+    const busquedaProductos = productos?.filter((p) => {
+        const busquedaLower = busqueda?.toLowerCase() || "";
 
-        const porTipo = p.tipoProducto.toLowerCase().includes(busquedaLower);
-        const porDescripcion = p?.descripcion?.toLowerCase().includes(busquedaLower);
-        const porMarca = p?.marca?.toLowerCase().includes(busquedaLower);
-        const porModelo = p?.modelo?.toLowerCase().includes(busquedaLower);
+        const cumpleBusqueda =
+            !busquedaLower ||
+            p?.producto?.toLowerCase().includes(busquedaLower) ||
+            p?.descripcion?.toLowerCase().includes(busquedaLower) ||
+            p?.marca?.toLowerCase().includes(busquedaLower) ||
+            p?.modelo?.toLowerCase().includes(busquedaLower);
 
-        return porTipo || porDescripcion || porMarca || porModelo;
+        const cumpleBodega =
+            !formulario?.bodega ||
+            p?.bodega.includes(bodegas?.find(b => b.id === formulario.bodega)?.nombre);
+
+        return cumpleBusqueda && cumpleBodega;
+
     });
-
 
     return(
         <div className="modal fade show d-block" tabIndex="-1">
@@ -34,31 +40,40 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                     </div>
 
                     <div className="modal-body">
-                        <div className="mb-2">
-                            <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                        <div className="row g-2 mb-2">
+                            <div className="col-md-6">
+                                <Busqueda busqueda={busqueda} setBusqueda={setBusqueda}/>
+                            </div>
+                            <div className="col-md-6">
+                                <FilterBodega 
+                                    bodegas={bodegas} 
+                                    formulario={formulario} 
+                                    setFormulario={setFormulario}
+                                />
+                            </div>
                         </div>
-
-                        <div className="card table-responsive" style={{maxHeight:"28rem",overflow:"auto"}}>
+                        <div className="card table-responsive" style={{maxHeight:"28rem",overflowY:"auto"}}>
                             <table className="table table-hover mb-0">
                                 <thead className="bg-blue">
                                     <tr>
-                                        <th className="text-nowrap">Tipo Producto</th>
+                                        <th className="text-nowrap">Producto</th>
                                         <th>Descripcion</th>
                                         <th>Marca</th>
                                         <th>Modelo</th>
+                                        <th className="text-center">Cantidad</th>
                                         <th className="text-center">Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {loading ? (
                                         <tr>
-                                            <td colSpan={"5"}>
+                                            <td colSpan={"6"}>
                                                 <Loading/>
                                             </td>
                                         </tr>
                                     ) : busquedaProductos.length === 0 ? (
                                         <tr>
-                                            <td colSpan={"5"} className="text-center">
+                                            <td colSpan={"6"} className="text-center">
                                                 <span>No se encontraron productos</span>
                                             </td>
                                         </tr>
@@ -67,7 +82,7 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                                             key={p.id} 
                                             producto={p} 
                                             seleccionado={seleccionado}
-                                            setSeleccionado={setSeleccionado}
+                                            setSeleccionado={(invId,productoId,bodegaId) => setSeleccionado({invId,productoId,bodegaId})}
                                         />
                                     ))}
                                 </tbody>
@@ -76,7 +91,7 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                         <div className="d-flex justify-content-end gap-2 flex-wrap mt-2">
                             <button 
                                 className="btn-light-hover"
-                                onClick={()=> setMostrarModal(false)}
+                                onClick={()=> {setMostrarModal(false); setFormulario(prev => ({...prev,bodega:""}))}}
                             >
                                 Cancelar
                             </button>
@@ -85,7 +100,9 @@ const SelectProductoTable = ({ setFormulario, productos, setMostrarModal, loadin
                                 onClick={() => 
                                     {setFormulario((prev) => ({
                                         ...prev,
-                                        activo:seleccionado
+                                        invId:seleccionado.invId,
+                                        producto:seleccionado.productoId,
+                                        bodega:seleccionado.bodegaId
                                     }));
                                     setMostrarModal(false)}}
                             >

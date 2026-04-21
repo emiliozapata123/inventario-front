@@ -13,7 +13,6 @@ const CambiarContrañena = ({setMostrarModal}) => {
         confirmar:""
     });
 
-
     const danger = (name,mensaje) => {
         cargarMensaje(name,mensaje);
         setTimeout(() => {
@@ -115,91 +114,91 @@ const CambiarContrañena = ({setMostrarModal}) => {
         <form className="modal fade show d-block" tabIndex="-1" onSubmit={handleSubmit}>
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content border-0 shadow rounded-2">
-                <div className="modal-header border-0 pb-0">
-                    <h5 className="modal-title fw-bold">Cambiar Contraseña</h5>
-                    <button
-                        type="button"
-                        className="btn-close"
-                        disabled={enviando}
-                        onClick={() => setMostrarModal(false)}>
-                    </button>
-                </div>
-
-                <div className="modal-body">
-                    <p className="text-muted mb-3">
-                    Ingresa define una nueva contraseña segura.
-                    </p>
-                    <div className="mb-3">
-                    <label className="fw-semibold">Contraseña Actual</label>
-                    <input
-                        type="password"
-                        className={`form-control rounded-1 ${mensaje.actual ? "is-invalid" : ""}`}
-                        value={formulario.actual}
-                        placeholder="ingresa la contraseña actual...."
-                        onChange={(e) => handleChange("actual", e.target.value)}
-                    />
-                    <div className="invalid-feedback d-block">
-                        {mensaje.actual}
-                    </div>
-                    </div>
-                    <div className="mb-3">
-                    <label className="fw-semibold">Nueva Contraseña</label>
-                    <input
-                        type="password"
-                        className={`form-control rounded-1 ${mensaje.nueva ? "is-invalid" : ""}`}
-                        value={formulario.nueva}
-                        placeholder="ingresa la nueva contraseña....."
-                        onChange={(e) => handleChange("nueva", e.target.value)}
-                    />
-                    <div className="invalid-feedback d-block">
-                        {mensaje.nueva}
-                    </div>
-                    </div>
-
-                    <div className="mb-3">
-                    <label className="fw-semibold">Confirmar Nueva Contraseña</label>
-                    <input
-                        type="password"
-                        className={`form-control rounded-1 ${mensaje.confirmar ? "is-invalid" : ""}`}
-                        value={formulario.confirmar}
-                        placeholder="ingresa nuevamente la contaseña....."
-                        onChange={(e) => handleChange("confirmar", e.target.value)}
-                    />
-                    <div className="invalid-feedback d-block">
-                        {mensaje.confirmar}
-                    </div>
-                    </div>
-
-                    <div className="d-flex justify-content-end gap-3 mt-4">
+                    <div className="modal-header border-0 pb-0">
+                        <h5 className="modal-title fw-bold">Cambiar Contraseña</h5>
                         <button
-                            className="btn-light-hover w-25"
                             type="button"
+                            className="btn-close"
                             disabled={enviando}
-                            onClick={() => setMostrarModal(false)}
-                        >
-                            Cancelar
-                        </button>
-                        <button 
-                            className="btn btn-primary rounded-1 d-flex justify-content-center align-items-center w-auto"
-                            disabled={enviando}
-                        >
-                            {enviando ? (
-                                <>
-                                    <span 
-                                        className="spinner-border spinner-border-sm me-2" 
-                                        role="status" 
-                                        aria-hidden="true"
-                                    ></span>
-                                    Enviando...
-                                </>
-                            ) : (
-                                <>
-                                Cambiar Contraseña
-                                </>
-                            )}
+                            onClick={() => setMostrarModal(false)}>
                         </button>
                     </div>
-                </div>
+
+                    <div className="modal-body">
+                        <p className="text-muted mb-3">
+                        Ingresa define una nueva contraseña segura.
+                        </p>
+                        <div className="mb-3">
+                        <label className="fw-semibold">Contraseña Actual</label>
+                        <input
+                            type="password"
+                            className={`form-control rounded-1 ${mensaje.actual ? "is-invalid" : ""}`}
+                            value={formulario.actual}
+                            placeholder="ingresa la contraseña actual...."
+                            onChange={(e) => handleChange("actual", e.target.value)}
+                        />
+                        <div className="invalid-feedback d-block">
+                            {mensaje.actual}
+                        </div>
+                        </div>
+                        <div className="mb-3">
+                        <label className="fw-semibold">Nueva Contraseña</label>
+                        <input
+                            type="password"
+                            className={`form-control rounded-1 ${mensaje.nueva ? "is-invalid" : ""}`}
+                            value={formulario.nueva}
+                            placeholder="ingresa la nueva contraseña....."
+                            onChange={(e) => handleChange("nueva", e.target.value)}
+                        />
+                        <div className="invalid-feedback d-block">
+                            {mensaje.nueva}
+                        </div>
+                        </div>
+
+                        <div className="mb-3">
+                        <label className="fw-semibold">Confirmar Nueva Contraseña</label>
+                        <input
+                            type="password"
+                            className={`form-control rounded-1 ${mensaje.confirmar ? "is-invalid" : ""}`}
+                            value={formulario.confirmar}
+                            placeholder="ingresa nuevamente la contaseña....."
+                            onChange={(e) => handleChange("confirmar", e.target.value)}
+                        />
+                        <div className="invalid-feedback d-block">
+                            {mensaje.confirmar}
+                        </div>
+                        </div>
+
+                        <div className="d-flex justify-content-end gap-3 mt-4">
+                            <button
+                                className="btn-light-hover w-25"
+                                type="button"
+                                disabled={enviando}
+                                onClick={() => setMostrarModal(false)}
+                            >
+                                Cancelar
+                            </button>
+                            <button 
+                                className="btn btn-primary rounded-1 d-flex justify-content-center align-items-center w-auto"
+                                disabled={enviando}
+                            >
+                                {enviando ? (
+                                    <>
+                                        <span 
+                                            className="spinner-border spinner-border-sm me-2" 
+                                            role="status" 
+                                            aria-hidden="true"
+                                        ></span>
+                                        Enviando...
+                                    </>
+                                ) : (
+                                    <>
+                                    Cambiar Contraseña
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

@@ -17,7 +17,6 @@ const ActivoPage = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
     const [filtros, setFiltros] = useState({
        busqueda:"",
-       fecha:"",
        numero:"",
        usuario:"",
        cargo:"",
@@ -28,7 +27,7 @@ const ActivoPage = () => {
         getActivos();
     }, []);
 
-    const actualizarFiltro = (name,value) => {
+    const actualizarFiltro = (name, value) => {
         setFiltros((prev) => ({
             ...prev,
             [name]:value
@@ -37,7 +36,7 @@ const ActivoPage = () => {
 
     const filtrarActivos = activos.filter((a) => {
         const lista = [
-            a.activo?.tipoProducto.toLowerCase(),
+            a?.producto?.nombre.toLowerCase(),
             a?.numeroInventario?.toLowerCase(),
             a?.numeroSerie?.toLowerCase(),
             a?.usuario?.toLowerCase(),
@@ -55,8 +54,6 @@ const ActivoPage = () => {
                 break;
             }
         }
-
-        const fecha = a.fechaEntrega.includes(filtros.fecha);
 
         let cumple = true;
 
@@ -101,7 +98,7 @@ const ActivoPage = () => {
             }
         }
 
-        if (encontrado && cumple && fecha) return true;
+        if (encontrado && cumple) return true;
         return false;
     });
 
@@ -120,10 +117,11 @@ const ActivoPage = () => {
         }
     }
 
-    const updateActivo = async (id,data) => {
+    const updateActivo = async (id, data) => {
         if (enviando) return;
         
         setEnviando(true);
+
         try {
             await api(`api/activo/${id}/update/`,"PATCH", data);
             NotifySuccess("Activo actualizado correctamente.");
@@ -170,12 +168,6 @@ const ActivoPage = () => {
                 </div>
                 <div className="d-flex gap-2">
                     <NavLink
-                        to={"/home/activos/resumen"}
-                        className="btn btn-success rounded-1"
-                        >
-                        Ver resumen Activos
-                    </NavLink>
-                    <NavLink
                         to={"/home/activos/registrar"}
                         className="btn btn-primary rounded-1"
                         >
@@ -194,7 +186,7 @@ const ActivoPage = () => {
                     <table className={`table ${!editandoId?"table-hover":""} align-middle mb-0`}>
                         <thead className="bg-blue">
                             <tr>
-                                <th className="text-nowrap">Tipo Producto</th>
+                                <th className="text-nowrap">Producto</th>
                                 <th>Descripcion</th>
                                 <th className="text-nowrap">N° Inventario</th>
                                 <th className="text-nowrap">N° Serie</th>
@@ -203,21 +195,20 @@ const ActivoPage = () => {
                                 <th>Ubicacion</th>
                                 <th>Usuario</th>
                                 <th>Cargo</th>
-                                <th className="text-nowrap">Fecha Entrega</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="11" className="text-center py-5">
+                                    <td colSpan="10" className="text-center py-5">
                                         <Loading/>
                                     </td>
                                 </tr>
                             ):(
                                 filtrarActivos?.length === 0 ? (
                                     <tr>
-                                        <td colSpan="11" className="text-center py-4 text-muted">
+                                        <td colSpan="10" className="text-center py-4 text-muted">
                                             No hay Activos
                                         </td>
                                     </tr>

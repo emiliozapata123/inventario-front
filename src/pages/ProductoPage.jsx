@@ -6,6 +6,7 @@ import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import ModalEliminar from "../components/layout/ModalEliminar";
 import Loading from "../components/layout/Loading";
 import Busqueda from "../components/layout/Busqueda";
+import SelectFilterProducto from "../components/producto/SelectFilterProducto";
 
 const ProductoPage = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -14,17 +15,28 @@ const ProductoPage = () => {
     const [producto, setProducto] = useState({});
     const [loading, setLoading] = useState(true);
     const [enviando, setEnviando] = useState(false);
+    const [tipo, setTipo] = useState("");
 
     useEffect(()=> {
         getProductos();
     },[]);
 
-    console.log(productos)
     useEffect(()=> {
         if (!mostrarModal) setProducto({});
     }, [mostrarModal]);
 
-    const busquedaProductos = productos.filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
+    const busquedaProductos = productos.filter(p => {
+        const nombre = p?.nombre?.toLowerCase() || "";
+        const tipoProducto = p?.tipo?.toLowerCase().trim() || "";
+
+        const cumpleBusqueda = !busqueda || nombre.includes(busqueda.toLowerCase());
+        const cumpleTipo = !tipo || tipo === "Todos" || tipoProducto === tipo.toLowerCase().trim();
+
+        return cumpleBusqueda && cumpleTipo;
+
+    });
+
+    console.log("produtcos: ", busquedaProductos);
 
     const getProductos = async () => {
         setLoading(true);
@@ -43,12 +55,6 @@ const ProductoPage = () => {
 
     const addProducto = async (data) => {
         if (enviando) return;
-
-        const existe = productos.some((p)=> p.nombre === data.nombre);
-        if (existe) {
-            NotifyError("El nombre de producto ya existe.");
-            return;
-        }
 
         setEnviando(true);
         try {
@@ -69,21 +75,17 @@ const ProductoPage = () => {
     const updateProducto = async (id,data) => {
         if (enviando) return;
 
-        const existe = productos.find((p)=> p.nombre === data.nombre);
-        if (existe && existe.nombre !== producto.nombre) {
-            NotifyError("El nombre de producto ya existe.");
-            return;
-        }
-
         setEnviando(true);
 
         try {
-            await api(`api/producto/${id}/update/`,"PATCH",data);
+            await api(`api/producto/${id}/update/`,"PATCH", data);
             getProductos();
             setMostrarModal(false);
             NotifySuccess("Producto actualizado.")
         } catch (error) {
             console.error(error);
+            NotifyError("Error al actualizar producto.");
+
         } finally {
             setEnviando(false);
         }
@@ -105,7 +107,6 @@ const ProductoPage = () => {
             setEnviando(false);
         }
     }
-
     
     return(
         <>
@@ -126,8 +127,16 @@ const ProductoPage = () => {
                 </button>
             </div>
             <section className="card shadow-sm border-0 p-2">
-                <div className="mb-2">
-                    <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                <div className="row g-2 mb-2">
+                    <div className="col-md-6">
+                        <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                    </div>
+                    <div className="col-md-6">
+                        <SelectFilterProducto
+                            value={tipo}
+                            setValue={setTipo}
+                        />
+                    </div>
                 </div>
                 <div className="table-responsive table-scroll-y">
                     <table className="table table-hover align-middle mb-0">
@@ -135,6 +144,12 @@ const ProductoPage = () => {
                             <tr>
                                 <th>Producto</th>
                                 <th>Descripcion</th>
+                                {tipo === "Activo" && (
+                                    <th>Marca</th>
+                                )}
+                                {tipo === "Activo" && (
+                                    <th>Modelo</th>
+                                )}
                                 <th className="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -145,31 +160,27 @@ const ProductoPage = () => {
                                         <Loading/>
                                     </td>
                                 </tr>
-                            ):(
-                                productos.length === 0 ? (
+                            ) : productos.length === 0 ? (
                                 <tr>
                                     <td colSpan="3" className="text-center py-4 text-muted">
                                         No hay productos
                                     </td>
                                 </tr>
-                                ):(
-                                    busquedaProductos.length === 0 ? (
-                                        <tr>
-                                            <td colSpan="3" className="text-center py-4 text-muted">
-                                                No se encontraron productos
-                                            </td>
-                                        </tr>
-                                    ):(
-                                        busquedaProductos.map(p => (
-                                        <ProductoList 
-                                            key={p.id} 
-                                            producto={p} 
-                                            setMostrarModal={(action)=> {setMostrarModal(action); setProducto(p)}}
-                                        />
-                                   ))
+                            ) : busquedaProductos.length === 0 ? (
+                                <tr>
+                                    <td colSpan="3" className="text-center py-4 text-muted">
+                                        No se encontraron productos
+                                    </td>
+                                </tr>
+                            ) : busquedaProductos.map(p => (
+                                    <ProductoList 
+                                        key={p.id} 
+                                        producto={p} 
+                                        tipo={tipo}
+                                        setMostrarModal={(action)=> {setMostrarModal(action); setProducto(p)}}
+                                    />
                                 ))
-                            )}
-                            
+                            }
                         </tbody>
                     </table>
                 </div>

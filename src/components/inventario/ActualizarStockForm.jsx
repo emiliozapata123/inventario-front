@@ -36,11 +36,6 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
     }
 
     const handleOnClick = () => {
-        if (!formulario.fechaEntrega) {
-            danger("fechaEntrega","debe ingresar fecha de entrega");
-            return;
-        }
-
         if (!formulario.productos[0].cantidad) {
             danger("stock","debe ingresar cantidad");
             return;
@@ -158,7 +153,6 @@ const ActualizarStockForm = ({item, setMostrarModal, actualizarStock, enviando})
                                 <>
                                 Actualizar
                                 </>
-                                
                             )}
                         </button>
                     </div>

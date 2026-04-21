@@ -23,12 +23,12 @@ select.form-select {
   color: #000;
 }
 .table-scroll-y {
-    max-height: 82vh; /* Ajusta la altura máxima deseada */
+    max-height: 78vh; /* Ajusta la altura máxima deseada */
     overflow-y: auto; /* Habilita scroll vertical */
     display: block; /* Necesario para que max-height funcione en tables */
 }
 .table-scroll {
-    max-height: 75vh; /* Ajusta la altura máxima deseada */
+    max-height: 68vh; /* Ajusta la altura máxima deseada */
     overflow-y: auto; /* Habilita scroll vertical */
     display: block; /* Necesario para que max-height funcione en tables */
 }

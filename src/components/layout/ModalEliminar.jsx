@@ -1,4 +1,5 @@
 const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
+    console.log(":da eliminar actvo: " ,  data)
     return (
        <div className="modal fade show d-block" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
@@ -22,7 +23,7 @@ const ModalEliminar = ({data,setMostrarModal,onDelete, message, enviando}) => {
 
                         <p className="text-muted">
                             ¿Estás seguro de eliminar
-                            <strong className="text-dark"> {!data.nombre?data.tipoProducto:data.nombre} </strong>?
+                            <strong className="text-dark"> {!data.nombre?data.producto?.nombre:data.nombre} </strong>?
                         </p>
 
                         <p className="text-danger small">

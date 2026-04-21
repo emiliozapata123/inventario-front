@@ -13,10 +13,10 @@ const Login = () => {
     const [enviando, setEnviando] = useState(false);
     const navigate = useNavigate();
 
-    const mostrarMensaje = (campo,mensaje) => {
-        cargarMensaje(campo,mensaje);
+    const danger = (name,mensaje) => {
+        cargarMensaje(name,mensaje);
         setTimeout(() => {
-            cargarMensaje(campo,"");
+            cargarMensaje(name,"");
         }, 3000);
     }
 
@@ -50,12 +50,12 @@ const Login = () => {
         let valido = true;
 
         if (!correo) {
-            mostrarMensaje("correo","debe ingresar el correo");
+            danger("correo","debe ingresar el correo");
             valido = false;
         }
         
         if (!password) {
-            mostrarMensaje("password","debe ingresar la contraseña");
+            danger("password","debe ingresar la contraseña");
             valido = false;
         }
 

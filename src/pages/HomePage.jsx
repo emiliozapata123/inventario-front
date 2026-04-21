@@ -14,8 +14,6 @@ import NavBarMobile from "../components/layout/NavBar";
 import Sidebar from "../components/layout/Sidebar";
 import MovimientoForm from "../components/movimiento/MovimientoForm";
 import NotificacionStock from "../components/alertas/NotificacionStock";
-import ResumenActivos from "../components/activos/ResumenActivos";
-import ProductoActivoList from "../components/activos/ProductoActivoList";
 import InventarioForm from "../components/inventario/InventarioForm";
 
 
@@ -50,14 +48,12 @@ const HomePage = () => {
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             />
-            <div className="bg-container p-1 p-md-3" style={{width:"100vw"}}>
+            <div className="bg-container p-1 p-md-3" style={{width:"100vw", height:"100vh"}}>
                 <Routes>
                     <Route path="/" element={<Dashboard/>} />
                     <Route path="productos" element={<ProductoPage />} />
                     <Route path="activos" element={<ActivoPage/>}/>
                     <Route path="activos/registrar" element={<ActivoForm/>}/>
-                    <Route path="activos/resumen" element={<ResumenActivos/>}/>
-                    <Route path="activos/productos/list" element={<ProductoActivoList/>}/>
                     <Route path="bodegas" element={<BodegaPage/>} />
                     <Route path="usuarios" element={<UsuarioPage/>} />
                     <Route path="bodega/:id" element={<BodegaDetail/>} />
