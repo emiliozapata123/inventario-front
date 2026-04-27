@@ -103,18 +103,37 @@ const MovimientoForm = () => {
     }
 
     const addMovimiento = async () => {
+        const listaInventario = inventario.map(i => ({ ...i }));
+
+        setInventario(prev =>
+            prev.map(item => {
+                const seleccionado = formulario.productos.find(
+                    p => p.id === item.producto.id && item.stock > 0
+                );
+
+                if (seleccionado) {
+                    return {
+                        ...item,
+                        stock: item.stock - seleccionado.cantidad
+                    };
+                }
+                return item;
+            })
+        );
+
+
         if (enviando) return;
         setEnviando(true);
 
         try {
             await api("api/movimiento/create/","POST",formulario);
-            cargarInventario(formulario.bodega);
             setPrevisualizacion(false);
             NotifySuccess("Movimiento Registrado.");
 
         } catch (error) {
             console.error(error);
             NotifyError("Error al registrar movimiento.");
+            setInventario(listaInventario);
             
         } finally {
             setEnviando(false);

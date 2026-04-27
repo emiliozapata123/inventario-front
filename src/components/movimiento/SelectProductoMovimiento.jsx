@@ -53,7 +53,7 @@ const SelectProductoMovimiento = ({productos, seleccionados, setSeleccionados, l
         setMovimiento((prev) => ({
             ...prev,
             productos:prev.productos.map(p => 
-                p.id === id && p.cantidad < 1
+                p.id === id && p.cantidad > 1
                 ? {...p, cantidad:p.cantidad-1}
                 : p
             )

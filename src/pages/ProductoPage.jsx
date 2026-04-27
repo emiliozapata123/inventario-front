@@ -25,7 +25,7 @@ const ProductoPage = () => {
         if (!mostrarModal) setProducto({});
     }, [mostrarModal]);
 
-    const busquedaProductos = productos.filter(p => {
+    const busquedaProductos = productos?.filter(p => {
         const nombre = p?.nombre?.toLowerCase() || "";
         const tipoProducto = p?.tipo?.toLowerCase().trim() || "";
 
@@ -52,21 +52,21 @@ const ProductoPage = () => {
     }
 
     const addProducto = async (data) => {
-        const listaProductos = [...productos];
 
-        setProductos(prev => [...prev, data]);
         if (enviando) return;
 
         setEnviando(true);
         try {
-            await api("api/producto/form/","POST",data);
+            const res = await api("api/producto/form/","POST",data);
+            const nuevoProducto = await res.json();
+            setProductos(prev => [...prev, nuevoProducto]);
+
             setMostrarModal(false);
             NotifySuccess("Producto creado exitosamente.");
 
         } catch (error) {
             console.error(error);
             NotifyError("Error al crear producto.");
-            setProductos(listaProductos);
 
         } finally {
             setEnviando(false);
@@ -185,7 +185,7 @@ const ProductoPage = () => {
                                         No se encontraron productos
                                     </td>
                                 </tr>
-                            ) : busquedaProductos.map(p => (
+                            ) : busquedaProductos?.map(p => (
                                     <ProductoList 
                                         key={p.id} 
                                         producto={p} 

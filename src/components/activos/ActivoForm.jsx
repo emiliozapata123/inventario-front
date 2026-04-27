@@ -71,8 +71,9 @@ const ActivoForm = () => {
         };
 
         setEnviando(true);
+
         try {
-            await api("api/activo/create/","POST",data);
+            await api("api/activo/create/","POST", data);
             await api("api/movimiento/create/", "POST", dataMovimiento);
             NotifySuccess("Activo Registrado.");
 

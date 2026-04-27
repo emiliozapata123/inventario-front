@@ -56,17 +56,28 @@ const InventarioPage = () => {
     }
     
     const actualizarStock = async (data) => {
+        const listaInventario = [...inventario];
+
+        const id = inventarioSelect.id;
+        const cantidad = data.productos[0].cantidad; 
+
+        setInventario(prev => prev.map(i => i.id === id
+            ? { ...i, stock: i.stock + cantidad }
+            : i
+        ));
+
         if (enviando) return;
 
         setEnviando(true);
         try {
             await api("api/inventario/ingresar/producto/","POST",data);
             setMostrarModal(false);
-            getInventario();
             NotifySuccess("stock de inventario actualizado.");
+
         } catch (error) {
             console.error(error);
             NotifyError("Error al actualizar stock.");  
+            setInventario(listaInventario);
 
         } finally {
             setEnviando(false);
