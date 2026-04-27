@@ -6,7 +6,7 @@ const ProductoForm = ({ producto, addProducto, updateProducto, setMostrarModal, 
     const [formulario, setFormulario] = useState({
         nombre:producto?.nombre || "",
         descripcion:producto?.descripcion || "",
-        tipo:producto?.tipo || "",
+        tipo:producto?.tipo || "Consumible",
         marca:producto?.marca || "",
         modelo:producto?.modelo || ""
     });

@@ -13,14 +13,15 @@ const ActivoForm = () => {
         invId:"",
         producto:"",
         bodega:"",
-        numeroInventario:"",
+        numeroInventario:null,
         numeroSerie:"",
         ubicacion:"",
         usuario:"",
         cargo:"",
         fechaMovimiento:""
     });
-    const [activos, setActivos] = useState([]);
+
+    const { data:activos } = useFetch("api/activo/list/");
     const [productos, setProductos] = useState([]);
     const [enviando, setEnviando] = useState(false);
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -29,21 +30,9 @@ const ActivoForm = () => {
     const navigate = useNavigate();
 
     useEffect(()=> {
-        cargarActivos();
         cargarProductos();
     }, []);
 
-    const cargarActivos = async () => {
-        try {
-            const response = await api("api/activo/list/");
-            setActivos(await response.json());
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    //productos de tipo activos
     const cargarProductos = async () => {
         setLoading(true);
         
@@ -60,7 +49,9 @@ const ActivoForm = () => {
     }
     
     const addActivo = async (data) => {
-        setProductos(prev => prev.map(p => p.id === formulario.producto
+        const listaInventario = [...productos];
+
+        setProductos(prev => prev.map(p => p.id === formulario.invId && p.cantidad > 0
             ? {...p, cantidad: p.cantidad-1}
             : p
         ));
@@ -83,12 +74,12 @@ const ActivoForm = () => {
         try {
             await api("api/activo/create/","POST",data);
             await api("api/movimiento/create/", "POST", dataMovimiento);
-            cargarActivos();
             NotifySuccess("Activo Registrado.");
 
         } catch (error) {
             console.log(error);
             NotifyError("Error al registrar activo.");
+            setProductos(listaInventario);
 
         } finally{
             setEnviando(false);
@@ -99,14 +90,17 @@ const ActivoForm = () => {
         let name = e.target.name;
         let value = e.target.value;
 
+        let inv = "numeroInventario";
+
         setFormulario(prev => ({
             ...prev,
-            [name]:value
+            [name]:inv === name && value === "" ? null: value
         }));
     };
 
     const limpiarFormulario = () => {
         setFormulario({});
+
     }
 
     const handleOnClick = () => {
@@ -115,7 +109,9 @@ const ActivoForm = () => {
             return;
         }
 
-        const existe = activos.some((a) => a.numeroInventario === formulario.numeroInventario);
+        const numInventario = formulario.numeroInventario;
+
+        const existe = numInventario && activos.some((a) => a.numeroInventario === formulario.numeroInventario);
         if (existe) {
             NotifyError("Error, el numero de inventario ya existe.");
             return;

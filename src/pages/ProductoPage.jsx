@@ -36,8 +36,6 @@ const ProductoPage = () => {
 
     });
 
-    console.log("produtcos: ", busquedaProductos);
-
     const getProductos = async () => {
         setLoading(true);
 
@@ -54,55 +52,70 @@ const ProductoPage = () => {
     }
 
     const addProducto = async (data) => {
+        const listaProductos = [...productos];
+
+        setProductos(prev => [...prev, data]);
         if (enviando) return;
 
         setEnviando(true);
         try {
             await api("api/producto/form/","POST",data);
-            getProductos();
             setMostrarModal(false);
             NotifySuccess("Producto creado exitosamente.");
 
         } catch (error) {
             console.error(error);
             NotifyError("Error al crear producto.");
+            setProductos(listaProductos);
 
         } finally {
             setEnviando(false);
         }
     }
 
-    const updateProducto = async (id,data) => {
+    const updateProducto = async (id, data) => {
+        const listaProductos = [...productos];
+
+        setProductos(prev => prev.map(p => p.id === id 
+            ? { ...p, ...data }
+            : p
+        ));
+
         if (enviando) return;
 
         setEnviando(true);
-
+        
         try {
             await api(`api/producto/${id}/update/`,"PATCH", data);
-            getProductos();
             setMostrarModal(false);
-            NotifySuccess("Producto actualizado.")
+            NotifySuccess("Producto actualizado.");
+
         } catch (error) {
             console.error(error);
             NotifyError("Error al actualizar producto.");
+            setProductos(listaProductos);
 
         } finally {
             setEnviando(false);
         }
     }
     const productoDelete =  async (id) => {
+        const listaProductos = [...productos];
+
+        setProductos(prev => prev.filter(p => p.id !== id));
         if (enviando) return;
 
         setEnviando(true);
         try {
             await api(`api/producto/${id}/delete/`,"DELETE");
-            getProductos();
             setMostrarModal(false);
             NotifySuccess("Producto eliminado correctamente.");
-
+        
         } catch (error) {
             console.error(error);
-            NotifyError("Error, El producto tiene stock en el inventario.");
+            NotifyError("Error al eliminar producto.");
+            setProductos(listaProductos);
+
         } finally {
             setEnviando(false);
         }

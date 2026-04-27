@@ -46,7 +46,6 @@ const SelectProductoTable = ({ setFormulario, formulario, productos, setMostrarM
                             </div>
                             <div className="col-md-6">
                                 <FilterBodega 
-                                    bodegas={bodegas} 
                                     formulario={formulario} 
                                     setFormulario={setFormulario}
                                 />

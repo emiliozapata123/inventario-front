@@ -118,6 +118,13 @@ const ActivoPage = () => {
     }
 
     const updateActivo = async (id, data) => {
+        const listaActivos = [...activos];
+
+        setActivos(prev => prev.map(a => a.id === id 
+            ? { ...a, ...data }
+            : a
+        ));
+
         if (enviando) return;
         
         setEnviando(true);
@@ -125,19 +132,23 @@ const ActivoPage = () => {
         try {
             await api(`api/activo/${id}/update/`,"PATCH", data);
             NotifySuccess("Activo actualizado correctamente.");
-            getActivos();
             setEditandoId(null);
-
 
         } catch (error) {
             console.error(error)
             NotifyError("Error al actualizar activo");
+            setActivos(listaActivos);
+
         } finally {
             setEnviando(false);
         }
     }
 
     const deleteActivo = async (id) => {
+        const listaActivos = [...activos];
+
+        setActivos(prev => prev.filter(p => p.id !== id));
+
         if (eliminando) return;
 
         setEliminando(true);
@@ -145,16 +156,15 @@ const ActivoPage = () => {
             await api(`api/activo/${id}/delete/`, "DELETE");
             NotifySuccess("Activo eliminado correctamente.");
             setMostrarModal(false);
-            getActivos();
 
         } catch (error) {
             console.error(error);
             NotifyError("Error al eliminar activo.");
+            setActivos(listaActivos);
 
         } finally {
             setEliminando(false);
         }
-
     }
 
     return(

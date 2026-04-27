@@ -11,6 +11,7 @@ const ActivoList = ({ activo, onUpdate, setEditandoId, editandoId, enviando, set
         if (editandoId === activo.id) {
             setFormulario(activo);
         }
+        
     }, [editandoId,activo]);
 
 

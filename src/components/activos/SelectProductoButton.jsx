@@ -22,7 +22,9 @@ const SelectProductoButton = ({ formulario, setMostrarModal, productos }) => {
                                 {producto?.producto} {""}
                                 - {!producto?.descripcion?<span className="text-muted">sin descripcion</span>:producto.descripcion} {""} 
                                 - {!producto?.marca?<span className="text-muted">sin marca</span>:producto.marca} {""} 
-                                - {!producto?.modelo?<span className="text-muted">sin modelo</span>:producto.modelo}
+                                - {!producto?.modelo?<span className="text-muted">sin modelo</span>:producto.modelo} {""}
+                                - {producto.cantidad}
+
                                 </>
                             )}
                         </button>
