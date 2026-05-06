@@ -1,6 +1,6 @@
 import { Pencil, Trash } from "react-bootstrap-icons";
 
-const ProductoList = ({producto, tipo, setMostrarModal}) => {
+const ProductoList = ({ producto, tipo, setMostrarModal }) => {
     return (
         <tr>
             <td className="text-break">{producto.nombre}</td>
@@ -17,11 +17,11 @@ const ProductoList = ({producto, tipo, setMostrarModal}) => {
             )}
             <td>
                 <div className="d-flex gap-1 justify-content-center">
-                    <button className="btn btn-warning rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("update")}>
+                    <button className="btn btn-warning rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("update",producto)}>
                         <Pencil className="me-2"/>
                         Editar
                     </button>
-                    <button className="btn btn-danger rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("delete")}>
+                    <button className="btn btn-danger rounded-1 d-flex align-items-center" onClick={()=> setMostrarModal("delete", producto)}>
                         <Trash  className="me-2"/>
                         Eliminar
                     </button>

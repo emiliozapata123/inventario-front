@@ -6,29 +6,36 @@ import { NavLink } from "react-router-dom";
 import ActualizarStockForm from "../components/inventario/ActualizarStockForm";
 import FiltroInventario from "../components/inventario/FiltroInventarios";
 import Loading from "../components/layout/Loading";
+import { startTransition } from "react";
 
 const InventarioPage = () => {
+     const [busqueda, setBusqueda] = useState({
+        producto:"",
+        bodega:""
+    });
     const [mostrarModal, setMostrarModal] = useState(false);
     const [inventario, setInventario] = useState([]);
     const [inventarioSelect, setInventarioSelect] = useState({});
     const [loading, setLoading] = useState(true);
     const [enviando, setEnviando] = useState(false);
-    const [busqueda, setBusqueda] = useState({
-        producto:"",
-        bodega:""
-    });
+    const [paginaActual, setPaginaActual] = useState(1);
+    const itemsPorPagina = 10;
+    const indexInicio = (paginaActual -1) * itemsPorPagina;
+    const indexFin = indexInicio + itemsPorPagina;
 
     useEffect(()=> {
         getInventario();
     }, []);
 
-
-    const actualizarBusqueda = (name,value) => {
-        setBusqueda((prev) => ({
-            ...prev,
-            [name]:value
-        }));
-    } 
+    const handleBusqueda = (name, value) => {
+        startTransition(() => {
+            setBusqueda((prev) => ({
+                ...prev,
+                [name]:value
+            }));
+            setPaginaActual(1);
+        });
+    };
     
     const busquedaInventario = inventario?.filter((i) => {
         if (!busqueda) return true;
@@ -40,6 +47,10 @@ const InventarioPage = () => {
 
         return producto && bodega;
     });
+
+    const inventarioPaginado = busquedaInventario.slice(indexInicio, indexFin);
+    const totalPaginas = Math.ceil(busquedaInventario.length / itemsPorPagina);
+
 
     const getInventario = async () => {
         setLoading(true);
@@ -84,6 +95,12 @@ const InventarioPage = () => {
         }
     }
 
+    const abrirModal = (data) => {
+        setMostrarModal(true);
+        setInventarioSelect(data);
+
+    }
+
     return(
         <>
             <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
@@ -102,7 +119,7 @@ const InventarioPage = () => {
             </div>
 
             <section className="card border-0 shadow-sm p-2">
-                <FiltroInventario actualizarBusqueda={actualizarBusqueda} busqueda={busqueda}/>
+                <FiltroInventario actualizarBusqueda={handleBusqueda} busqueda={busqueda}/>
                 <div className="shadow-sm table-responsive table-scroll-y">
                     <table className="table table-hover mb-0">
                         <thead className="bg-blue">
@@ -130,24 +147,81 @@ const InventarioPage = () => {
                                     </td>
                                 </tr>
                             ):(
-                                busquedaInventario.length === 0 ? (
+                                inventarioPaginado.length === 0 ? (
                                     <tr>
                                         <td colSpan="6" className="text-center py-4 text-muted">
                                             No se encontraron productos
                                         </td>
                                     </tr>
                                 ):(
-                                    busquedaInventario?.map((i)=> (
+                                    inventarioPaginado?.map((i)=> (
                                     <InventarioList
                                         key={i.id}
                                         item={i}
-                                        setMostrarModal={(data)=> {setMostrarModal(true); setInventarioSelect(data)}}
-                                        
+                                        setMostrarModal={abrirModal}
                                     />
                                 )))
                             ))}
                         </tbody>
                     </table>
+                    <div className="d-flex justify-content-center mt-3 gap-2 flex-wrap">
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === 1}
+                            onClick={() => setPaginaActual(prev => prev - 1)}
+                        >
+                            {"<"}
+                        </button>
+
+                        {paginaActual > 2 && (
+                            <>
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(1)}
+                                >
+                                    1
+                                </button>
+
+                                {paginaActual > 3 && <span className="px-2">...</span>}
+                            </>
+                        )}
+
+                        {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                            .filter(num => 
+                                num >= paginaActual - 1 && num <= paginaActual + 1
+                            )
+                            .map(num => (
+                                <button
+                                    key={num}
+                                    className={`btn ${paginaActual === num ? "btn-primary" : "btn-outline-primary"}`}
+                                    onClick={() => setPaginaActual(num)}
+                                >
+                                    {num}
+                                </button>
+                            ))}
+
+                        {paginaActual < totalPaginas - 1 && (
+                            <>
+                                {paginaActual < totalPaginas - 2 && <span className="px-2">...</span>}
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(totalPaginas)}
+                                >
+                                    {totalPaginas}
+                                </button>
+                            </>
+                        )}
+
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === totalPaginas}
+                            onClick={() => setPaginaActual(prev => prev + 1)}
+                        >
+                            {">"}
+                        </button>
+
+                    </div>
                 </div>
             </section>
             {mostrarModal && (

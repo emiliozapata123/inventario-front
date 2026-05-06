@@ -7,6 +7,7 @@ import ModalEliminar from "../components/layout/ModalEliminar";
 import Loading from "../components/layout/Loading";
 import Busqueda from "../components/layout/Busqueda";
 import SelectFilterProducto from "../components/producto/SelectFilterProducto";
+import { startTransition } from "react";
 
 const ProductoPage = () => {
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -16,16 +17,21 @@ const ProductoPage = () => {
     const [loading, setLoading] = useState(true);
     const [enviando, setEnviando] = useState(false);
     const [tipo, setTipo] = useState("");
+    const [paginaActual, setPaginaActual] = useState(1);
+    const itemsPorPagina = 10;
+    const indexInicio = (paginaActual - 1) * itemsPorPagina;
+    const indexFin = indexInicio + itemsPorPagina;
 
     useEffect(()=> {
         getProductos();
+
     },[]);
 
     useEffect(()=> {
         if (!mostrarModal) setProducto({});
     }, [mostrarModal]);
 
-    const busquedaProductos = productos?.filter(p => {
+    const busquedaProductos = productos.filter((p) => {
         const nombre = p?.nombre?.toLowerCase() || "";
         const tipoProducto = p?.tipo?.toLowerCase().trim() || "";
 
@@ -33,8 +39,22 @@ const ProductoPage = () => {
         const cumpleTipo = !tipo || tipo === "Todos" || tipoProducto === tipo.toLowerCase().trim();
 
         return cumpleBusqueda && cumpleTipo;
-
     });
+
+    const productosPaginados = busquedaProductos.slice(indexInicio, indexFin);
+    const totalPaginas = Math.ceil(busquedaProductos.length / itemsPorPagina);
+
+    const handleBusqueda = (value) => {
+        startTransition(() => {
+            setBusqueda(value);
+            setPaginaActual(1);
+        });
+    };
+
+    const handleTipo = (value) => {
+        setTipo(value);
+        setPaginaActual(1);
+    };
 
     const getProductos = async () => {
         setLoading(true);
@@ -120,6 +140,11 @@ const ProductoPage = () => {
             setEnviando(false);
         }
     }
+
+    const abrirModal = (action, p) => {
+        setMostrarModal(action);
+        setProducto(p);
+    }
     
     return(
         <>
@@ -142,12 +167,12 @@ const ProductoPage = () => {
             <section className="card shadow-sm border-0 p-2">
                 <div className="row g-2 mb-2">
                     <div className="col-md-6">
-                        <Busqueda setBusqueda={setBusqueda} busqueda={busqueda}/>
+                        <Busqueda setBusqueda={handleBusqueda} busqueda={busqueda}/>
                     </div>
                     <div className="col-md-6">
                         <SelectFilterProducto
                             value={tipo}
-                            setValue={setTipo}
+                            setValue={handleTipo}
                         />
                     </div>
                 </div>
@@ -179,23 +204,80 @@ const ProductoPage = () => {
                                         No hay productos
                                     </td>
                                 </tr>
-                            ) : busquedaProductos.length === 0 ? (
+                            ) : productosPaginados.length === 0 ? (
                                 <tr>
                                     <td colSpan="3" className="text-center py-4 text-muted">
                                         No se encontraron productos
                                     </td>
                                 </tr>
-                            ) : busquedaProductos?.map(p => (
+                            ) : productosPaginados?.map(p => (
                                     <ProductoList 
                                         key={p.id} 
                                         producto={p} 
                                         tipo={tipo}
-                                        setMostrarModal={(action)=> {setMostrarModal(action); setProducto(p)}}
+                                        setMostrarModal={abrirModal}
                                     />
                                 ))
                             }
                         </tbody>
                     </table>
+                    <div className="d-flex justify-content-center mt-3 gap-2 flex-wrap">
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === 1}
+                            onClick={() => setPaginaActual(prev => prev - 1)}
+                        >
+                            {"<"}
+                        </button>
+
+                        {paginaActual > 2 && (
+                            <>
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(1)}
+                                >
+                                    1
+                                </button>
+
+                                {paginaActual > 3 && <span className="px-2">...</span>}
+                            </>
+                        )}
+
+                        {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                            .filter(num => 
+                                num >= paginaActual - 1 && num <= paginaActual + 1
+                            )
+                            .map(num => (
+                                <button
+                                    key={num}
+                                    className={`btn ${paginaActual === num ? "btn-primary" : "btn-outline-primary"}`}
+                                    onClick={() => setPaginaActual(num)}
+                                >
+                                    {num}
+                                </button>
+                            ))}
+
+                        {paginaActual < totalPaginas - 1 && (
+                            <>
+                                {paginaActual < totalPaginas - 2 && <span className="px-2">...</span>}
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(totalPaginas)}
+                                >
+                                    {totalPaginas}
+                                </button>
+                            </>
+                        )}
+
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === totalPaginas}
+                            onClick={() => setPaginaActual(prev => prev + 1)}
+                        >
+                            {">"}
+                        </button>
+                    </div>
                 </div>
             </section>
             {(mostrarModal === "form" || mostrarModal === "update") &&  (

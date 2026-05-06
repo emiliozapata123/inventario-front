@@ -6,15 +6,9 @@ import { NotifyError, NotifySuccess } from "../components/notify/Notify";
 import Loading from "../components/layout/Loading";
 import FiltrosActivosAsignados from "../components/activos/FiltroActivosAsignados";
 import ModalEliminar from "../components/layout/ModalEliminar";
+import { startTransition } from "react";
 
 const ActivoPage = () => {
-    const [activos, setActivos] = useState([]);
-    const [activo, setActivo] = useState({});
-    const [editandoId, setEditandoId] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [enviando, setEnviando] = useState(false);
-    const [eliminando, setEliminando] = useState(false);
-    const [mostrarModal, setMostrarModal] = useState(false);
     const [filtros, setFiltros] = useState({
        busqueda:"",
        numero:"",
@@ -22,17 +16,33 @@ const ActivoPage = () => {
        cargo:"",
        ubicacion:""
     });
+    const [activos, setActivos] = useState([]);
+    const [activo, setActivo] = useState({});
+    const [editandoId, setEditandoId] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [enviando, setEnviando] = useState(false);
+    const [eliminando, setEliminando] = useState(false);
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [paginaActual, setPaginaActual] = useState(1);
+    const itemsPorPagina = 10;
+    const indexInicio = (paginaActual - 1) * itemsPorPagina;
+    const indexFin = indexInicio + itemsPorPagina;
 
     useEffect(()=> {
         getActivos();
     }, []);
 
-    const actualizarFiltro = (name, value) => {
-        setFiltros((prev) => ({
-            ...prev,
-            [name]:value
-        }));
-    }
+    const handleBusqueda = (name, value) => {
+        startTransition(() => {
+            setFiltros((prev) => ({
+                ...prev,
+                [name]:value
+            }));
+            setPaginaActual(1);
+        });
+    };
+
+    
 
     const filtrarActivos = activos.filter((a) => {
         const lista = [
@@ -101,6 +111,9 @@ const ActivoPage = () => {
         if (encontrado && cumple) return true;
         return false;
     });
+
+    const activosPaginados = filtrarActivos.slice(indexInicio, indexFin);
+    const totalPaginas = Math.ceil(filtrarActivos.length / itemsPorPagina);
 
     const getActivos = async () => {
         setLoading(true);
@@ -189,7 +202,7 @@ const ActivoPage = () => {
             <section className="card border-0 shadow-sm p-2">
                 <FiltrosActivosAsignados 
                     filtros={filtros} 
-                    actualizarFiltro={actualizarFiltro} 
+                    actualizarFiltro={handleBusqueda} 
                 />
 
                 <div className="table-responsive table-scroll-y">
@@ -223,7 +236,7 @@ const ActivoPage = () => {
                                         </td>
                                     </tr>
                                 ):(
-                                    filtrarActivos?.map(a => (
+                                    activosPaginados?.map(a => (
                                     <ActivoList
                                         key={a.id} 
                                         activo={a} 
@@ -237,6 +250,63 @@ const ActivoPage = () => {
                             )}
                         </tbody>
                     </table>
+                    <div className="d-flex justify-content-center mt-3 gap-2 flex-wrap">
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === 1}
+                            onClick={() => setPaginaActual(prev => prev - 1)}
+                        >
+                            {"<"}
+                        </button>
+
+                        {paginaActual > 2 && (
+                            <>
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(1)}
+                                >
+                                    1
+                                </button>
+
+                                {paginaActual > 3 && <span className="px-2">...</span>}
+                            </>
+                        )}
+
+                        {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                            .filter(num => 
+                                num >= paginaActual - 1 && num <= paginaActual + 1
+                            )
+                            .map(num => (
+                                <button
+                                    key={num}
+                                    className={`btn ${paginaActual === num ? "btn-primary" : "btn-outline-primary"}`}
+                                    onClick={() => setPaginaActual(num)}
+                                >
+                                    {num}
+                                </button>
+                            ))}
+
+                        {paginaActual < totalPaginas - 1 && (
+                            <>
+                                {paginaActual < totalPaginas - 2 && <span className="px-2">...</span>}
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => setPaginaActual(totalPaginas)}
+                                >
+                                    {totalPaginas}
+                                </button>
+                            </>
+                        )}
+
+                        <button
+                            className="btn btn-outline-primary"
+                            disabled={paginaActual === totalPaginas}
+                            onClick={() => setPaginaActual(prev => prev + 1)}
+                        >
+                            {">"}
+                        </button>
+                    </div>
                 </div>
             </section>
             {mostrarModal && (
