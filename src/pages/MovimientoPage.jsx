@@ -13,7 +13,6 @@ const MovimientoPage = () => {
     });
     const [movimientos, setMovimientos] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log("movimineitos: ", movimientos)
 
     useEffect(()=> {
         cargarMovimientos();
