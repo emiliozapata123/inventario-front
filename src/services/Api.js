@@ -1,5 +1,4 @@
-// const url = "https://gestioninventario.pythonanywhere.com/";
-const url = "http://127.0.0.1:8000/";
+const url = "https://gestioninventario.pythonanywhere.com/";
 
 
 const api = async (endpoint, method = "GET",  body = null) => {
