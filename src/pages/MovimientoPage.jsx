@@ -73,8 +73,8 @@ const MovimientoPage = () => {
                             <tr>
                                 <th className="text-center text-nowrap">Tipo Movimiento</th>
                                 <th className="text-nowrap text-center">Fecha Movimiento</th>
-                                <th className="text-nowrap text-center">Usuario</th>
                                 <th className="text-nowrap text-center">Fecha Entrega</th>
+                                <th className="text-nowrap text-center">Usuario</th>
                                 <th>Bodega</th>
                                 <th>Producto</th>
                                 <th className="text-center">Cantidad</th>
