@@ -6,13 +6,14 @@ import FiltroMovimientos from "../components/movimiento/FiltroMovimientos";
 import Loading from "../components/layout/Loading";
 
 const MovimientoPage = () => {
-    const [movimientos, setMovimientos] = useState([]);
     const [filtros, setFiltros] = useState({
         fecha:"",
         tipo:"",
         bodega:""
     });
+    const [movimientos, setMovimientos] = useState([]);
     const [loading, setLoading] = useState(true);
+    console.log("movimineitos: ", movimientos)
 
     useEffect(()=> {
         cargarMovimientos();
@@ -73,6 +74,7 @@ const MovimientoPage = () => {
                             <tr>
                                 <th className="text-center text-nowrap">Tipo Movimiento</th>
                                 <th className="text-nowrap text-center">Fecha Movimiento</th>
+                                <th className="text-nowrap text-center">Usuario</th>
                                 <th className="text-nowrap text-center">Fecha Entrega</th>
                                 <th>Bodega</th>
                                 <th>Producto</th>
@@ -82,14 +84,14 @@ const MovimientoPage = () => {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="6" className="text-center py-5">
+                                    <td colSpan="7" className="text-center py-5">
                                         <Loading/>
                                     </td>
                                 </tr>
                             ):(
                                 movimientosFiltrados.length === 0 ? (
                                     <tr>
-                                        <td colSpan="6" className="text-center">
+                                        <td colSpan="7" className="text-center">
                                             No hay movimientos registrados
                                         </td>
                                     </tr>
